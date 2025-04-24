@@ -87,7 +87,8 @@ def _ipinfo_ipv4(geo: bool=False) -> Dict[str, Union[bool, Dict[str, Union[str, 
         return {"status": False, "error": str(e)}
 
 
-def get_public_ipv4(api: IPv4API, geo: bool=False) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def get_public_ipv4(api: IPv4API=IPv4API.AUTO,
+                    geo: bool=False) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IPv4 and geolocation info based on the selected API.
 
