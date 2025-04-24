@@ -41,14 +41,14 @@ setup(
     author_email='ipspot@openscilab.com',
     url='https://github.com/openscilab/ipspot',
     download_url='https://github.com/openscilab/ipspot/tarball/v0.1',
-    keywords="ip network location ipspot cli",
+    keywords="ip ipv4 geo geolocation network location ipspot cli",
     project_urls={
         'Source': 'https://github.com/openscilab/ipspot'
     },
     install_requires=get_requires(),
     python_requires='>=3.7',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 2 - Pre-Alpha',
         'Natural Language :: English',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
@@ -62,8 +62,8 @@ setup(
         'Intended Audience :: Developers',
         'Intended Audience :: Education',
         'Intended Audience :: End Users/Desktop',
-        'Intended Audience :: Other Audience',
-        'Topic :: Games/Entertainment',
+        'Topic :: System :: Monitoring',
+        'Topic :: System :: Networking :: Monitoring',
         'Topic :: Utilities',
     ],
     license='MIT',
