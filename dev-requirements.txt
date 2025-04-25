@@ -1,4 +1,4 @@
-requests==2.31.0
+requests==2.32.3
 art==6.5
 setuptools>=40.8.0
 vulture>=1.0
