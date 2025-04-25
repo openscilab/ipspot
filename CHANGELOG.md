@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-## [0.1] - 2025-xx-xx
+## [0.1] - 2025-04-25
 ### Added
 - Support [ipinfo.io](https://ipinfo.io)
 - Support [ip-api.com](https://ip-api.com)
@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Logo
 
 [Unreleased]: https://github.com/openscilab/ipspot/compare/v0.1...dev
-[0.1]: https://github.com/openscilab/ipspot/compare/9cf88b1...v0.1
+[0.1]: https://github.com/openscilab/ipspot/compare/3216fb7...v0.1
 
 
 
