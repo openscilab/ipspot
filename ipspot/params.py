@@ -10,6 +10,12 @@ It currently supports public and private IPv4 detection using multiple API provi
 Designed with simplicity and modularity in mind, IPSpot offers quick IP and geolocation lookups directly from your machine.
 '''
 
+REQUEST_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                  "AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/123.0.0.0 Safari/537.36"
+}
+
 IPSPOT_REPO = "Repo : https://github.com/openscilab/ipspot"
 
 
@@ -19,6 +25,7 @@ class IPv4API(Enum):
     AUTO = "auto"
     IPAPI = "ipapi"
     IPINFO = "ipinfo"
+    IPSB = "ipsb"
 
 
 PARAMETERS_NAME_MAP = {

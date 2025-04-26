@@ -5,7 +5,7 @@ import socket
 from typing import Union, Dict, Any
 import requests
 from art import tprint
-from .params import IPv4API, PARAMETERS_NAME_MAP
+from .params import REQUEST_HEADERS, IPv4API, PARAMETERS_NAME_MAP
 from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
 
 
@@ -23,6 +23,34 @@ def get_private_ipv4() -> Dict[str, Union[bool, Dict[str, str], str]]:
         hostname = socket.gethostname()
         private_ip = socket.gethostbyname(hostname)
         return {"status": True, "data": {"ip": private_ip}}
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
+def _ipsb_ipv4(geo: bool=False) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using ip.sb.
+
+    :param geo: geolocation flag
+    """
+    try:
+        response = requests.get("https://api.ip.sb/geoip", headers=REQUEST_HEADERS, timeout=5)
+        response.raise_for_status()
+        data = response.json()
+        result = {"status": True, "data": {"ip": data.get("ip"), "api": "ip.sb"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("region"),
+                "country": data.get("country"),
+                "country_code": data.get("country_code"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("organization"),
+                "timezone": data.get("timezone")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -98,6 +126,7 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO,
     api_map = {
         IPv4API.IPAPI: _ipapi_ipv4,
         IPv4API.IPINFO: _ipinfo_ipv4,
+        IPv4API.IPSB: _ipsb_ipv4
     }
 
     if api == IPv4API.AUTO:
