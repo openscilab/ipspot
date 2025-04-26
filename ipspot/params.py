@@ -19,6 +19,7 @@ class IPv4API(Enum):
     AUTO = "auto"
     IPAPI = "ipapi"
     IPINFO = "ipinfo"
+    IPSB = "ipsb"
 
 
 PARAMETERS_NAME_MAP = {

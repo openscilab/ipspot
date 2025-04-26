@@ -125,6 +125,7 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO,
     api_map = {
         IPv4API.IPAPI: _ipapi_ipv4,
         IPv4API.IPINFO: _ipinfo_ipv4,
+        IPv4API.IPSB: _ipsb_ipv4
     }
 
     if api == IPv4API.AUTO:
