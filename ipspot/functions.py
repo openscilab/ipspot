@@ -5,7 +5,7 @@ import socket
 from typing import Union, Dict, Any
 import requests
 from art import tprint
-from .params import IPv4API, PARAMETERS_NAME_MAP
+from .params import REQUEST_HEADERS, IPv4API, PARAMETERS_NAME_MAP
 from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
 
 
@@ -34,7 +34,7 @@ def _ipsb_ipv4(geo: bool=False) -> Dict[str, Union[bool, Dict[str, Union[str, fl
     :param geo: geolocation flag
     """
     try:
-        response = requests.get("https://api.ip.sb/geoip", timeout=5)
+        response = requests.get("https://api.ip.sb/geoip", headers=REQUEST_HEADERS, timeout=5)
         response.raise_for_status()
         data = response.json()
         result = {"status": True, "data": {"ip": data.get("ip"), "api": "ip.sb"}}
