@@ -54,6 +54,7 @@ def _ipsb_ipv4(geo: bool=False) -> Dict[str, Union[bool, Dict[str, Union[str, fl
     except Exception as e:
         return {"status": False, "error": str(e)}
 
+
 def _ipapi_ipv4(geo: bool=False) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ip-api.com.
