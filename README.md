@@ -63,7 +63,7 @@
 >>> from ipspot import get_public_ipv4, IPv4API
 >>> get_public_ipv4(api=IPv4API.IPAPI)
 {'status': True, 'data': {'ip': 'xx.xx.xx.xx', 'api': 'ip-api.com'}}
->>> get_public_ipv4(api=IPv4API.IPAPI, geo=True)
+>>> get_public_ipv4(api=IPv4API.IPAPI, geo=True, timeout=10)
 {'data': {'country_code': 'GB', 'latitude': 50.9097, 'longitude': -1.4043, 'api': 'ip-api.com', 'country': 'United Kingdom', 'timezone': 'Europe/London', 'organization': '', 'region': 'England', 'ip': 'xx.xx.xx.xx', 'city': 'Southampton'}, 'status': True}
 ```
 
