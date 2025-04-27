@@ -27,7 +27,7 @@ def get_private_ipv4() -> Dict[str, Union[bool, Dict[str, str], str]]:
         return {"status": False, "error": str(e)}
 
 
-def _ipsb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _ipsb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ip.sb.
 
@@ -56,7 +56,7 @@ def _ipsb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float]]=5) -> Dict[s
         return {"status": False, "error": str(e)}
 
 
-def _ipapi_ipv4(geo: bool=False, timeout: Union[float, Tuple[float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _ipapi_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ip-api.com.
 
@@ -88,7 +88,7 @@ def _ipapi_ipv4(geo: bool=False, timeout: Union[float, Tuple[float]]=5) -> Dict[
         return {"status": False, "error": str(e)}
 
 
-def _ipinfo_ipv4(geo: bool=False, timeout: Union[float, Tuple[float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _ipinfo_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ipinfo.io.
 
@@ -120,7 +120,7 @@ def _ipinfo_ipv4(geo: bool=False, timeout: Union[float, Tuple[float]]=5) -> Dict
 
 def get_public_ipv4(api: IPv4API=IPv4API.AUTO,
                     geo: bool=False,
-                    timeout: Union[float, Tuple[float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                    timeout: Union[float, Tuple[float, float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IPv4 and geolocation info based on the selected API.
 
@@ -160,7 +160,7 @@ def filter_parameter(parameter: Any) -> Any:
     return parameter
 
 
-def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO, geo: bool=False, timeout: Union[float, Tuple[float]]=5) -> None:
+def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO, geo: bool=False, timeout: Union[float, Tuple[float, float]]=5) -> None:
     """
     Print collected IP and location data.
 
