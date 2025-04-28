@@ -11,9 +11,8 @@ Designed with simplicity and modularity in mind, IPSpot offers quick IP and geol
 '''
 
 REQUEST_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                  "AppleWebKit/537.36 (KHTML, like Gecko) "
-                  "Chrome/123.0.0.0 Safari/537.36"
+    'User-Agent': 'IPSpot/{version} (https://github.com/openscilab/ipspot)'.format(version=IPSPOT_VERSION),
+    'Accept': 'application/json'
 }
 
 IPSPOT_REPO = "Repo : https://github.com/openscilab/ipspot"
