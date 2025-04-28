@@ -18,7 +18,6 @@ REQUEST_HEADERS = {
 }
 
 
-
 class IPv4API(Enum):
     """Public IPv4 API enum."""
 
