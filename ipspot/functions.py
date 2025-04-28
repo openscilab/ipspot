@@ -64,7 +64,7 @@ def _ipapi_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5) -
     :param timeout: timeout value for API
     """
     try:
-        response = requests.get("http://ip-api.com/json/", timeout=timeout)
+        response = requests.get("http://ip-api.com/json/", headers=REQUEST_HEADERS, timeout=timeout)
         response.raise_for_status()
         data = response.json()
 
@@ -96,7 +96,7 @@ def _ipinfo_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5) 
     :param timeout: timeout value for API
     """
     try:
-        response = requests.get("https://ipinfo.io/json", timeout=timeout)
+        response = requests.get("https://ipinfo.io/json", headers=REQUEST_HEADERS, timeout=timeout)
         response.raise_for_status()
         data = response.json()
         result = {"status": True, "data": {"ip": data.get("ip"), "api": "ipinfo.io"}}
