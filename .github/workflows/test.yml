@@ -48,6 +48,9 @@ jobs:
     - name: Run4
       run: |
         ipspot --no-geo
+    - name: Run5
+      run: |
+        ipspot --timeout=15
     - name: Install dev-requirements
       run: |
         python otherfiles/requirements-splitter.py
