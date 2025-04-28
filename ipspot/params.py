@@ -10,12 +10,13 @@ It currently supports public and private IPv4 detection using multiple API provi
 Designed with simplicity and modularity in mind, IPSpot offers quick IP and geolocation lookups directly from your machine.
 '''
 
+IPSPOT_REPO = "https://github.com/openscilab/ipspot"
+
 REQUEST_HEADERS = {
-    'User-Agent': 'IPSpot/{version} (https://github.com/openscilab/ipspot)'.format(version=IPSPOT_VERSION),
+    'User-Agent': 'IPSpot/{version} ({repo})'.format(version=IPSPOT_VERSION, repo=IPSPOT_REPO),
     'Accept': 'application/json'
 }
 
-IPSPOT_REPO = "Repo : https://github.com/openscilab/ipspot"
 
 
 class IPv4API(Enum):

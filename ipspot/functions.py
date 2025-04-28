@@ -14,7 +14,7 @@ def ipspot_info() -> None:
     tprint("IPSpot")
     tprint("V:" + IPSPOT_VERSION)
     print(IPSPOT_OVERVIEW)
-    print(IPSPOT_REPO)
+    print("Repo : " + IPSPOT_REPO)
 
 
 def get_private_ipv4() -> Dict[str, Union[bool, Dict[str, str], str]]:
