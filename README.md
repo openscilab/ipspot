@@ -40,6 +40,14 @@
 	</tr>
 </table>
 
+<table>
+    <tr> 
+        <td align="center">Code Quality</td>
+        <td align="center"></td>
+        <td align="center"><a href="https://www.codefactor.io/repository/github/openscilab/ipspot"><img src="https://www.codefactor.io/repository/github/openscilab/ipspot/badge" alt="CodeFactor"></a></td>
+    </tr>
+</table>
+
 
 ## Installation		
 
