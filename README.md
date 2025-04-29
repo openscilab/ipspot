@@ -43,7 +43,7 @@
 <table>
     <tr> 
         <td align="center">Code Quality</td>
-        <td align="center"></td>
+        <td align="center"><a href="https://app.codacy.com/gh/openscilab/ipspot/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/cb2ab6584eb443b8a33da4d4252480bc"/></a></td>
         <td align="center"><a href="https://www.codefactor.io/repository/github/openscilab/ipspot"><img src="https://www.codefactor.io/repository/github/openscilab/ipspot/badge" alt="CodeFactor"></a></td>
     </tr>
 </table>
