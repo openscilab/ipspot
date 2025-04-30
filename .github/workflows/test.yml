@@ -57,14 +57,14 @@ jobs:
         python otherfiles/requirements-splitter.py
         pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
     - name: Test with pytest 
-        run: |
-          python -m pytest . --cov=ipspot --cov-report=term
+      run: |
+        python -m pytest . --cov=ipspot --cov-report=term
     - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-            fail_ci_if_error: true
-            token: ${{ secrets.CODECOV_TOKEN }}
-        if: matrix.python-version == env.TEST_PYTHON_VERSION && matrix.os == env.TEST_OS
+      uses: codecov/codecov-action@v4
+      with:
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
+      if: matrix.python-version == env.TEST_PYTHON_VERSION && matrix.os == env.TEST_OS
     - name: Version check
       run: |
         python otherfiles/version_check.py
