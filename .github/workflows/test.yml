@@ -55,6 +55,9 @@ jobs:
       run: |
         python otherfiles/requirements-splitter.py
         pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
+    - name: Test with pytest 
+        run: |
+          python -m pytest . --cov=ipspot --cov-report=term
     - name: Version check
       run: |
         python otherfiles/version_check.py
