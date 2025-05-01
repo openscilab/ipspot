@@ -9,7 +9,7 @@ from .params import REQUEST_HEADERS, IPv4API, PARAMETERS_NAME_MAP
 from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
 
 
-def ipspot_info() -> None:
+def ipspot_info() -> None: #pragma: no cover
     """Print ipspot details."""
     tprint("IPSpot")
     tprint("V:" + IPSPOT_VERSION)
@@ -163,7 +163,7 @@ def filter_parameter(parameter: Any) -> Any:
 
 
 def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO, geo: bool=False,
-                    timeout: Union[float, Tuple[float, float]]=5) -> None:
+                    timeout: Union[float, Tuple[float, float]]=5) -> None: #pragma: no cover
     """
     Print collected IP and location data.
 
@@ -192,7 +192,7 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO, geo: bool=False,
         print("  Error: {public_result[error]}".format(public_result=public_result))
 
 
-def main() -> None:
+def main() -> None: #pragma: no cover
     """CLI main function."""
     parser = argparse.ArgumentParser()
     parser.add_argument(
