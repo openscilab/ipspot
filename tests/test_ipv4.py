@@ -1,4 +1,5 @@
 import re
+import socket
 from unittest import mock
 from ipspot import get_private_ipv4
 from ipspot import get_public_ipv4, IPv4API
@@ -28,9 +29,16 @@ def test_public_ipv4_auto_success():
     assert set(result["data"].keys()) == DATA_ITEMS
 
 
-def test_public_ipv4_auto_error():
+def test_public_ipv4_auto_timeout_error():
     result = get_public_ipv4(api=IPv4API.AUTO, geo=True, timeout="5")
     assert not result["status"]
+
+
+def test_public_ipv4_auto_net_error():
+    with mock.patch("requests.get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.AUTO)
+        assert not result["status"]
+        assert result["error"] == "All attempts failed."
 
 
 def test_public_ipv4_ipapi_success():
@@ -41,9 +49,16 @@ def test_public_ipv4_ipapi_success():
     assert result["data"]["api"] == "ip-api.com"
 
 
-def test_public_ipv4_ipapi_error():
+def test_public_ipv4_ipapi_timeout_error():
     result = get_public_ipv4(api=IPv4API.IPAPI, geo=True, timeout="5")
     assert not result["status"]
+
+
+def test_public_ipv4_ipapi_net_error():
+    with mock.patch("requests.get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.IPAPI)
+        assert not result["status"]
+        assert result["error"] == "No Internet"
 
 
 def test_public_ipv4_ipinfo_success():
@@ -54,9 +69,16 @@ def test_public_ipv4_ipinfo_success():
     assert result["data"]["api"] == "ipinfo.io"
 
 
-def test_public_ipv4_ipinfo_error():
+def test_public_ipv4_ipinfo_timeout_error():
     result = get_public_ipv4(api=IPv4API.IPINFO, geo=True, timeout="5")
     assert not result["status"]
+
+
+def test_public_ipv4_ipinfo_net_error():
+    with mock.patch("requests.get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.IPINFO)
+        assert not result["status"]
+        assert result["error"] == "No Internet"
 
 
 def test_public_ipv4_ipsb_success():
@@ -67,9 +89,17 @@ def test_public_ipv4_ipsb_success():
     assert result["data"]["api"] == "ip.sb"
 
 
-def test_public_ipv4_ipsb_error():
+def test_public_ipv4_ipsb_timeout_error():
     result = get_public_ipv4(api=IPv4API.IPSB, geo=True, timeout="5")
     assert not result["status"]
+
+
+
+def test_public_ipv4_ipsb_net_error():
+    with mock.patch("requests.get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.IPSB)
+        assert not result["status"]
+        assert result["error"] == "No Internet"
 
 
 def test_public_ipv4_api_error():
