@@ -15,6 +15,10 @@ def test_filter_parameter3():
     assert filter_parameter("   ") == "N/A"
 
 
+def test_filter_parameter4():
+    assert filter_parameter("GB") == "GB"
+
+
 
 
 
