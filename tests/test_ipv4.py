@@ -1,5 +1,4 @@
 import re
-import socket
 from unittest import mock
 from ipspot import get_private_ipv4
 from ipspot import get_public_ipv4, IPv4API
