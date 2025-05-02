@@ -63,3 +63,9 @@ def test_public_ipv4_ipsb2():
     result = get_public_ipv4(api=IPv4API.IPSB, geo=True, timeout="5")
     assert not result["status"]
 
+
+def test_public_ipv4_error():
+    result = get_public_ipv4(api="api1", geo=True)
+    assert not result["status"]
+    assert result["error"] == "Unsupported API: api1"
+
