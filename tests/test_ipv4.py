@@ -12,6 +12,9 @@ def test_private_ipv4_success():
     result = get_private_ipv4()
     assert result["status"]
     assert IPV4_REGEX.match(result["data"]["ip"])
+    assert result["data"]["ip"] != "127.0.0.1"
+    assert result["data"]["ip"] != "127.0.0.0"
+    assert result["data"]["ip"] != "0.0.0.0"
 
 
 def test_private_ipv4_error():
