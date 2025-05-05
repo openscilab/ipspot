@@ -24,10 +24,10 @@ def test_get_private_ipv4_loopback():
 
 
 def test_get_private_ipv4_exception():
-    with mock.patch('socket.socket', side_effect=OSError("Simulated error")):
+    with mock.patch('socket.socket', side_effect=Exception("Test error")):
         result = get_private_ipv4()
         assert not result["status"]
-        assert result["error"] == "Simulated error"
+        assert result["error"] == "Test error"
 
 
 def test_public_ipv4_auto_success():
