@@ -25,6 +25,7 @@ class IPv4API(Enum):
     IPAPI = "ipapi"
     IPINFO = "ipinfo"
     IPSB = "ipsb"
+    IDENTME = "identme"
 
 
 PARAMETERS_NAME_MAP = {

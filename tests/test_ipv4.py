@@ -101,6 +101,26 @@ def test_public_ipv4_ipsb_net_error():
         assert result["error"] == "No Internet"
 
 
+def test_public_ipv4_identme_success():
+    result = get_public_ipv4(api=IPv4API.IDENTME, geo=True)
+    assert result["status"]
+    assert IPV4_REGEX.match(result["data"]["ip"])
+    assert set(result["data"].keys()) == DATA_ITEMS
+    assert result["data"]["api"] == "ident.me"
+
+
+def test_public_ipv4_identme_timeout_error():
+    result = get_public_ipv4(api=IPv4API.IDENTME, geo=True, timeout="5")
+    assert not result["status"]
+
+
+def test_public_ipv4_identme_net_error():
+    with mock.patch("requests.get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.IDENTME)
+        assert not result["status"]
+        assert result["error"] == "No Internet"
+
+
 def test_public_ipv4_api_error():
     result = get_public_ipv4(api="api1", geo=True)
     assert not result["status"]
