@@ -6,15 +6,13 @@ from ipspot import get_public_ipv4, IPv4API
 TEST_CASE_NAME = "IPv4 tests"
 IPV4_REGEX = re.compile(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$')
 DATA_ITEMS = {'country_code', 'latitude', 'longitude', 'api', 'country', 'timezone', 'organization', 'region', 'ip', 'city'}
-
+LOOPBACK_LIST = ["127.0.0.1", "127.0.0.0", "127.0.1.1", "0.0.0.0"]
 
 def test_private_ipv4_success():
     result = get_private_ipv4()
     assert result["status"]
     assert IPV4_REGEX.match(result["data"]["ip"])
-    assert result["data"]["ip"] != "127.0.0.1"
-    assert result["data"]["ip"] != "127.0.0.0"
-    assert result["data"]["ip"] != "0.0.0.0"
+    assert result["data"]["ip"] not in LOOPBACK_LIST
 
 
 def test_private_ipv4_error():
