@@ -20,8 +20,9 @@ def ipspot_info() -> None:  # pragma: no cover
 def get_private_ipv4() -> Dict[str, Union[bool, Dict[str, str], str]]:
     """Retrieve the private IPv4 address."""
     try:
-        hostname = socket.gethostname()
-        private_ip = socket.gethostbyname(hostname)
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            s.connect(('8.8.8.8', 80))
+            private_ip = s.getsockname()[0]
         return {"status": True, "data": {"ip": private_ip}}
     except Exception as e:
         return {"status": False, "error": str(e)}
