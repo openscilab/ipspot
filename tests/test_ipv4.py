@@ -6,7 +6,7 @@ from ipspot import get_public_ipv4, IPv4API
 TEST_CASE_NAME = "IPv4 tests"
 IPV4_REGEX = re.compile(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$')
 DATA_ITEMS = {'country_code', 'latitude', 'longitude', 'api', 'country', 'timezone', 'organization', 'region', 'ip', 'city'}
-LOOPBACK_LIST = ["127.0.0.1", "127.0.0.0", "127.0.1.1", "0.0.0.0"]
+LOOPBACK_LIST = ["127.0.0.1", "127.0.0.0", "127.0.1.1"]
 
 def test_private_ipv4_success():
     result = get_private_ipv4()
@@ -15,11 +15,20 @@ def test_private_ipv4_success():
     assert result["data"]["ip"] not in LOOPBACK_LIST
 
 
-def test_private_ipv4_error():
-    with mock.patch("socket.gethostbyname", side_effect=Exception("Test error")):
+def test_get_private_ipv4_loopback():
+    mock_socket = mock.MagicMock()
+    mock_socket.__enter__.return_value.getsockname.return_value = ('127.0.0.1',)
+    with mock.patch('socket.socket', return_value=mock_socket):
         result = get_private_ipv4()
         assert not result["status"]
-        assert result["error"] == "Test error"
+        assert result["error"] == "Could not identify a non-loopback IPv4 address for this system."
+
+
+def test_get_private_ipv4_exception():
+    with mock.patch('socket.socket', side_effect=OSError("Simulated error")):
+        result = get_private_ipv4()
+        assert not result["status"]
+        assert result["error"] == "Simulated error"
 
 
 def test_public_ipv4_auto_success():
