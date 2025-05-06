@@ -7,15 +7,24 @@ TEST_CASE_NAME = "IPv4 tests"
 IPV4_REGEX = re.compile(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$')
 DATA_ITEMS = {'country_code', 'latitude', 'longitude', 'api', 'country', 'timezone', 'organization', 'region', 'ip', 'city'}
 
-
 def test_private_ipv4_success():
     result = get_private_ipv4()
     assert result["status"]
     assert IPV4_REGEX.match(result["data"]["ip"])
+    assert not result["data"]["ip"].startswith("127.")
 
 
-def test_private_ipv4_error():
-    with mock.patch("socket.gethostbyname", side_effect=Exception("Test error")):
+def test_get_private_ipv4_loopback():
+    mock_socket = mock.MagicMock()
+    mock_socket.__enter__.return_value.getsockname.return_value = ('127.0.0.1',)
+    with mock.patch('socket.socket', return_value=mock_socket):
+        result = get_private_ipv4()
+        assert not result["status"]
+        assert result["error"] == "Could not identify a non-loopback IPv4 address for this system."
+
+
+def test_get_private_ipv4_exception():
+    with mock.patch('socket.socket', side_effect=Exception("Test error")):
         result = get_private_ipv4()
         assert not result["status"]
         assert result["error"] == "Test error"

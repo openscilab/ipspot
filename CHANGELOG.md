@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Support [ident.me](https://ident.me/json)
+### Changed
+- `get_private_ipv4` function modified
+- Test system modified
 ## [0.2] - 2025-05-04
 ### Added
 - Support [ip.sb](https://api.ip.sb/geoip)

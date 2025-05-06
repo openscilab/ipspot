@@ -7,6 +7,7 @@ import requests
 from art import tprint
 from .params import REQUEST_HEADERS, IPv4API, PARAMETERS_NAME_MAP
 from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
+from .params import IPV4_REGEX
 
 
 def ipspot_info() -> None:  # pragma: no cover
@@ -20,9 +21,12 @@ def ipspot_info() -> None:  # pragma: no cover
 def get_private_ipv4() -> Dict[str, Union[bool, Dict[str, str], str]]:
     """Retrieve the private IPv4 address."""
     try:
-        hostname = socket.gethostname()
-        private_ip = socket.gethostbyname(hostname)
-        return {"status": True, "data": {"ip": private_ip}}
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            s.connect(('192.168.1.1', 1))
+            private_ip = s.getsockname()[0]
+        if IPV4_REGEX.match(private_ip) and not private_ip.startswith("127."):
+            return {"status": True, "data": {"ip": private_ip}}
+        return {"status": False, "error": "Could not identify a non-loopback IPv4 address for this system."}
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -125,7 +129,7 @@ def _ident_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
                    =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ident.me.
-    
+
     :param geo: geolocation flag
     :param timeout: timeout value for API
     """
