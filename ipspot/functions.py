@@ -27,10 +27,8 @@ def is_ipv4(ip: str) -> bool:
     if not isinstance(ip, str):
         return False
     try:
-        ip_object = ipaddress.IPv4Address(ip)
-        if ip_object.version == 4:
-            return True
-        return False
+        _ = ipaddress.IPv4Address(ip)
+        return True
     except Exception:
         return False
 
