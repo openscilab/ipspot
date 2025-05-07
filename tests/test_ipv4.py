@@ -1,16 +1,36 @@
-import re
 from unittest import mock
-from ipspot import get_private_ipv4
+from ipspot import get_private_ipv4, is_ipv4
 from ipspot import get_public_ipv4, IPv4API
 
 TEST_CASE_NAME = "IPv4 tests"
-IPV4_REGEX = re.compile(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$')
 DATA_ITEMS = {'country_code', 'latitude', 'longitude', 'api', 'country', 'timezone', 'organization', 'region', 'ip', 'city'}
+
+
+def test_is_ipv4_1():
+    assert is_ipv4("192.168.0.1")
+
+
+def test_is_ipv4_2():
+    assert is_ipv4("0.0.0.0")
+
+def test_is_ipv4_3():
+    assert is_ipv4("255.255.255.255")
+
+def test_is_ipv4_4():
+    assert not is_ipv4("256.0.0.1")
+
+
+def test_is_ipv4_5():
+    assert not is_ipv4("abc.def.ghi.jkl")
+
+
+def test_is_ipv4_6():
+    assert not is_ipv4(123)
 
 def test_private_ipv4_success():
     result = get_private_ipv4()
     assert result["status"]
-    assert IPV4_REGEX.match(result["data"]["ip"])
+    assert is_ipv4(result["data"]["ip"])
     assert not result["data"]["ip"].startswith("127.")
 
 
@@ -33,7 +53,7 @@ def test_get_private_ipv4_exception():
 def test_public_ipv4_auto_success():
     result = get_public_ipv4(api=IPv4API.AUTO, geo=True)
     assert result["status"]
-    assert IPV4_REGEX.match(result["data"]["ip"])
+    assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
 
 
@@ -52,7 +72,7 @@ def test_public_ipv4_auto_net_error():
 def test_public_ipv4_ipapi_success():
     result = get_public_ipv4(api=IPv4API.IPAPI, geo=True)
     assert result["status"]
-    assert IPV4_REGEX.match(result["data"]["ip"])
+    assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "ip-api.com"
 
@@ -72,7 +92,7 @@ def test_public_ipv4_ipapi_net_error():
 def test_public_ipv4_ipinfo_success():
     result = get_public_ipv4(api=IPv4API.IPINFO, geo=True)
     assert result["status"]
-    assert IPV4_REGEX.match(result["data"]["ip"])
+    assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "ipinfo.io"
 
@@ -92,7 +112,7 @@ def test_public_ipv4_ipinfo_net_error():
 def test_public_ipv4_ipsb_success():
     result = get_public_ipv4(api=IPv4API.IPSB, geo=True)
     assert result["status"]
-    assert IPV4_REGEX.match(result["data"]["ip"])
+    assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "ip.sb"
 
@@ -113,7 +133,7 @@ def test_public_ipv4_ipsb_net_error():
 def test_public_ipv4_identme_success():
     result = get_public_ipv4(api=IPv4API.IDENTME, geo=True)
     assert result["status"]
-    assert IPV4_REGEX.match(result["data"]["ip"])
+    assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "ident.me"
 
