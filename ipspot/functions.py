@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """ipspot functions."""
 import argparse
+import ipaddress
 import socket
 from typing import Union, Dict, Tuple, Any
 import requests
 from art import tprint
 from .params import REQUEST_HEADERS, IPv4API, PARAMETERS_NAME_MAP
 from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
-from .params import IPV4_REGEX
 
 
 def ipspot_info() -> None:  # pragma: no cover
@@ -26,7 +26,13 @@ def is_ipv4(ip: str) -> bool:
     """
     if not isinstance(ip, str):
         return False
-    return bool(IPV4_REGEX.match(ip))
+    try:
+        ip_object = ipaddress.IPv4Address(ip)
+        if ip_object.version == 4:
+            return True
+        return False
+    except Exception:
+        return False
 
 
 def get_private_ipv4() -> Dict[str, Union[bool, Dict[str, str], str]]:
