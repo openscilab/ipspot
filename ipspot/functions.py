@@ -52,7 +52,7 @@ def get_private_ipv4() -> Dict[str, Union[bool, Dict[str, str], str]]:
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
             s.connect(('192.168.1.1', 1))
             private_ip = s.getsockname()[0]
-        if is_ipv4(private_ip) and not private_ip.startswith("127."):
+        if is_ipv4(private_ip) and not is_loopback(private_ip):
             return {"status": True, "data": {"ip": private_ip}}
         return {"status": False, "error": "Could not identify a non-loopback IPv4 address for this system."}
     except Exception as e:
