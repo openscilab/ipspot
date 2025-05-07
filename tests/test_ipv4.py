@@ -35,6 +35,22 @@ def test_is_ipv4_7():
     assert not is_ipv4("2001:0db8:85a3:0000:0000:8a2e:0370:7334")
 
 
+def test_is_loopback_1():
+    assert not is_loopback("192.168.0.1")
+
+
+def test_is_loopback_2():
+    assert is_loopback("127.0.0.1")
+
+
+def test_is_loopback_3():
+    assert is_loopback("127.255.255.255")
+
+
+def test_is_loopback_4():
+    assert not is_loopback("abc.def.ghi.jkl")
+
+
 def test_private_ipv4_success():
     result = get_private_ipv4()
     assert result["status"]
