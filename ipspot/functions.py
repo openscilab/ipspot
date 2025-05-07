@@ -33,6 +33,19 @@ def is_ipv4(ip: str) -> bool:
         return False
 
 
+def is_loopback(ip: str) -> bool:
+    """
+    Check if the given input IP is a loopback address.
+
+    :param ip: input IP
+    """
+    try:
+        ip_object = ipaddress.ip_address(ip)
+        return ip_object.is_loopback
+    except Exception:
+        return False
+
+
 def get_private_ipv4() -> Dict[str, Union[bool, Dict[str, str], str]]:
     """Retrieve the private IPv4 address."""
     try:
