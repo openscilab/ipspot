@@ -1,7 +1,7 @@
 from unittest import mock
 from ipspot import get_private_ipv4, is_ipv4
 from ipspot import get_public_ipv4, IPv4API
-from ipspot is_loopback
+from ipspot import is_loopback
 
 TEST_CASE_NAME = "IPv4 tests"
 DATA_ITEMS = {'country_code', 'latitude', 'longitude', 'api', 'country', 'timezone', 'organization', 'region', 'ip', 'city'}
