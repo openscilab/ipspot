@@ -22,7 +22,7 @@ def is_ipv4(ip: str) -> bool:
     """
     Check if the given input is a valid IPv4 address.
 
-    :param ip: input ip
+    :param ip: input IP
     """
     if not isinstance(ip, str):
         return False

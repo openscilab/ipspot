@@ -13,8 +13,10 @@ def test_is_ipv4_1():
 def test_is_ipv4_2():
     assert is_ipv4("0.0.0.0")
 
+
 def test_is_ipv4_3():
     assert is_ipv4("255.255.255.255")
+
 
 def test_is_ipv4_4():
     assert not is_ipv4("256.0.0.1")
@@ -26,6 +28,7 @@ def test_is_ipv4_5():
 
 def test_is_ipv4_6():
     assert not is_ipv4(123)
+
 
 def test_private_ipv4_success():
     result = get_private_ipv4()
