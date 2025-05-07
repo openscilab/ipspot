@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """ipspot params."""
 from enum import Enum
-import re
 
 IPSPOT_VERSION = "0.2"
 
@@ -17,8 +16,6 @@ REQUEST_HEADERS = {
     'User-Agent': 'IPSpot/{version} ({repo})'.format(version=IPSPOT_VERSION, repo=IPSPOT_REPO),
     'Accept': 'application/json'
 }
-
-IPV4_REGEX = re.compile(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$')
 
 
 class IPv4API(Enum):
