@@ -18,7 +18,19 @@ REQUEST_HEADERS = {
     'Accept': 'application/json'
 }
 
-IPV4_REGEX = re.compile(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$')
+IPV4_REGEX = re.compile(r"""
+        ^
+        (?:
+            (?:25[0-5]|
+             2[0-4][0-9]|
+             1[0-9]{2}|
+             [1-9][0-9]?|
+             0)
+            \.
+        ){3}
+        (?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?|0)
+        $
+    """)
 
 
 class IPv4API(Enum):

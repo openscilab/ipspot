@@ -18,13 +18,24 @@ def ipspot_info() -> None:  # pragma: no cover
     print("Repo : " + IPSPOT_REPO)
 
 
+def is_ipv4(ip: str) -> bool:
+    """
+    Check if the given input is a valid IPv4 address.
+
+    :param ip: input ip
+    """
+    if not isinstance(ip, str):
+        return False
+    return bool(IPV4_REGEX.match(ip))
+
+
 def get_private_ipv4() -> Dict[str, Union[bool, Dict[str, str], str]]:
     """Retrieve the private IPv4 address."""
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
             s.connect(('192.168.1.1', 1))
             private_ip = s.getsockname()[0]
-        if IPV4_REGEX.match(private_ip) and not private_ip.startswith("127."):
+        if is_ipv4(private_ip) and not private_ip.startswith("127."):
             return {"status": True, "data": {"ip": private_ip}}
         return {"status": False, "error": "Could not identify a non-loopback IPv4 address for this system."}
     except Exception as e:
