@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `is_ipv4` function
 - `is_loopback` function
 - Support [ident.me](https://ident.me/json)
+- Support [tnedi.me](https://tnedi.me/json)
 ### Changed
 - `get_private_ipv4` function modified
 - Test system modified
