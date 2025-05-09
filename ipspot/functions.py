@@ -68,7 +68,7 @@ def _ipsb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        response = requests.get("https://api.ip.sb/geoip", headers=REQUEST_HEADERS, timeout=timeout)
+        response = requests.get("https://api-ipv4.ip.sb/geoip", headers=REQUEST_HEADERS, timeout=timeout)
         response.raise_for_status()
         data = response.json()
         result = {"status": True, "data": {"ip": data.get("ip"), "api": "ip.sb"}}
