@@ -134,7 +134,7 @@ def test_public_ipv4_ipinfo_net_error():
 
 
 def test_public_ipv4_ipsb_success():
-    result = get_public_ipv4(api=IPv4API.IPSB, geo=True)
+    result = get_public_ipv4(api=IPv4API.IPSB, geo=True, timeout=20)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
