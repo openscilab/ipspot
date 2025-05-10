@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support [tnedi.me](https://tnedi.me/json)
 ### Changed
 - `get_private_ipv4` function modified
+- `_ipsb_ipv4` function modified
 - Test system modified
 ## [0.2] - 2025-05-04
 ### Added
