@@ -17,8 +17,7 @@ class IPv4HTTPAdapter(HTTPAdapter):
 
     def init_poolmanager(self, connections: int, maxsize: int, block: bool = False, **kwargs: dict) -> None:
         """
-        Initialize the connection pool manager using a temporary override of
-        socket.getaddrinfo to ensure only IPv4 addresses are used.
+        Initialize the connection pool manager using a temporary override of socket.getaddrinfo to ensure only IPv4 addresses are used.
 
         :param connections: the number of connection pools to cache
         :param maxsize: the maximum number of connections to save in the pool
