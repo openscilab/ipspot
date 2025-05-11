@@ -32,7 +32,7 @@ class IPv4HTTPAdapter(HTTPAdapter):
             **kwargs
         )
 
-    def _ipv4_socket_options(self) -> List[Tuple]:
+    def _ipv4_socket_options(self) -> list:
         """
         Temporarily patches socket.getaddrinfo to filter only IPv4 addresses (AF_INET).
 
@@ -40,7 +40,7 @@ class IPv4HTTPAdapter(HTTPAdapter):
         """
         original_getaddrinfo = socket.getaddrinfo
 
-        def ipv4_only_getaddrinfo(*args: Any, **kwargs: Any) -> List[Tuple]:
+        def ipv4_only_getaddrinfo(*args: list, **kwargs: dict) -> List[Tuple]:
             results = original_getaddrinfo(*args, **kwargs)
             return [res for res in results if res[0] == socket.AF_INET]
 
