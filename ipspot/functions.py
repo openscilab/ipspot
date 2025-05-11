@@ -3,11 +3,63 @@
 import argparse
 import ipaddress
 import socket
-from typing import Union, Dict, Tuple, Any
+from typing import Union, Dict, List, Tuple, Any
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.poolmanager import PoolManager
 from art import tprint
 from .params import REQUEST_HEADERS, IPv4API, PARAMETERS_NAME_MAP
 from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
+
+
+class IPv4HTTPAdapter(HTTPAdapter):
+    """
+    A custom HTTPAdapter that enforces the use of IPv4 for DNS resolution
+    during HTTP(S) requests using the requests library.
+    """
+
+    def init_poolmanager(self, connections: int, maxsize: int, block: bool = False, **kwargs: Any) -> None:
+        """
+        Initialize the connection pool manager using a temporary override of
+        socket.getaddrinfo to ensure only IPv4 addresses are used.
+
+        :param connections: The number of connection pools to cache.
+        :param maxsize: The maximum number of connections to save in the pool.
+        :param block: Whether the connections should block when reaching the max size.
+        :param kwargs: Additional keyword arguments for the PoolManager.
+        """
+        self.poolmanager = PoolManager(
+            num_pools=connections,
+            maxsize=maxsize,
+            block=block,
+            socket_options=self._ipv4_socket_options(),
+            **kwargs
+        )
+
+    def _ipv4_socket_options(self) -> List[Tuple]:
+        """
+        Temporarily patches socket.getaddrinfo to filter only IPv4 addresses (AF_INET).
+
+        :return: An empty list of socket options; DNS patching occurs here.
+        """
+        original_getaddrinfo = socket.getaddrinfo
+
+        def ipv4_only_getaddrinfo(*args: Any, **kwargs: Any) -> List[Tuple]:
+            results = original_getaddrinfo(*args, **kwargs)
+            return [res for res in results if res[0] == socket.AF_INET]
+
+        # Save original for cleanup
+        self._original_getaddrinfo = socket.getaddrinfo
+        socket.getaddrinfo = ipv4_only_getaddrinfo
+
+        return []
+
+    def __del__(self) -> None:
+        """
+        Restores the original socket.getaddrinfo function upon adapter deletion.
+        """
+        if hasattr(self, "_original_getaddrinfo"):
+            socket.getaddrinfo = self._original_getaddrinfo
 
 
 def ipspot_info() -> None:  # pragma: no cover
@@ -98,26 +150,28 @@ def _ipapi_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        response = requests.get("http://ip-api.com/json/", headers=REQUEST_HEADERS, timeout=timeout)
-        response.raise_for_status()
-        data = response.json()
-
-        if data.get("status") != "success":
-            return {"status": False, "error": "ip-api lookup failed"}
-        result = {"status": True, "data": {"ip": data.get("query"), "api": "ip-api.com"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("regionName"),
-                "country": data.get("country"),
-                "country_code": data.get("countryCode"),
-                "latitude": data.get("lat"),
-                "longitude": data.get("lon"),
-                "organization": data.get("org"),
-                "timezone": data.get("timezone")
-            }
-            result["data"].update(geo_data)
-        return result
+        with requests.Session() as session:
+            session.mount("http://", IPv4HTTPAdapter())
+            session.mount("https://", IPv4HTTPAdapter())
+            response = session.get("http://ip-api.com/json/", headers=REQUEST_HEADERS, timeout=timeout)
+            response.raise_for_status()
+            data = response.json()
+            if data.get("status") != "success":
+                return {"status": False, "error": "ip-api lookup failed"}
+            result = {"status": True, "data": {"ip": data.get("query"), "api": "ip-api.com"}}
+            if geo:
+                geo_data = {
+                    "city": data.get("city"),
+                    "region": data.get("regionName"),
+                    "country": data.get("country"),
+                    "country_code": data.get("countryCode"),
+                    "latitude": data.get("lat"),
+                    "longitude": data.get("lon"),
+                    "organization": data.get("org"),
+                    "timezone": data.get("timezone")
+                }
+                result["data"].update(geo_data)
+            return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
