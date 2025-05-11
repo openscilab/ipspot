@@ -13,20 +13,17 @@ from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
 
 
 class IPv4HTTPAdapter(HTTPAdapter):
-    """
-    A custom HTTPAdapter that enforces the use of IPv4 for DNS resolution
-    during HTTP(S) requests using the requests library.
-    """
+    """A custom HTTPAdapter that enforces the use of IPv4 for DNS resolution during HTTP(S) requests using the requests library."""
 
-    def init_poolmanager(self, connections: int, maxsize: int, block: bool = False, **kwargs: Any) -> None:
+    def init_poolmanager(self, connections: int, maxsize: int, block: bool = False, **kwargs: dict) -> None:
         """
         Initialize the connection pool manager using a temporary override of
         socket.getaddrinfo to ensure only IPv4 addresses are used.
 
-        :param connections: The number of connection pools to cache.
-        :param maxsize: The maximum number of connections to save in the pool.
-        :param block: Whether the connections should block when reaching the max size.
-        :param kwargs: Additional keyword arguments for the PoolManager.
+        :param connections: the number of connection pools to cache
+        :param maxsize: the maximum number of connections to save in the pool
+        :param block: whether the connections should block when reaching the max size
+        :param kwargs: additional keyword arguments for the PoolManager
         """
         self.poolmanager = PoolManager(
             num_pools=connections,
@@ -40,7 +37,7 @@ class IPv4HTTPAdapter(HTTPAdapter):
         """
         Temporarily patches socket.getaddrinfo to filter only IPv4 addresses (AF_INET).
 
-        :return: An empty list of socket options; DNS patching occurs here.
+        :return: an empty list of socket options; DNS patching occurs here
         """
         original_getaddrinfo = socket.getaddrinfo
 
@@ -48,16 +45,13 @@ class IPv4HTTPAdapter(HTTPAdapter):
             results = original_getaddrinfo(*args, **kwargs)
             return [res for res in results if res[0] == socket.AF_INET]
 
-        # Save original for cleanup
         self._original_getaddrinfo = socket.getaddrinfo
         socket.getaddrinfo = ipv4_only_getaddrinfo
 
         return []
 
     def __del__(self) -> None:
-        """
-        Restores the original socket.getaddrinfo function upon adapter deletion.
-        """
+        """Restores the original socket.getaddrinfo function upon adapter deletion."""
         if hasattr(self, "_original_getaddrinfo"):
             socket.getaddrinfo = self._original_getaddrinfo
 
