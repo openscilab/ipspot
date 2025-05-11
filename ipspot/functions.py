@@ -179,24 +179,27 @@ def _ipinfo_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        response = requests.get("https://ipinfo.io/json", headers=REQUEST_HEADERS, timeout=timeout)
-        response.raise_for_status()
-        data = response.json()
-        result = {"status": True, "data": {"ip": data.get("ip"), "api": "ipinfo.io"}}
-        if geo:
-            loc = data.get("loc", "").split(",")
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("region"),
-                "country": None,
-                "country_code": data.get("country"),
-                "latitude": float(loc[0]) if len(loc) == 2 else None,
-                "longitude": float(loc[1]) if len(loc) == 2 else None,
-                "organization": data.get("org"),
-                "timezone": data.get("timezone")
-            }
-            result["data"].update(geo_data)
-        return result
+        with requests.Session() as session:
+            session.mount("http://", IPv4HTTPAdapter())
+            session.mount("https://", IPv4HTTPAdapter())
+            response = session.get("https://ipinfo.io/json", headers=REQUEST_HEADERS, timeout=timeout)
+            response.raise_for_status()
+            data = response.json()
+            result = {"status": True, "data": {"ip": data.get("ip"), "api": "ipinfo.io"}}
+            if geo:
+                loc = data.get("loc", "").split(",")
+                geo_data = {
+                    "city": data.get("city"),
+                    "region": data.get("region"),
+                    "country": None,
+                    "country_code": data.get("country"),
+                    "latitude": float(loc[0]) if len(loc) == 2 else None,
+                    "longitude": float(loc[1]) if len(loc) == 2 else None,
+                    "organization": data.get("org"),
+                    "timezone": data.get("timezone")
+                }
+                result["data"].update(geo_data)
+            return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
