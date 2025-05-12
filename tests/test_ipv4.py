@@ -1,4 +1,5 @@
 from unittest import mock
+import requests
 from ipspot import get_private_ipv4, is_ipv4
 from ipspot import get_public_ipv4, IPv4API
 from ipspot import is_loopback
@@ -87,7 +88,7 @@ def test_public_ipv4_auto_timeout_error():
 
 
 def test_public_ipv4_auto_net_error():
-    with mock.patch("requests.get", side_effect=Exception("No Internet")):
+    with mock.patch("requests.get", side_effect=Exception("No Internet")), mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
         result = get_public_ipv4(api=IPv4API.AUTO)
         assert not result["status"]
         assert result["error"] == "All attempts failed."
@@ -107,7 +108,7 @@ def test_public_ipv4_ipapi_timeout_error():
 
 
 def test_public_ipv4_ipapi_net_error():
-    with mock.patch("requests.get", side_effect=Exception("No Internet")):
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
         result = get_public_ipv4(api=IPv4API.IPAPI)
         assert not result["status"]
         assert result["error"] == "No Internet"
@@ -127,7 +128,7 @@ def test_public_ipv4_ipinfo_timeout_error():
 
 
 def test_public_ipv4_ipinfo_net_error():
-    with mock.patch("requests.get", side_effect=Exception("No Internet")):
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
         result = get_public_ipv4(api=IPv4API.IPINFO)
         assert not result["status"]
         assert result["error"] == "No Internet"

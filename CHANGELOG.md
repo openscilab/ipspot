@@ -8,11 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `is_ipv4` function
 - `is_loopback` function
+- `IPv4HTTPAdapter` class
 - Support [ident.me](https://ident.me/json)
 - Support [tnedi.me](https://tnedi.me/json)
 ### Changed
 - `get_private_ipv4` function modified
 - `_ipsb_ipv4` function modified
+- `_ipapi_ipv4` function modified
+- `_ipinfo_ipv4` function modified 
 - Test system modified
 ## [0.2] - 2025-05-04
 ### Added
