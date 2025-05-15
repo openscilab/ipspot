@@ -88,7 +88,7 @@ def test_public_ipv4_auto_timeout_error():
 
 
 def test_public_ipv4_auto_net_error():
-    with mock.patch("requests.get", side_effect=Exception("No Internet")), mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
         result = get_public_ipv4(api=IPv4API.AUTO)
         assert not result["status"]
         assert result["error"] == "All attempts failed."
@@ -149,7 +149,7 @@ def test_public_ipv4_ipsb_timeout_error():
 
 
 def test_public_ipv4_ipsb_net_error():
-    with mock.patch("requests.get", side_effect=Exception("No Internet")):
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
         result = get_public_ipv4(api=IPv4API.IPSB)
         assert not result["status"]
         assert result["error"] == "No Internet"
@@ -169,7 +169,7 @@ def test_public_ipv4_identme_timeout_error():
 
 
 def test_public_ipv4_identme_net_error():
-    with mock.patch("requests.get", side_effect=Exception("No Internet")):
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
         result = get_public_ipv4(api=IPv4API.IDENTME)
         assert not result["status"]
         assert result["error"] == "No Internet"
@@ -189,7 +189,7 @@ def test_public_ipv4_tnedime_timeout_error():
 
 
 def test_public_ipv4_tnedime_net_error():
-    with mock.patch("requests.get", side_effect=Exception("No Internet")):
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
         result = get_public_ipv4(api=IPv4API.TNEDIME)
         assert not result["status"]
         assert result["error"] == "No Internet"
