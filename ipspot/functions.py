@@ -113,23 +113,24 @@ def _ipsb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        response = requests.get("https://api-ipv4.ip.sb/geoip", headers=REQUEST_HEADERS, timeout=timeout)
-        response.raise_for_status()
-        data = response.json()
-        result = {"status": True, "data": {"ip": data.get("ip"), "api": "ip.sb"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("region"),
-                "country": data.get("country"),
-                "country_code": data.get("country_code"),
-                "latitude": data.get("latitude"),
-                "longitude": data.get("longitude"),
-                "organization": data.get("organization"),
-                "timezone": data.get("timezone")
-            }
-            result["data"].update(geo_data)
-        return result
+        with requests.Session() as session:
+            response = session.get("https://api-ipv4.ip.sb/geoip", headers=REQUEST_HEADERS, timeout=timeout)
+            response.raise_for_status()
+            data = response.json()
+            result = {"status": True, "data": {"ip": data.get("ip"), "api": "ip.sb"}}
+            if geo:
+                geo_data = {
+                    "city": data.get("city"),
+                    "region": data.get("region"),
+                    "country": data.get("country"),
+                    "country_code": data.get("country_code"),
+                    "latitude": data.get("latitude"),
+                    "longitude": data.get("longitude"),
+                    "organization": data.get("organization"),
+                    "timezone": data.get("timezone")
+                }
+                result["data"].update(geo_data)
+            return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
