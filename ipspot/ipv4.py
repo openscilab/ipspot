@@ -8,6 +8,7 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
 from art import tprint
+from .utils import is_loopback
 from .params import REQUEST_HEADERS, IPv4API, PARAMETERS_NAME_MAP
 from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
 
@@ -67,19 +68,6 @@ def is_ipv4(ip: str) -> bool:
     try:
         _ = ipaddress.IPv4Address(ip)
         return True
-    except Exception:
-        return False
-
-
-def is_loopback(ip: str) -> bool:
-    """
-    Check if the given input IP is a loopback address.
-
-    :param ip: input IP
-    """
-    try:
-        ip_object = ipaddress.ip_address(ip)
-        return ip_object.is_loopback
     except Exception:
         return False
 

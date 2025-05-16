@@ -21,19 +21,6 @@ def ipspot_info() -> None:  # pragma: no cover
     print("Repo : " + IPSPOT_REPO)
 
 
-def filter_parameter(parameter: Any) -> Any:
-    """
-    Filter input parameter.
-
-    :param parameter: input parameter
-    """
-    if parameter is None:
-        return "N/A"
-    if isinstance(parameter, str) and len(parameter.strip()) == 0:
-        return "N/A"
-    return parameter
-
-
 def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO, geo: bool=False,
                     timeout: Union[float, Tuple[float, float]]=5) -> None:  # pragma: no cover
     """
