@@ -1,7 +1,7 @@
 [run]
 branch = True
 omit =
-	*/ipspot/cli.py
+    */ipspot/cli.py
     */ipspot/__main__.py
     */ipspot/__init__.py
 [report]
