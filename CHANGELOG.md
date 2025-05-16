@@ -15,7 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `get_private_ipv4` function modified
 - `_ipsb_ipv4` function modified
 - `_ipapi_ipv4` function modified
-- `_ipinfo_ipv4` function modified 
+- `_ipinfo_ipv4` function modified
+- `functions.py` renamed to `utils.py` 
+- CLI functions moved to `cli.py`
+- IPv4 functions moved to `ipv4.py`
 - Test system modified
 ## [0.2] - 2025-05-04
 ### Added
