@@ -1,16 +1,7 @@
 # -*- coding: utf-8 -*-
-"""ipspot functions."""
-import argparse
+"""ipspot utils."""
 import ipaddress
-import socket
-from typing import Union, Dict, List, Tuple, Any
-import requests
-from requests.adapters import HTTPAdapter
-from urllib3.poolmanager import PoolManager
-from art import tprint
-from .ipv4 import get_public_ipv4, get_private_ipv4
-from .params import REQUEST_HEADERS, IPv4API, PARAMETERS_NAME_MAP
-from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
+from typing import Any
 
 
 
