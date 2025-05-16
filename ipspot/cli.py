@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """ipspot CLI."""
 import argparse
-from typing import Union, Dict, List, Tuple, Any
+from typing import Union, Tuple
 from art import tprint
 from .ipv4 import get_public_ipv4, get_private_ipv4
 from .utils import filter_parameter

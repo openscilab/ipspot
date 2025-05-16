@@ -2,7 +2,7 @@
 """ipspot ipv4 functions."""
 import ipaddress
 import socket
-from typing import Union, Dict, List, Tuple, Any
+from typing import Union, Dict, List, Tuple
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
