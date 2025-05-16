@@ -53,7 +53,6 @@ class IPv4HTTPAdapter(HTTPAdapter):
             socket.getaddrinfo = self._original_getaddrinfo
 
 
-
 def is_ipv4(ip: str) -> bool:
     """
     Check if the given input is a valid IPv4 address.

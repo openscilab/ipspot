@@ -4,7 +4,6 @@ import ipaddress
 from typing import Any
 
 
-
 def is_loopback(ip: str) -> bool:
     """
     Check if the given input IP is a loopback address.
