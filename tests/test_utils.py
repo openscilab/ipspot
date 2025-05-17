@@ -1,6 +1,6 @@
-from ipspot.functions import filter_parameter
+from ipspot.utils import filter_parameter
 
-TEST_CASE_NAME = "Functions tests"
+TEST_CASE_NAME = "Utils tests"
 
 
 def test_filter_parameter1():

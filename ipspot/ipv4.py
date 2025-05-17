@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-"""ipspot functions."""
-import argparse
+"""ipspot ipv4 functions."""
 import ipaddress
 import socket
-from typing import Union, Dict, List, Tuple, Any
+from typing import Union, Dict, List, Tuple
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
-from art import tprint
-from .params import REQUEST_HEADERS, IPv4API, PARAMETERS_NAME_MAP
-from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
+from .utils import is_loopback
+from .params import REQUEST_HEADERS, IPv4API
 
 
 class IPv4HTTPAdapter(HTTPAdapter):
@@ -55,14 +53,6 @@ class IPv4HTTPAdapter(HTTPAdapter):
             socket.getaddrinfo = self._original_getaddrinfo
 
 
-def ipspot_info() -> None:  # pragma: no cover
-    """Print ipspot details."""
-    tprint("IPSpot")
-    tprint("V:" + IPSPOT_VERSION)
-    print(IPSPOT_OVERVIEW)
-    print("Repo : " + IPSPOT_REPO)
-
-
 def is_ipv4(ip: str) -> bool:
     """
     Check if the given input is a valid IPv4 address.
@@ -74,19 +64,6 @@ def is_ipv4(ip: str) -> bool:
     try:
         _ = ipaddress.IPv4Address(ip)
         return True
-    except Exception:
-        return False
-
-
-def is_loopback(ip: str) -> bool:
-    """
-    Check if the given input IP is a loopback address.
-
-    :param ip: input IP
-    """
-    try:
-        ip_object = ipaddress.ip_address(ip)
-        return ip_object.is_loopback
     except Exception:
         return False
 
@@ -294,72 +271,3 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
         if func:
             return func(geo=geo, timeout=timeout)
         return {"status": False, "error": "Unsupported API: {api}".format(api=api)}
-
-
-def filter_parameter(parameter: Any) -> Any:
-    """
-    Filter input parameter.
-
-    :param parameter: input parameter
-    """
-    if parameter is None:
-        return "N/A"
-    if isinstance(parameter, str) and len(parameter.strip()) == 0:
-        return "N/A"
-    return parameter
-
-
-def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO, geo: bool=False,
-                    timeout: Union[float, Tuple[float, float]]=5) -> None:  # pragma: no cover
-    """
-    Print collected IP and location data.
-
-    :param ipv4_api: public IPv4 API
-    :param geo: geolocation flag
-    :param timeout: timeout value for API
-    """
-    private_result = get_private_ipv4()
-    print("Private IP:\n")
-    print("  IP: {private_result[data][ip]}".format(private_result=private_result) if private_result["status"]
-          else "  Error: {private_result[error]}".format(private_result=private_result))
-
-    public_title = "\nPublic IP"
-    if geo:
-        public_title += " and Location Info"
-    public_title += ":\n"
-    print(public_title)
-    public_result = get_public_ipv4(ipv4_api, geo=geo, timeout=timeout)
-    if public_result["status"]:
-        for name, parameter in sorted(public_result["data"].items()):
-            print(
-                "  {name}: {parameter}".format(
-                    name=PARAMETERS_NAME_MAP[name],
-                    parameter=filter_parameter(parameter)))
-    else:
-        print("  Error: {public_result[error]}".format(public_result=public_result))
-
-
-def main() -> None:  # pragma: no cover
-    """CLI main function."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '--ipv4-api',
-        help='public IPv4 API',
-        type=str.lower,
-        choices=[
-            x.value for x in IPv4API],
-        default=IPv4API.AUTO.value)
-    parser.add_argument('--info', help='info', nargs="?", const=1)
-    parser.add_argument('--version', help='version', nargs="?", const=1)
-    parser.add_argument('--no-geo', help='no geolocation data', nargs="?", const=1, default=False)
-    parser.add_argument('--timeout', help='timeout for the API request', type=float, default=5.0)
-
-    args = parser.parse_args()
-    if args.version:
-        print(IPSPOT_VERSION)
-    elif args.info:
-        ipspot_info()
-    else:
-        ipv4_api = IPv4API(args.ipv4_api)
-        geo = not args.no_geo
-        display_ip_info(ipv4_api=ipv4_api, geo=geo, timeout=args.timeout)

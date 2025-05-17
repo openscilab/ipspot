@@ -69,7 +69,7 @@ setup(
     license='MIT',
     entry_points={
             'console_scripts': [
-                'ipspot = ipspot.functions:main',
+                'ipspot = ipspot.cli:main',
             ]
     }
 )
