@@ -112,6 +112,38 @@ def _ipsb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _ipapi_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using ipapi.co.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        with requests.Session() as session:
+            session.mount("http://", IPv4HTTPAdapter())
+            session.mount("https://", IPv4HTTPAdapter())
+            response = session.get("https://ipapi.co/json/", headers=REQUEST_HEADERS, timeout=timeout)
+            response.raise_for_status()
+            data = response.json()
+            result = {"status": True, "data": {"ip": data.get("ip"), "api": "ipapi.co"}}
+            if geo:
+                geo_data = {
+                    "city": data.get("city"),
+                    "region": data.get("region"),
+                    "country": data.get("country_name"),
+                    "country_code": data.get("country_code"),
+                    "latitude": data.get("latitude"),
+                    "longitude": data.get("longitude"),
+                    "organization": data.get("org"),
+                    "timezone": data.get("timezone")
+                }
+                result["data"].update(geo_data)
+            return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
 def _ipapi_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
                 =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
