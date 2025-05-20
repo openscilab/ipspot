@@ -93,6 +93,25 @@ def test_public_ipv4_auto_net_error():
         assert not result["status"]
         assert result["error"] == "All attempts failed."
 
+def test_public_ipv4_ipapi_co_success():
+    result = get_public_ipv4(api=IPv4API.IPAPI_CO, geo=True)
+    assert result["status"]
+    assert is_ipv4(result["data"]["ip"])
+    assert set(result["data"].keys()) == DATA_ITEMS
+    assert result["data"]["api"] == "ip-api.com"
+
+
+def test_public_ipv4_ipapi_co_timeout_error():
+    result = get_public_ipv4(api=IPv4API.IPAPI_CO, geo=True, timeout="5")
+    assert not result["status"]
+
+
+def test_public_ipv4_ipapi_co_net_error():
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.IPAPI_CO)
+        assert not result["status"]
+        assert result["error"] == "No Internet"
+
 
 def test_public_ipv4_ipapi_success():
     result = get_public_ipv4(api=IPv4API.IPAPI, geo=True)
