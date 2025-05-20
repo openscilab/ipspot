@@ -113,7 +113,7 @@ def _ipsb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
 
 
 def _ipapi_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                   =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ipapi.co.
 
@@ -143,6 +143,7 @@ def _ipapi_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
             return result
     except Exception as e:
         return {"status": False, "error": str(e)}
+
 
 def _ipapi_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
                 =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
