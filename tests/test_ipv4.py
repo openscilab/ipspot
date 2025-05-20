@@ -98,7 +98,7 @@ def test_public_ipv4_ipapi_co_success():
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
-    assert result["data"]["api"] == "ip-api.com"
+    assert result["data"]["api"] == "ipapi.co"
 
 
 def test_public_ipv4_ipapi_co_timeout_error():

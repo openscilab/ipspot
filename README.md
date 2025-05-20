@@ -147,7 +147,7 @@ Public IP and Location Info:
 
 #### IPv4 API
 
-ℹ️ `ipv4-api` valid choices: [`auto`, `ipapi`, `ipinfo`, `ipsb`, `identme`, `tnedime`]
+ℹ️ `ipv4-api` valid choices: [`auto`, `ipapi`, `ipinfo`, `ipsb`, `identme`, `tnedime`, `ipapi_co`]
 
 ℹ️ The default value: `auto`
 
