@@ -22,7 +22,7 @@ class IPv4API(Enum):
     """Public IPv4 API enum."""
 
     AUTO = "auto"
-    IPAPI = "ipapi"
+    IP_API_COM = "ip-api.com"
     IPAPI_CO = "ipapi_co"
     IPINFO = "ipinfo"
     IP_SB = "ip.sb"
