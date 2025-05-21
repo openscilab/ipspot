@@ -245,7 +245,7 @@ def _ident_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
-def _tnedime_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
                   =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using tnedi.me.
@@ -287,7 +287,7 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
     """
     api_map = {
         IPv4API.IDENT_ME: _ident_me_ipv4,
-        IPv4API.TNEDIME: _tnedime_ipv4,
+        IPv4API.TNEDIME: _tnedi_me_ipv4,
         IPv4API.IP_SB: _ip_sb_ipv4,
         IPv4API.IP_API_COM: _ip_api_com_ipv4,
         IPv4API.IPINFO: _ipinfo_io_ipv4,

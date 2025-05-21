@@ -27,7 +27,7 @@ class IPv4API(Enum):
     IPINFO_IO = "ipinfo.io"
     IP_SB = "ip.sb"
     IDENT_ME = "ident.me"
-    TNEDIME = "tnedime"
+    TNEDI_ME = "tnedi.me"
 
 
 PARAMETERS_NAME_MAP = {

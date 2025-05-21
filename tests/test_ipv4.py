@@ -194,22 +194,22 @@ def test_public_ipv4_identme_net_error():
         assert result["error"] == "No Internet"
 
 
-def test_public_ipv4_tnedime_success():
-    result = get_public_ipv4(api=IPv4API.TNEDIME, geo=True)
+def test_public_ipv4_tnedi_me_success():
+    result = get_public_ipv4(api=IPv4API.TNEDI_ME, geo=True)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "tnedi.me"
 
 
-def test_public_ipv4_tnedime_timeout_error():
-    result = get_public_ipv4(api=IPv4API.TNEDIME, geo=True, timeout="5")
+def test_public_ipv4_tnedi_me_timeout_error():
+    result = get_public_ipv4(api=IPv4API.TNEDI_ME, geo=True, timeout="5")
     assert not result["status"]
 
 
-def test_public_ipv4_tnedime_net_error():
+def test_public_ipv4_tnedi_me_net_error():
     with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
-        result = get_public_ipv4(api=IPv4API.TNEDIME)
+        result = get_public_ipv4(api=IPv4API.TNEDI_ME)
         assert not result["status"]
         assert result["error"] == "No Internet"
 
