@@ -23,8 +23,8 @@ class IPv4API(Enum):
 
     AUTO = "auto"
     IP_API_COM = "ip-api.com"
-    IPAPI_CO = "ipapi_co"
-    IPINFO = "ipinfo"
+    IPAPI_CO = "ipapi.co"
+    IPINFO_IO = "ipinfo.io"
     IP_SB = "ip.sb"
     IDENTME = "identme"
     TNEDIME = "tnedime"
