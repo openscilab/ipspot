@@ -174,7 +174,7 @@ def test_public_ipv4_ip_sb_net_error():
         assert result["error"] == "No Internet"
 
 
-def test_public_ipv4_identme_success():
+def test_public_ipv4_ident_me_success():
     result = get_public_ipv4(api=IPv4API.IDENT_ME, geo=True)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
@@ -182,12 +182,12 @@ def test_public_ipv4_identme_success():
     assert result["data"]["api"] == "ident.me"
 
 
-def test_public_ipv4_identme_timeout_error():
+def test_public_ipv4_ident_me_timeout_error():
     result = get_public_ipv4(api=IPv4API.IDENT_ME, geo=True, timeout="5")
     assert not result["status"]
 
 
-def test_public_ipv4_identme_net_error():
+def test_public_ipv4_ident_me_net_error():
     with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
         result = get_public_ipv4(api=IPv4API.IDENT_ME)
         assert not result["status"]
