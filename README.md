@@ -69,9 +69,9 @@
 
 ```pycon
 >>> from ipspot import get_public_ipv4, IPv4API
->>> get_public_ipv4(api=IPv4API.IPAPI)
+>>> get_public_ipv4(api=IPv4API.IP_API_COM)
 {'status': True, 'data': {'ip': 'xx.xx.xx.xx', 'api': 'ip-api.com'}}
->>> get_public_ipv4(api=IPv4API.IPAPI, geo=True, timeout=10)
+>>> get_public_ipv4(api=IPv4API.IP_API_COM, geo=True, timeout=10)
 {'data': {'country_code': 'GB', 'latitude': 50.9097, 'longitude': -1.4043, 'api': 'ip-api.com', 'country': 'United Kingdom', 'timezone': 'Europe/London', 'organization': '', 'region': 'England', 'ip': 'xx.xx.xx.xx', 'city': 'Southampton'}, 'status': True}
 ```
 
@@ -147,12 +147,12 @@ Public IP and Location Info:
 
 #### IPv4 API
 
-ℹ️ `ipv4-api` valid choices: [`auto`, `ipapi`, `ipinfo`, `ipsb`, `identme`, `tnedime`, `ipapi_co`]
+ℹ️ `ipv4-api` valid choices: [`auto`, `ip-api.com`, `ipinfo.io`, `ip.sb`, `ident.me`, `tnedi.me`, `ipapi.co`]
 
 ℹ️ The default value: `auto`
 
 ```console
-> ipspot --ipv4-api="ipinfo"
+> ipspot --ipv4-api="ipinfo.io"
 Private IP:
 
   10.36.18.154
