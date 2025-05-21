@@ -81,8 +81,8 @@ def get_private_ipv4() -> Dict[str, Union[bool, Dict[str, str], str]]:
         return {"status": False, "error": str(e)}
 
 
-def _ipsb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-               =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _ip_sb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ip.sb.
 
@@ -145,8 +145,8 @@ def _ipapi_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
-def _ipapi_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _ip_api_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                     =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ip-api.com.
 
@@ -180,8 +180,8 @@ def _ipapi_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
-def _ipinfo_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                 =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _ipinfo_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                    =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ipinfo.io.
 
@@ -245,8 +245,8 @@ def _ident_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
-def _tnedime_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                  =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                   =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using tnedi.me.
 
@@ -286,11 +286,11 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
     :param timeout: timeout value for API
     """
     api_map = {
-        IPv4API.IDENTME: _ident_me_ipv4,
-        IPv4API.TNEDIME: _tnedime_ipv4,
-        IPv4API.IPSB: _ipsb_ipv4,
-        IPv4API.IPAPI: _ipapi_ipv4,
-        IPv4API.IPINFO: _ipinfo_ipv4,
+        IPv4API.IDENT_ME: _ident_me_ipv4,
+        IPv4API.TNEDI_ME: _tnedi_me_ipv4,
+        IPv4API.IP_SB: _ip_sb_ipv4,
+        IPv4API.IP_API_COM: _ip_api_com_ipv4,
+        IPv4API.IPINFO_IO: _ipinfo_io_ipv4,
         IPv4API.IPAPI_CO: _ipapi_co_ipv4
     }
 

@@ -22,12 +22,12 @@ class IPv4API(Enum):
     """Public IPv4 API enum."""
 
     AUTO = "auto"
-    IPAPI = "ipapi"
-    IPAPI_CO = "ipapi_co"
-    IPINFO = "ipinfo"
-    IPSB = "ipsb"
-    IDENTME = "identme"
-    TNEDIME = "tnedime"
+    IP_API_COM = "ip-api.com"
+    IPAPI_CO = "ipapi.co"
+    IPINFO_IO = "ipinfo.io"
+    IP_SB = "ip.sb"
+    IDENT_ME = "ident.me"
+    TNEDI_ME = "tnedi.me"
 
 
 PARAMETERS_NAME_MAP = {

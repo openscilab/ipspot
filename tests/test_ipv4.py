@@ -113,103 +113,103 @@ def test_public_ipv4_ipapi_co_net_error():
         assert result["error"] == "No Internet"
 
 
-def test_public_ipv4_ipapi_success():
-    result = get_public_ipv4(api=IPv4API.IPAPI, geo=True)
+def test_public_ipv4_ip_api_com_success():
+    result = get_public_ipv4(api=IPv4API.IP_API_COM, geo=True)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "ip-api.com"
 
 
-def test_public_ipv4_ipapi_timeout_error():
-    result = get_public_ipv4(api=IPv4API.IPAPI, geo=True, timeout="5")
+def test_public_ipv4_ip_api_com_timeout_error():
+    result = get_public_ipv4(api=IPv4API.IP_API_COM, geo=True, timeout="5")
     assert not result["status"]
 
 
-def test_public_ipv4_ipapi_net_error():
+def test_public_ipv4_ip_api_com_net_error():
     with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
-        result = get_public_ipv4(api=IPv4API.IPAPI)
+        result = get_public_ipv4(api=IPv4API.IP_API_COM)
         assert not result["status"]
         assert result["error"] == "No Internet"
 
 
-def test_public_ipv4_ipinfo_success():
-    result = get_public_ipv4(api=IPv4API.IPINFO, geo=True)
+def test_public_ipv4_ipinfo_io_success():
+    result = get_public_ipv4(api=IPv4API.IPINFO_IO, geo=True)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "ipinfo.io"
 
 
-def test_public_ipv4_ipinfo_timeout_error():
-    result = get_public_ipv4(api=IPv4API.IPINFO, geo=True, timeout="5")
+def test_public_ipv4_ipinfo_io_timeout_error():
+    result = get_public_ipv4(api=IPv4API.IPINFO_IO, geo=True, timeout="5")
     assert not result["status"]
 
 
-def test_public_ipv4_ipinfo_net_error():
+def test_public_ipv4_ipinfo_io_net_error():
     with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
-        result = get_public_ipv4(api=IPv4API.IPINFO)
+        result = get_public_ipv4(api=IPv4API.IPINFO_IO)
         assert not result["status"]
         assert result["error"] == "No Internet"
 
 
-def test_public_ipv4_ipsb_success():
-    result = get_public_ipv4(api=IPv4API.IPSB, geo=True, timeout=30)
+def test_public_ipv4_ip_sb_success():
+    result = get_public_ipv4(api=IPv4API.IP_SB, geo=True, timeout=30)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "ip.sb"
 
 
-def test_public_ipv4_ipsb_timeout_error():
-    result = get_public_ipv4(api=IPv4API.IPSB, geo=True, timeout="5")
+def test_public_ipv4_ip_sb_timeout_error():
+    result = get_public_ipv4(api=IPv4API.IP_SB, geo=True, timeout="5")
     assert not result["status"]
 
 
 
-def test_public_ipv4_ipsb_net_error():
+def test_public_ipv4_ip_sb_net_error():
     with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
-        result = get_public_ipv4(api=IPv4API.IPSB)
+        result = get_public_ipv4(api=IPv4API.IP_SB)
         assert not result["status"]
         assert result["error"] == "No Internet"
 
 
-def test_public_ipv4_identme_success():
-    result = get_public_ipv4(api=IPv4API.IDENTME, geo=True)
+def test_public_ipv4_ident_me_success():
+    result = get_public_ipv4(api=IPv4API.IDENT_ME, geo=True)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "ident.me"
 
 
-def test_public_ipv4_identme_timeout_error():
-    result = get_public_ipv4(api=IPv4API.IDENTME, geo=True, timeout="5")
+def test_public_ipv4_ident_me_timeout_error():
+    result = get_public_ipv4(api=IPv4API.IDENT_ME, geo=True, timeout="5")
     assert not result["status"]
 
 
-def test_public_ipv4_identme_net_error():
+def test_public_ipv4_ident_me_net_error():
     with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
-        result = get_public_ipv4(api=IPv4API.IDENTME)
+        result = get_public_ipv4(api=IPv4API.IDENT_ME)
         assert not result["status"]
         assert result["error"] == "No Internet"
 
 
-def test_public_ipv4_tnedime_success():
-    result = get_public_ipv4(api=IPv4API.TNEDIME, geo=True)
+def test_public_ipv4_tnedi_me_success():
+    result = get_public_ipv4(api=IPv4API.TNEDI_ME, geo=True)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "tnedi.me"
 
 
-def test_public_ipv4_tnedime_timeout_error():
-    result = get_public_ipv4(api=IPv4API.TNEDIME, geo=True, timeout="5")
+def test_public_ipv4_tnedi_me_timeout_error():
+    result = get_public_ipv4(api=IPv4API.TNEDI_ME, geo=True, timeout="5")
     assert not result["status"]
 
 
-def test_public_ipv4_tnedime_net_error():
+def test_public_ipv4_tnedi_me_net_error():
     with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
-        result = get_public_ipv4(api=IPv4API.TNEDIME)
+        result = get_public_ipv4(api=IPv4API.TNEDI_ME)
         assert not result["status"]
         assert result["error"] == "No Internet"
 
