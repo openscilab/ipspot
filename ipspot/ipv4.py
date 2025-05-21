@@ -286,7 +286,7 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
     :param timeout: timeout value for API
     """
     api_map = {
-        IPv4API.IDENTME: _ident_me_ipv4,
+        IPv4API.IDENT_ME: _ident_me_ipv4,
         IPv4API.TNEDIME: _tnedime_ipv4,
         IPv4API.IP_SB: _ip_sb_ipv4,
         IPv4API.IP_API_COM: _ip_api_com_ipv4,

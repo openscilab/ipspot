@@ -26,7 +26,7 @@ class IPv4API(Enum):
     IPAPI_CO = "ipapi.co"
     IPINFO_IO = "ipinfo.io"
     IP_SB = "ip.sb"
-    IDENTME = "identme"
+    IDENT_ME = "ident.me"
     TNEDIME = "tnedime"
 
 
