@@ -82,7 +82,7 @@ def get_private_ipv4() -> Dict[str, Union[bool, Dict[str, str], str]]:
 
 
 def _ip_sb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-               =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ip.sb.
 
@@ -146,7 +146,7 @@ def _ipapi_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
 
 
 def _ip_api_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                     =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ip-api.com.
 
@@ -181,7 +181,7 @@ def _ip_api_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
 
 
 def _ipinfo_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                 =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                    =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ipinfo.io.
 
@@ -246,7 +246,7 @@ def _ident_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
 
 
 def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                  =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                   =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using tnedi.me.
 
