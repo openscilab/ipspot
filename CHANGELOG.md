@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Support [ipapi.co](https://ipapi.co/json/)
+### Changed
+- `IPv4API.IPAPI` renamed to `IPv4API.IP_API_COM`
+- `IPv4API.IPINFO` renamed to `IPv4API.IPINFO_IO`
+- `IPv4API.IPSB` renamed to `IPv4API.IP_SB`
+- `IPv4API.IDENTME` renamed to `IPv4API.IDENT_ME`
+- `IPv4API.TNEDIME` renamed to `IPv4API.TNEDI_ME`
+- `README.md` updated
 ## [0.3] - 2025-05-19
 ### Added
 - `is_ipv4` function
