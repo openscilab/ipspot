@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Support [ipapi.co](https://ipapi.co/json/)
+- Support [ipleak.net](https://ipleak.net/json/)
 ### Changed
 - `IPv4API.IPAPI` renamed to `IPv4API.IP_API_COM`
 - `IPv4API.IPINFO` renamed to `IPv4API.IPINFO_IO`
