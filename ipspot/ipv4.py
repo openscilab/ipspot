@@ -143,6 +143,37 @@ def _ipleak_net_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _my_ip_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                   =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using my-ip.io.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        with requests.Session() as session:
+            response = session.get("https://api4.my-ip.io/v2/ip.json", headers=REQUEST_HEADERS, timeout=timeout)
+            response.raise_for_status()
+            data = response.json()
+            result = {"status": True, "data": {"ip": data.get("ip"), "api": "my-ip.io"}}
+            if geo:
+                geo_data = {
+                    "city": data.get("city"),
+                    "region": data.get("region"),
+                    "country": data.get("country").get("name"),
+                    "country_code": data.get("country").get("code"),
+                    "latitude": data.get("location").get("lat"),
+                    "longitude": data.get("location").get("lon"),
+                    "organization": data.get("asn").get("name"),
+                    "timezone": data.get("timeZone")
+                }
+                result["data"].update(geo_data)
+            return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 def _ipapi_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
                    =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
