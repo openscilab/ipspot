@@ -161,11 +161,11 @@ def _my_ip_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
                 geo_data = {
                     "city": data.get("city"),
                     "region": data.get("region"),
-                    "country": data.get("country").get("name"),
-                    "country_code": data.get("country").get("code"),
-                    "latitude": data.get("location").get("lat"),
-                    "longitude": data.get("location").get("lon"),
-                    "organization": data.get("asn").get("name"),
+                    "country": data.get("country", {}).get("name"),
+                    "country_code": data.get("country", {}).get("code"),
+                    "latitude": data.get("location", {}).get("lat"),
+                    "longitude": data.get("location", {}).get("lon"),
+                    "organization": data.get("asn", {}).get("name"),
                     "timezone": data.get("timeZone")
                 }
                 result["data"].update(geo_data)
