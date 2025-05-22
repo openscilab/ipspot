@@ -321,6 +321,7 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
         IPv4API.TNEDI_ME: _tnedi_me_ipv4,
         IPv4API.IP_SB: _ip_sb_ipv4,
         IPv4API.IPLEAK_NET: _ipleak_net_ipv4,
+        IPv4API.MY_IP_IO: _my_ip_io_ipv4,
         IPv4API.IP_API_COM: _ip_api_com_ipv4,
         IPv4API.IPINFO_IO: _ipinfo_io_ipv4,
         IPv4API.IPAPI_CO: _ipapi_co_ipv4
