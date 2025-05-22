@@ -112,6 +112,37 @@ def _ip_sb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _ipleak_net_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                    =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using ipleak.net.
+    
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        with requests.Session() as session:
+            response = session.get("https://ipv4.ipleak.net/json/", headers=REQUEST_HEADERS, timeout=timeout)
+            response.raise_for_status()
+            data = response.json()
+            result = {"status": True, "data": {"ip": data.get("ip"), "api": "ipleak.net"}}
+            if geo:
+                geo_data = {
+                    "city": data.get("city_name"),
+                    "region": data.get("region_name"),
+                    "country": data.get("country_name"),
+                    "country_code": data.get("country_code"),
+                    "latitude": data.get("latitude"),
+                    "longitude": data.get("longitude"),
+                    "organization": data.get("isp_name"),
+                    "timezone": data.get("time_zone")
+                }
+                result["data"].update(geo_data)
+            return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 def _ipapi_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
                    =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
@@ -289,6 +320,7 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
         IPv4API.IDENT_ME: _ident_me_ipv4,
         IPv4API.TNEDI_ME: _tnedi_me_ipv4,
         IPv4API.IP_SB: _ip_sb_ipv4,
+        IPv4API.IPLEAK_NET: _ipleak_net_ipv4,
         IPv4API.IP_API_COM: _ip_api_com_ipv4,
         IPv4API.IPINFO_IO: _ipinfo_io_ipv4,
         IPv4API.IPAPI_CO: _ipapi_co_ipv4
