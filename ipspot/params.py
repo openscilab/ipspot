@@ -29,6 +29,7 @@ class IPv4API(Enum):
     IDENT_ME = "ident.me"
     TNEDI_ME = "tnedi.me"
     IPLEAK_NET= "ipleak.net"
+    MY_IP_IO = "my-ip.io"
 
 
 PARAMETERS_NAME_MAP = {

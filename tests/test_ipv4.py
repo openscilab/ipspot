@@ -133,6 +133,26 @@ def test_public_ipv4_ipleak_net_net_error():
         assert result["error"] == "No Internet"
 
 
+def test_public_my_ip_io_success():
+    result = get_public_ipv4(api=IPv4API.MY_IP_IO, geo=True)
+    assert result["status"]
+    assert is_ipv4(result["data"]["ip"])
+    assert set(result["data"].keys()) == DATA_ITEMS
+    assert result["data"]["api"] == "my-ip.io"
+
+
+def test_public_my_ip_io_timeout_error():
+    result = get_public_ipv4(api=IPv4API.MY_IP_IO, geo=True, timeout="5")
+    assert not result["status"]
+
+
+def test_public_my_ip_io_net_error():
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.MY_IP_IO)
+        assert not result["status"]
+        assert result["error"] == "No Internet"
+
+
 def test_public_ipv4_ip_api_com_success():
     result = get_public_ipv4(api=IPv4API.IP_API_COM, geo=True)
     assert result["status"]
