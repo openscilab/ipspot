@@ -113,10 +113,10 @@ def _ip_sb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
 
 
 def _ipleak_net_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                    =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                     =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ipleak.net.
-    
+
     :param geo: geolocation flag
     :param timeout: timeout value for API
     """
