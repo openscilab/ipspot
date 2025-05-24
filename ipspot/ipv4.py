@@ -400,7 +400,8 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
                 return result
         return {"status": False, "error": "All attempts failed."}
     else:
-        func = IPV4_API_MAP.get(api)["function"]
-        if func:
+        api_data = IPV4_API_MAP.get(api)
+        if api_data:
+            func = api_data["function"]
             return func(geo=geo, timeout=timeout)
         return {"status": False, "error": "Unsupported API: {api}".format(api=api)}
