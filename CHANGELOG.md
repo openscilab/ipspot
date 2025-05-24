@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `IPv4API.IPSB` renamed to `IPv4API.IP_SB`
 - `IPv4API.IDENTME` renamed to `IPv4API.IDENT_ME`
 - `IPv4API.TNEDIME` renamed to `IPv4API.TNEDI_ME`
+- `get_public_ipv4` function modified
 - `README.md` updated
 ## [0.3] - 2025-05-19
 ### Added
