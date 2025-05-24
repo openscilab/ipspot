@@ -338,6 +338,51 @@ def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+IPV4_API_MAP = {
+    IPv4API.IDENT_ME: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _ident_me_ipv4
+    },
+    IPv4API.TNEDI_ME: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _tnedi_me_ipv4
+    },
+    IPv4API.IP_SB: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _ip_sb_ipv4
+    },
+    IPv4API.IPLEAK_NET: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _ipleak_net_ipv4
+    },
+    IPv4API.MY_IP_IO: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _my_ip_io_ipv4
+    },
+    IPv4API.IP_API_COM: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _ip_api_com_ipv4
+    },
+    IPv4API.IPINFO_IO: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _ipinfo_io_ipv4
+    },
+    IPv4API.IPAPI_CO: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _ipapi_co_ipv4
+    },
+
+}
+
+
 def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
                     timeout: Union[float, Tuple[float, float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
@@ -347,25 +392,15 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
     :param geo: geolocation flag
     :param timeout: timeout value for API
     """
-    api_map = {
-        IPv4API.IDENT_ME: _ident_me_ipv4,
-        IPv4API.TNEDI_ME: _tnedi_me_ipv4,
-        IPv4API.IP_SB: _ip_sb_ipv4,
-        IPv4API.IPLEAK_NET: _ipleak_net_ipv4,
-        IPv4API.MY_IP_IO: _my_ip_io_ipv4,
-        IPv4API.IP_API_COM: _ip_api_com_ipv4,
-        IPv4API.IPINFO_IO: _ipinfo_io_ipv4,
-        IPv4API.IPAPI_CO: _ipapi_co_ipv4
-    }
-
     if api == IPv4API.AUTO:
-        for _, func in api_map.items():
+        for _, api_data in IPV4_API_MAP.items():
+            func = api_data["function"]
             result = func(geo=geo, timeout=timeout)
             if result["status"]:
                 return result
         return {"status": False, "error": "All attempts failed."}
     else:
-        func = api_map.get(api)
+        func = IPV4_API_MAP.get(api)["function"]
         if func:
             return func(geo=geo, timeout=timeout)
         return {"status": False, "error": "Unsupported API: {api}".format(api=api)}
