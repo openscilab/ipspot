@@ -184,6 +184,8 @@ def _ifconfig_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]
     """
     try:
         with requests.Session() as session:
+            session.mount("http://", IPv4HTTPAdapter())
+            session.mount("https://", IPv4HTTPAdapter())
             response = session.get("https://ifconfig.co/json", headers=REQUEST_HEADERS, timeout=timeout)
             response.raise_for_status()
             data = response.json()
@@ -395,11 +397,6 @@ IPV4_API_MAP = {
         "geo": True,
         "function": _my_ip_io_ipv4
     },
-    IPv4API.IFCONFIG_CO: {
-        "thread_safe": True,
-        "geo": True,
-        "function": _ifconfig_co_ipv4
-    },
     IPv4API.IP_API_COM: {
         "thread_safe": False,
         "geo": True,
@@ -415,7 +412,11 @@ IPV4_API_MAP = {
         "geo": True,
         "function": _ipapi_co_ipv4
     },
-
+    IPv4API.IFCONFIG_CO: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _ifconfig_co_ipv4
+    },
 }
 
 
