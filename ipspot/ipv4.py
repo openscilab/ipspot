@@ -174,6 +174,39 @@ def _my_ip_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _ifconfig_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                      =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using ifconfig.co.
+    
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        with requests.Session() as session:
+            session.mount("http://", IPv4HTTPAdapter())
+            session.mount("https://", IPv4HTTPAdapter())
+            response = session.get("https://ifconfig.co/json", headers=REQUEST_HEADERS, timeout=timeout)
+            response.raise_for_status()
+            data = response.json()
+            result = {"status": True, "data": {"ip": data.get("ip"), "api": "ifconfig.co"}}
+            if geo:
+                geo_data = {
+                    "city": data.get("city"),
+                    "region": data.get("region_name"),
+                    "country": data.get("country"),
+                    "country_code": data.get("country_iso"),
+                    "latitude": data.get("latitude"),
+                    "longitude": data.get("longitude"),
+                    "organization": data.get("asn_org"),
+                    "timezone": data.get("time_zone")
+                }
+                result["data"].update(geo_data)
+            return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 def _ipapi_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
                    =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
@@ -379,7 +412,11 @@ IPV4_API_MAP = {
         "geo": True,
         "function": _ipapi_co_ipv4
     },
-
+    IPv4API.IFCONFIG_CO: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _ifconfig_co_ipv4
+    },
 }
 
 
