@@ -420,7 +420,7 @@ IPV4_API_MAP = {
 }
 
 
-def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
+def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
                     timeout: Union[float, Tuple[float, float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IPv4 and geolocation info based on the selected API.
@@ -429,8 +429,10 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
     :param geo: geolocation flag
     :param timeout: timeout value for API
     """
-    if api == IPv4API.AUTO:
+    if api in [IPv4API.AUTO, IPv4API.AUTO_SAFE]:
         for _, api_data in IPV4_API_MAP.items():
+            if api == IPv4API.AUTO_SAFE and not api_data["thread_safe"]:
+                continue
             func = api_data["function"]
             result = func(geo=geo, timeout=timeout)
             if result["status"]:
