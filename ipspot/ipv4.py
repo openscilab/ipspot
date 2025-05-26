@@ -372,6 +372,11 @@ def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
 
 
 IPV4_API_MAP = {
+    IPv4API.IFCONFIG_CO: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _ifconfig_co_ipv4
+    },
     IPv4API.IDENT_ME: {
         "thread_safe": True,
         "geo": True,
@@ -411,12 +416,7 @@ IPV4_API_MAP = {
         "thread_safe": False,
         "geo": True,
         "function": _ipapi_co_ipv4
-    },
-    IPv4API.IFCONFIG_CO: {
-        "thread_safe": False,
-        "geo": True,
-        "function": _ifconfig_co_ipv4
-    },
+    }
 }
 
 
