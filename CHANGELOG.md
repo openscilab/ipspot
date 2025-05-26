@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support [ipleak.net](https://ipleak.net/json/)
 - Support [my-ip.io](https://www.my-ip.io/)
 - Support [ifconfig.co](https://ifconfig.co/json)
+- `AUTO_SAFE` mode
 ### Changed
 - `IPv4API.IPAPI` renamed to `IPv4API.IP_API_COM`
 - `IPv4API.IPINFO` renamed to `IPv4API.IPINFO_IO`
