@@ -178,7 +178,7 @@ def _ifconfig_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]
                       =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ifconfig.co.
-    
+
     :param geo: geolocation flag
     :param timeout: timeout value for API
     """
