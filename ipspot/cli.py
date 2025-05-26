@@ -17,7 +17,7 @@ def ipspot_info() -> None:  # pragma: no cover
     print("Repo : " + IPSPOT_REPO)
 
 
-def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO, geo: bool=False,
+def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE, geo: bool=False,
                     timeout: Union[float, Tuple[float, float]]=5) -> None:  # pragma: no cover
     """
     Print collected IP and location data.
@@ -56,7 +56,7 @@ def main() -> None:  # pragma: no cover
         type=str.lower,
         choices=[
             x.value for x in IPv4API],
-        default=IPv4API.AUTO.value)
+        default=IPv4API.AUTO_SAFE.value)
     parser.add_argument('--info', help='info', nargs="?", const=1)
     parser.add_argument('--version', help='version', nargs="?", const=1)
     parser.add_argument('--no-geo', help='no geolocation data', nargs="?", const=1, default=False)
