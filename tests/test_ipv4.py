@@ -299,3 +299,22 @@ def test_public_ipv4_api_error():
     assert not result["status"]
     assert result["error"] == "Unsupported API: api1"
 
+
+def test_public_ipv4__reallyfreegeoip_org_success():
+    result = get_public_ipv4(api=IPv4API.REALLYFREEGEOIP_ORG, geo=True)
+    assert result["status"]
+    assert is_ipv4(result["data"]["ip"])
+    assert set(result["data"].keys()) == DATA_ITEMS
+    assert result["data"]["api"] == "reallyfreegeoip.org"
+
+
+def test_public_ipv4_reallyfreegeoip_org_timeout_error():
+    result = get_public_ipv4(api=IPv4API.REALLYFREEGEOIP_ORG, geo=True, timeout="5")
+    assert not result["status"]
+
+
+def test_public_ipv4_reallyfreegeoip_org_net_error():
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.REALLYFREEGEOIP_ORG)
+        assert not result["status"]
+        assert result["error"] == "No Internet"
