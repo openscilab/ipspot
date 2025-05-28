@@ -32,6 +32,7 @@ class IPv4API(Enum):
     IPLEAK_NET = "ipleak.net"
     MY_IP_IO = "my-ip.io"
     IFCONFIG_CO = "ifconfig.co"
+    REALLYFREEGEOIP_ORG = "reallyfreegeoip.org"
 
 
 PARAMETERS_NAME_MAP = {
