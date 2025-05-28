@@ -178,7 +178,7 @@ def _ifconfig_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]
                       =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ifconfig.co.
-    
+
     :param geo: geolocation flag
     :param timeout: timeout value for API
     """
@@ -372,6 +372,11 @@ def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
 
 
 IPV4_API_MAP = {
+    IPv4API.IFCONFIG_CO: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _ifconfig_co_ipv4
+    },
     IPv4API.IDENT_ME: {
         "thread_safe": True,
         "geo": True,
@@ -411,16 +416,11 @@ IPV4_API_MAP = {
         "thread_safe": False,
         "geo": True,
         "function": _ipapi_co_ipv4
-    },
-    IPv4API.IFCONFIG_CO: {
-        "thread_safe": False,
-        "geo": True,
-        "function": _ifconfig_co_ipv4
-    },
+    }
 }
 
 
-def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
+def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
                     timeout: Union[float, Tuple[float, float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IPv4 and geolocation info based on the selected API.
@@ -429,8 +429,10 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO, geo: bool=False,
     :param geo: geolocation flag
     :param timeout: timeout value for API
     """
-    if api == IPv4API.AUTO:
+    if api in [IPv4API.AUTO, IPv4API.AUTO_SAFE]:
         for _, api_data in IPV4_API_MAP.items():
+            if api == IPv4API.AUTO_SAFE and not api_data["thread_safe"]:
+                continue
             func = api_data["function"]
             result = func(geo=geo, timeout=timeout)
             if result["status"]:

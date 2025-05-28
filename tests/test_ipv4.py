@@ -93,6 +93,26 @@ def test_public_ipv4_auto_net_error():
         assert not result["status"]
         assert result["error"] == "All attempts failed."
 
+
+def test_public_ipv4_auto_safe_success():
+    result = get_public_ipv4(api=IPv4API.AUTO_SAFE, geo=True)
+    assert result["status"]
+    assert is_ipv4(result["data"]["ip"])
+    assert set(result["data"].keys()) == DATA_ITEMS
+
+
+def test_public_ipv4_auto_safe_timeout_error():
+    result = get_public_ipv4(api=IPv4API.AUTO_SAFE, geo=True, timeout="5")
+    assert not result["status"]
+
+
+def test_public_ipv4_auto_safe_net_error():
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.AUTO_SAFE)
+        assert not result["status"]
+        assert result["error"] == "All attempts failed."
+
+
 def test_public_ipv4_ipapi_co_success():
     result = get_public_ipv4(api=IPv4API.IPAPI_CO, geo=True)
     assert result["status"]
