@@ -94,7 +94,7 @@ def _ip_sb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
             response = session.get("https://api-ipv4.ip.sb/geoip", headers=REQUEST_HEADERS, timeout=timeout)
             response.raise_for_status()
             data = response.json()
-            result = {"status": True, "data": {"ip": data.get("ip"), "api": "ip.sb"}}
+            result = {"status": True, "data": {"ip": data["ip"], "api": "ip.sb"}}
             if geo:
                 geo_data = {
                     "city": data.get("city"),
@@ -125,7 +125,7 @@ def _ipleak_net_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
             response = session.get("https://ipv4.ipleak.net/json/", headers=REQUEST_HEADERS, timeout=timeout)
             response.raise_for_status()
             data = response.json()
-            result = {"status": True, "data": {"ip": data.get("ip"), "api": "ipleak.net"}}
+            result = {"status": True, "data": {"ip": data["ip"], "api": "ipleak.net"}}
             if geo:
                 geo_data = {
                     "city": data.get("city_name"),
@@ -156,7 +156,7 @@ def _my_ip_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
             response = session.get("https://api4.my-ip.io/v2/ip.json", headers=REQUEST_HEADERS, timeout=timeout)
             response.raise_for_status()
             data = response.json()
-            result = {"status": True, "data": {"ip": data.get("ip"), "api": "my-ip.io"}}
+            result = {"status": True, "data": {"ip": data["ip"], "api": "my-ip.io"}}
             if geo:
                 geo_data = {
                     "city": data.get("city"),
@@ -189,7 +189,7 @@ def _ifconfig_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]
             response = session.get("https://ifconfig.co/json", headers=REQUEST_HEADERS, timeout=timeout)
             response.raise_for_status()
             data = response.json()
-            result = {"status": True, "data": {"ip": data.get("ip"), "api": "ifconfig.co"}}
+            result = {"status": True, "data": {"ip": data["ip"], "api": "ifconfig.co"}}
             if geo:
                 geo_data = {
                     "city": data.get("city"),
@@ -222,7 +222,7 @@ def _ipapi_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
             response = session.get("https://ipapi.co/json/", headers=REQUEST_HEADERS, timeout=timeout)
             response.raise_for_status()
             data = response.json()
-            result = {"status": True, "data": {"ip": data.get("ip"), "api": "ipapi.co"}}
+            result = {"status": True, "data": {"ip": data["ip"], "api": "ipapi.co"}}
             if geo:
                 geo_data = {
                     "city": data.get("city"),
@@ -257,7 +257,7 @@ def _ip_api_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
             data = response.json()
             if data.get("status") != "success":
                 return {"status": False, "error": "ip-api lookup failed"}
-            result = {"status": True, "data": {"ip": data.get("query"), "api": "ip-api.com"}}
+            result = {"status": True, "data": {"ip": data["query"], "api": "ip-api.com"}}
             if geo:
                 geo_data = {
                     "city": data.get("city"),
@@ -290,7 +290,7 @@ def _ipinfo_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
             response = session.get("https://ipinfo.io/json", headers=REQUEST_HEADERS, timeout=timeout)
             response.raise_for_status()
             data = response.json()
-            result = {"status": True, "data": {"ip": data.get("ip"), "api": "ipinfo.io"}}
+            result = {"status": True, "data": {"ip": data["ip"], "api": "ipinfo.io"}}
             if geo:
                 loc = data.get("loc", "").split(",")
                 geo_data = {
@@ -324,7 +324,7 @@ def _reallyfreegeoip_org_ipv4(geo: bool=False, timeout: Union[float, Tuple[float
             response = session.get("https://reallyfreegeoip.org/json/", headers=REQUEST_HEADERS, timeout=timeout)
             response.raise_for_status()
             data = response.json()
-            result = {"status": True, "data": {"ip": data.get("ip"), "api": "reallyfreegeoip.org"}}
+            result = {"status": True, "data": {"ip": data["ip"], "api": "reallyfreegeoip.org"}}
             if geo:
                 geo_data = {
                     "city": data.get("city"),
@@ -355,7 +355,7 @@ def _ident_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
             response = session.get("https://4.ident.me/json", headers=REQUEST_HEADERS, timeout=timeout)
             response.raise_for_status()
             data = response.json()
-            result = {"status": True, "data": {"ip": data.get("ip"), "api": "ident.me"}}
+            result = {"status": True, "data": {"ip": data["ip"], "api": "ident.me"}}
             if geo:
                 geo_data = {
                     "city": data.get("city"),
@@ -386,7 +386,7 @@ def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
             response = session.get("https://4.tnedi.me/json", headers=REQUEST_HEADERS, timeout=timeout)
             response.raise_for_status()
             data = response.json()
-            result = {"status": True, "data": {"ip": data.get("ip"), "api": "tnedi.me"}}
+            result = {"status": True, "data": {"ip": data["ip"], "api": "tnedi.me"}}
             if geo:
                 geo_data = {
                     "city": data.get("city"),
