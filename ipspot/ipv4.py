@@ -6,7 +6,7 @@ from typing import Union, Dict, List, Tuple
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
-from .utils import is_loopback
+from .utils import is_loopback, _get_json_standard
 from .params import REQUEST_HEADERS, IPv4API
 
 
@@ -90,24 +90,21 @@ def _ip_sb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        with requests.Session() as session:
-            response = session.get("https://api-ipv4.ip.sb/geoip", headers=REQUEST_HEADERS, timeout=timeout)
-            response.raise_for_status()
-            data = response.json()
-            result = {"status": True, "data": {"ip": data["ip"], "api": "ip.sb"}}
-            if geo:
-                geo_data = {
-                    "city": data.get("city"),
-                    "region": data.get("region"),
-                    "country": data.get("country"),
-                    "country_code": data.get("country_code"),
-                    "latitude": data.get("latitude"),
-                    "longitude": data.get("longitude"),
-                    "organization": data.get("organization"),
-                    "timezone": data.get("timezone")
-                }
-                result["data"].update(geo_data)
-            return result
+        data = _get_json_standard(url="https://api-ipv4.ip.sb/geoip", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ip.sb"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("region"),
+                "country": data.get("country"),
+                "country_code": data.get("country_code"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("organization"),
+                "timezone": data.get("timezone")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
