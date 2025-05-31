@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support [ifconfig.co](https://ifconfig.co/json)
 - Support [reallyfreegeoip.org](https://reallyfreegeoip.org/json/)
 - `AUTO_SAFE` mode
+- `_get_json_standard` function
+- `_get_json_ipv4_forced` function
 ### Changed
 - `IPv4API.IPAPI` renamed to `IPv4API.IP_API_COM`
 - `IPv4API.IPINFO` renamed to `IPv4API.IPINFO_IO`

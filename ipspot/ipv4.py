@@ -55,7 +55,7 @@ class IPv4HTTPAdapter(HTTPAdapter):
 
 def _get_json_ipv4_forced(url: str, timeout: Union[float, Tuple[float, float]]) -> dict:
     """
-    GET request with forced IPv4 using IPv4HTTPAdapter.
+    Send GET request with forced IPv4 using IPv4HTTPAdapter that returns JSON response.
 
     :param url: API url
     :param timeout: timeout value for API
