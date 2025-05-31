@@ -52,6 +52,7 @@ class IPv4HTTPAdapter(HTTPAdapter):
         if hasattr(self, "_original_getaddrinfo"):
             socket.getaddrinfo = self._original_getaddrinfo
 
+
 def _get_json_ipv4_forced(url: str, timeout: Union[float, Tuple[float, float]]) -> dict:
     """
     GET request with forced IPv4 using IPv4HTTPAdapter.
