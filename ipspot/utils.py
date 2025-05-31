@@ -34,7 +34,7 @@ def filter_parameter(parameter: Any) -> Any:
 
 def _get_json_standard(url: str, timeout: Union[float, Tuple[float, float]]) -> dict:
     """
-    Standard GET request that returns JSON response.
+    Send GET request that returns JSON response.
 
     :param url: API url
     :param timeout: timeout value for API
