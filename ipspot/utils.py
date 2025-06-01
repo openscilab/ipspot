@@ -19,7 +19,7 @@ def is_loopback(ip: str) -> bool:
         return False
 
 
-def filter_parameter(parameter: Any) -> Any:
+def _filter_parameter(parameter: Any) -> Any:
     """
     Filter input parameter.
 

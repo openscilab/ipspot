@@ -4,7 +4,7 @@ import argparse
 from typing import Union, Tuple
 from art import tprint
 from .ipv4 import get_public_ipv4, get_private_ipv4
-from .utils import filter_parameter
+from .utils import _filter_parameter
 from .params import IPv4API, PARAMETERS_NAME_MAP
 from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
 
@@ -42,7 +42,7 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE, geo: bool=False,
             print(
                 "  {name}: {parameter}".format(
                     name=PARAMETERS_NAME_MAP[name],
-                    parameter=filter_parameter(parameter)))
+                    parameter=_filter_parameter(parameter)))
     else:
         print("  Error: {public_result[error]}".format(public_result=public_result))
 
