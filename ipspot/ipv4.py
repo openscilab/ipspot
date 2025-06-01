@@ -6,7 +6,7 @@ from typing import Union, Dict, List, Tuple
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
-from .utils import is_loopback
+from .utils import is_loopback, _get_json_standard
 from .params import REQUEST_HEADERS, IPv4API
 
 
@@ -53,6 +53,21 @@ class IPv4HTTPAdapter(HTTPAdapter):
             socket.getaddrinfo = self._original_getaddrinfo
 
 
+def _get_json_ipv4_forced(url: str, timeout: Union[float, Tuple[float, float]]) -> dict:
+    """
+    Send GET request with forced IPv4 using IPv4HTTPAdapter that returns JSON response.
+
+    :param url: API url
+    :param timeout: timeout value for API
+    """
+    with requests.Session() as session:
+        session.mount("http://", IPv4HTTPAdapter())
+        session.mount("https://", IPv4HTTPAdapter())
+        response = session.get(url, headers=REQUEST_HEADERS, timeout=timeout)
+        response.raise_for_status()
+        return response.json()
+
+
 def is_ipv4(ip: str) -> bool:
     """
     Check if the given input is a valid IPv4 address.
@@ -90,24 +105,21 @@ def _ip_sb_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        with requests.Session() as session:
-            response = session.get("https://api-ipv4.ip.sb/geoip", headers=REQUEST_HEADERS, timeout=timeout)
-            response.raise_for_status()
-            data = response.json()
-            result = {"status": True, "data": {"ip": data["ip"], "api": "ip.sb"}}
-            if geo:
-                geo_data = {
-                    "city": data.get("city"),
-                    "region": data.get("region"),
-                    "country": data.get("country"),
-                    "country_code": data.get("country_code"),
-                    "latitude": data.get("latitude"),
-                    "longitude": data.get("longitude"),
-                    "organization": data.get("organization"),
-                    "timezone": data.get("timezone")
-                }
-                result["data"].update(geo_data)
-            return result
+        data = _get_json_standard(url="https://api-ipv4.ip.sb/geoip", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ip.sb"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("region"),
+                "country": data.get("country"),
+                "country_code": data.get("country_code"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("organization"),
+                "timezone": data.get("timezone")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -121,24 +133,21 @@ def _ipleak_net_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        with requests.Session() as session:
-            response = session.get("https://ipv4.ipleak.net/json/", headers=REQUEST_HEADERS, timeout=timeout)
-            response.raise_for_status()
-            data = response.json()
-            result = {"status": True, "data": {"ip": data["ip"], "api": "ipleak.net"}}
-            if geo:
-                geo_data = {
-                    "city": data.get("city_name"),
-                    "region": data.get("region_name"),
-                    "country": data.get("country_name"),
-                    "country_code": data.get("country_code"),
-                    "latitude": data.get("latitude"),
-                    "longitude": data.get("longitude"),
-                    "organization": data.get("isp_name"),
-                    "timezone": data.get("time_zone")
-                }
-                result["data"].update(geo_data)
-            return result
+        data = _get_json_standard(url="https://ipv4.ipleak.net/json/", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ipleak.net"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city_name"),
+                "region": data.get("region_name"),
+                "country": data.get("country_name"),
+                "country_code": data.get("country_code"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("isp_name"),
+                "timezone": data.get("time_zone")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -152,24 +161,21 @@ def _my_ip_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        with requests.Session() as session:
-            response = session.get("https://api4.my-ip.io/v2/ip.json", headers=REQUEST_HEADERS, timeout=timeout)
-            response.raise_for_status()
-            data = response.json()
-            result = {"status": True, "data": {"ip": data["ip"], "api": "my-ip.io"}}
-            if geo:
-                geo_data = {
-                    "city": data.get("city"),
-                    "region": data.get("region"),
-                    "country": data.get("country", {}).get("name"),
-                    "country_code": data.get("country", {}).get("code"),
-                    "latitude": data.get("location", {}).get("lat"),
-                    "longitude": data.get("location", {}).get("lon"),
-                    "organization": data.get("asn", {}).get("name"),
-                    "timezone": data.get("timeZone")
-                }
-                result["data"].update(geo_data)
-            return result
+        data = _get_json_standard(url="https://api4.my-ip.io/v2/ip.json", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "my-ip.io"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("region"),
+                "country": data.get("country", {}).get("name"),
+                "country_code": data.get("country", {}).get("code"),
+                "latitude": data.get("location", {}).get("lat"),
+                "longitude": data.get("location", {}).get("lon"),
+                "organization": data.get("asn", {}).get("name"),
+                "timezone": data.get("timeZone")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -183,26 +189,21 @@ def _ifconfig_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]
     :param timeout: timeout value for API
     """
     try:
-        with requests.Session() as session:
-            session.mount("http://", IPv4HTTPAdapter())
-            session.mount("https://", IPv4HTTPAdapter())
-            response = session.get("https://ifconfig.co/json", headers=REQUEST_HEADERS, timeout=timeout)
-            response.raise_for_status()
-            data = response.json()
-            result = {"status": True, "data": {"ip": data["ip"], "api": "ifconfig.co"}}
-            if geo:
-                geo_data = {
-                    "city": data.get("city"),
-                    "region": data.get("region_name"),
-                    "country": data.get("country"),
-                    "country_code": data.get("country_iso"),
-                    "latitude": data.get("latitude"),
-                    "longitude": data.get("longitude"),
-                    "organization": data.get("asn_org"),
-                    "timezone": data.get("time_zone")
-                }
-                result["data"].update(geo_data)
-            return result
+        data = _get_json_ipv4_forced(url="https://ifconfig.co/json", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ifconfig.co"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("region_name"),
+                "country": data.get("country"),
+                "country_code": data.get("country_iso"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("asn_org"),
+                "timezone": data.get("time_zone")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -216,26 +217,21 @@ def _ipapi_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        with requests.Session() as session:
-            session.mount("http://", IPv4HTTPAdapter())
-            session.mount("https://", IPv4HTTPAdapter())
-            response = session.get("https://ipapi.co/json/", headers=REQUEST_HEADERS, timeout=timeout)
-            response.raise_for_status()
-            data = response.json()
-            result = {"status": True, "data": {"ip": data["ip"], "api": "ipapi.co"}}
-            if geo:
-                geo_data = {
-                    "city": data.get("city"),
-                    "region": data.get("region"),
-                    "country": data.get("country_name"),
-                    "country_code": data.get("country_code"),
-                    "latitude": data.get("latitude"),
-                    "longitude": data.get("longitude"),
-                    "organization": data.get("org"),
-                    "timezone": data.get("timezone")
-                }
-                result["data"].update(geo_data)
-            return result
+        data = _get_json_ipv4_forced(url="https://ipapi.co/json/", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ipapi.co"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("region"),
+                "country": data.get("country_name"),
+                "country_code": data.get("country_code"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("org"),
+                "timezone": data.get("timezone")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -249,28 +245,23 @@ def _ip_api_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        with requests.Session() as session:
-            session.mount("http://", IPv4HTTPAdapter())
-            session.mount("https://", IPv4HTTPAdapter())
-            response = session.get("http://ip-api.com/json/", headers=REQUEST_HEADERS, timeout=timeout)
-            response.raise_for_status()
-            data = response.json()
-            if data.get("status") != "success":
-                return {"status": False, "error": "ip-api lookup failed"}
-            result = {"status": True, "data": {"ip": data["query"], "api": "ip-api.com"}}
-            if geo:
-                geo_data = {
-                    "city": data.get("city"),
-                    "region": data.get("regionName"),
-                    "country": data.get("country"),
-                    "country_code": data.get("countryCode"),
-                    "latitude": data.get("lat"),
-                    "longitude": data.get("lon"),
-                    "organization": data.get("org"),
-                    "timezone": data.get("timezone")
-                }
-                result["data"].update(geo_data)
-            return result
+        data = _get_json_ipv4_forced(url="http://ip-api.com/json/", timeout=timeout)
+        if data.get("status") != "success":
+            return {"status": False, "error": "ip-api lookup failed"}
+        result = {"status": True, "data": {"ip": data["query"], "api": "ip-api.com"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("regionName"),
+                "country": data.get("country"),
+                "country_code": data.get("countryCode"),
+                "latitude": data.get("lat"),
+                "longitude": data.get("lon"),
+                "organization": data.get("org"),
+                "timezone": data.get("timezone")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -284,27 +275,22 @@ def _ipinfo_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        with requests.Session() as session:
-            session.mount("http://", IPv4HTTPAdapter())
-            session.mount("https://", IPv4HTTPAdapter())
-            response = session.get("https://ipinfo.io/json", headers=REQUEST_HEADERS, timeout=timeout)
-            response.raise_for_status()
-            data = response.json()
-            result = {"status": True, "data": {"ip": data["ip"], "api": "ipinfo.io"}}
-            if geo:
-                loc = data.get("loc", "").split(",")
-                geo_data = {
-                    "city": data.get("city"),
-                    "region": data.get("region"),
-                    "country": None,
-                    "country_code": data.get("country"),
-                    "latitude": float(loc[0]) if len(loc) == 2 else None,
-                    "longitude": float(loc[1]) if len(loc) == 2 else None,
-                    "organization": data.get("org"),
-                    "timezone": data.get("timezone")
-                }
-                result["data"].update(geo_data)
-            return result
+        data = _get_json_ipv4_forced(url="https://ipinfo.io/json", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ipinfo.io"}}
+        if geo:
+            loc = data.get("loc", "").split(",")
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("region"),
+                "country": None,
+                "country_code": data.get("country"),
+                "latitude": float(loc[0]) if len(loc) == 2 else None,
+                "longitude": float(loc[1]) if len(loc) == 2 else None,
+                "organization": data.get("org"),
+                "timezone": data.get("timezone")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -318,26 +304,21 @@ def _reallyfreegeoip_org_ipv4(geo: bool=False, timeout: Union[float, Tuple[float
     :param timeout: timeout value for API
     """
     try:
-        with requests.Session() as session:
-            session.mount("http://", IPv4HTTPAdapter())
-            session.mount("https://", IPv4HTTPAdapter())
-            response = session.get("https://reallyfreegeoip.org/json/", headers=REQUEST_HEADERS, timeout=timeout)
-            response.raise_for_status()
-            data = response.json()
-            result = {"status": True, "data": {"ip": data["ip"], "api": "reallyfreegeoip.org"}}
-            if geo:
-                geo_data = {
-                    "city": data.get("city"),
-                    "region": data.get("region_name"),
-                    "country": data.get("country_name"),
-                    "country_code": data.get("country_code"),
-                    "latitude": data.get("latitude"),
-                    "longitude": data.get("longitude"),
-                    "organization": None,  # does not provide organization
-                    "timezone": data.get("time_zone")
-                }
-                result["data"].update(geo_data)
-            return result
+        data = _get_json_ipv4_forced(url="https://reallyfreegeoip.org/json/", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "reallyfreegeoip.org"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("region_name"),
+                "country": data.get("country_name"),
+                "country_code": data.get("country_code"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": None,  # does not provide organization
+                "timezone": data.get("time_zone")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -351,24 +332,21 @@ def _ident_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        with requests.Session() as session:
-            response = session.get("https://4.ident.me/json", headers=REQUEST_HEADERS, timeout=timeout)
-            response.raise_for_status()
-            data = response.json()
-            result = {"status": True, "data": {"ip": data["ip"], "api": "ident.me"}}
-            if geo:
-                geo_data = {
-                    "city": data.get("city"),
-                    "region": None,
-                    "country": data.get("country"),
-                    "country_code": data.get("cc"),
-                    "latitude": data.get("latitude"),
-                    "longitude": data.get("longitude"),
-                    "organization": data.get("aso"),
-                    "timezone": data.get("tz")
-                }
-                result["data"].update(geo_data)
-            return result
+        data = _get_json_standard(url="https://4.ident.me/json", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ident.me"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": None,
+                "country": data.get("country"),
+                "country_code": data.get("cc"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("aso"),
+                "timezone": data.get("tz")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -382,24 +360,21 @@ def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        with requests.Session() as session:
-            response = session.get("https://4.tnedi.me/json", headers=REQUEST_HEADERS, timeout=timeout)
-            response.raise_for_status()
-            data = response.json()
-            result = {"status": True, "data": {"ip": data["ip"], "api": "tnedi.me"}}
-            if geo:
-                geo_data = {
-                    "city": data.get("city"),
-                    "region": None,
-                    "country": data.get("country"),
-                    "country_code": data.get("cc"),
-                    "latitude": data.get("latitude"),
-                    "longitude": data.get("longitude"),
-                    "organization": data.get("aso"),
-                    "timezone": data.get("tz")
-                }
-                result["data"].update(geo_data)
-            return result
+        data = _get_json_standard(url="https://4.tnedi.me/json", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "tnedi.me"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": None,
+                "country": data.get("country"),
+                "country_code": data.get("cc"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("aso"),
+                "timezone": data.get("tz")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
 
