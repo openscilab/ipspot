@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support [my-ip.io](https://www.my-ip.io/)
 - Support [ifconfig.co](https://ifconfig.co/json)
 - Support [reallyfreegeoip.org](https://reallyfreegeoip.org/json/)
+- Support [myip.la](https://api.myip.la/en?json)
 - `AUTO_SAFE` mode
 - `_get_json_standard` function
 - `_get_json_ipv4_forced` function
