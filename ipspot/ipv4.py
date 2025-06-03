@@ -379,6 +379,34 @@ def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _freeipapi_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
+                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using freeipapi.com.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_standard(url="https://freeipapi.com/api/json", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ipAddress"], "api": "freeipapi.com"}}
+        if geo:
+            geo_data = {
+                "city": data.get("cityName"),
+                "region": data.get("regionName"),
+                "country": data.get("countryName"),
+                "country_code": data.get("countryCode"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": None,
+                "timezone": data.get("timeZone")
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 IPV4_API_MAP = {
     IPv4API.IFCONFIG_CO: {
         "thread_safe": False,
@@ -430,6 +458,11 @@ IPV4_API_MAP = {
         "geo": True,
         "function": _reallyfreegeoip_org_ipv4
     },
+    IPv4API.FREEIPAPI_COM: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _freeipapi_com_ipv4,
+    }
 }
 
 
