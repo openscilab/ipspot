@@ -388,7 +388,7 @@ def _freeipapi_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, floa
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_standard(url="https://freeipapi.com/api/json", timeout=timeout)
+        data = _get_json_ipv4_forced(url="https://freeipapi.com/api/json", timeout=timeout)
         result = {"status": True, "data": {"ip": data["ipAddress"], "api": "freeipapi.com"}}
         if geo:
             geo_data = {
