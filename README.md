@@ -147,7 +147,7 @@ Public IP and Location Info:
 
 #### IPv4 API
 
-ℹ️ `ipv4-api` valid choices: [`auto-safe`, `auto`, `ip-api.com`, `ipinfo.io`, `ip.sb`, `ident.me`, `tnedi.me`, `ipapi.co`, `ipleak.net`, `my-ip.io`, `ifconfig.co`, `reallyfreegeoip.org`]
+ℹ️ `ipv4-api` valid choices: [`auto-safe`, `auto`, `ip-api.com`, `ipinfo.io`, `ip.sb`, `ident.me`, `tnedi.me`, `ipapi.co`, `ipleak.net`, `my-ip.io`, `ifconfig.co`, `reallyfreegeoip.org`, `freeipapi.com`]
 
 ℹ️ The default value: `auto-safe`
 
