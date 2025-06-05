@@ -33,6 +33,7 @@ class IPv4API(Enum):
     MY_IP_IO = "my-ip.io"
     IFCONFIG_CO = "ifconfig.co"
     REALLYFREEGEOIP_ORG = "reallyfreegeoip.org"
+    MYIP_LA = "myip.la"
     FREEIPAPI_COM = "freeipapi.com"
 
 

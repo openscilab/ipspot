@@ -193,6 +193,24 @@ def test_public_ipv4_ifconfig_co_net_error():
         assert result["error"] == "No Internet"
 
 
+def test_public_ipv4_myip_la_success():
+    result = get_public_ipv4(api=IPv4API.MYIP_LA, geo=True)
+    assert result["status"]
+    assert is_ipv4(result["data"]["ip"])
+    assert set(result["data"].keys()) == DATA_ITEMS
+    assert result["data"]["api"] == "myip.la"
+
+
+def test_public_ipv4_myip_la_timeout_error():
+    result = get_public_ipv4(api=IPv4API.MYIP_LA, geo=True, timeout="5")
+    assert not result["status"]
+
+
+def test_public_ipv4_myip_la_net_error():
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.MYIP_LA)
+
+
 def test_public_ipv4_freeipapi_com_success():
     result = get_public_ipv4(api=IPv4API.FREEIPAPI_COM, geo=True)
     assert result["status"]

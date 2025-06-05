@@ -379,6 +379,35 @@ def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _myip_la_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
+                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using myip.la.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_ipv4_forced(url="https://api.myip.la/en?json", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "myip.la"}}
+        if geo:
+            loc = data.get("location", {})
+            geo_data = {
+                "city": loc.get("city"),
+                "region": loc.get("province"),
+                "country": loc.get("country_name"),
+                "country_code": loc.get("country_code"),
+                "latitude": float(loc.get("latitude")) if loc.get("latitude") else None,
+                "longitude": float(loc.get("longitude")) if loc.get("longitude") else None,
+                "organization": None,
+                "timezone": None
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 def _freeipapi_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
                         ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
@@ -406,7 +435,7 @@ def _freeipapi_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, floa
     except Exception as e:
         return {"status": False, "error": str(e)}
 
-
+      
 IPV4_API_MAP = {
     IPv4API.IFCONFIG_CO: {
         "thread_safe": False,
@@ -462,7 +491,12 @@ IPV4_API_MAP = {
         "thread_safe": False,
         "geo": True,
         "function": _freeipapi_com_ipv4,
-    }
+    },
+    IPv4API.MYIP_LA: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _myip_la_ipv4,
+    },
 }
 
 
