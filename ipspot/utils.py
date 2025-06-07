@@ -10,8 +10,8 @@ from .params import REQUEST_HEADERS
 
 def _attempt_with_retries(
         func: Callable,
-        max_retries: int = 0,
-        retry_delay: float = 1.0, **kwargs: dict) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+        max_retries: int,
+        retry_delay: float, **kwargs: dict) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Attempt a function call with retries and delay.
 
