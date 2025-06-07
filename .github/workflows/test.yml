@@ -48,7 +48,7 @@ jobs:
         ipspot
     - name: Run4
       run: |
-        ipspot --no-geo
+        ipspot --no-geo --max-retries=5 --retry-delay=3
     - name: Run5
       run: |
         ipspot --timeout=15
