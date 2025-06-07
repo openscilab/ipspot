@@ -9,9 +9,9 @@ from .params import REQUEST_HEADERS
 
 
 def _attempt_with_retries(
-    func: Callable,
-    max_retries: int = 0,
-    retry_delay: float = 1.0, **kwargs: dict) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+        func: Callable,
+        max_retries: int = 0,
+        retry_delay: float = 1.0, **kwargs: dict) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Attempt a function call with retries and delay.
 
@@ -29,6 +29,7 @@ def _attempt_with_retries(
         if attempt < max_retries:
             time.sleep(retry_delay)
     return result
+
 
 def is_loopback(ip: str) -> bool:
     """

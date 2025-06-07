@@ -380,7 +380,7 @@ def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
 
 
 def _myip_la_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
-                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                  ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using myip.la.
 
@@ -435,7 +435,7 @@ def _freeipapi_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, floa
     except Exception as e:
         return {"status": False, "error": str(e)}
 
-      
+
 IPV4_API_MAP = {
     IPv4API.IFCONFIG_CO: {
         "thread_safe": False,
@@ -518,7 +518,12 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
             if api == IPv4API.AUTO_SAFE and not api_data["thread_safe"]:
                 continue
             func = api_data["function"]
-            result = _attempt_with_retries(func=func, max_retries=max_retries, retry_delay=retry_delay, geo=geo, timeout=timeout)
+            result = _attempt_with_retries(
+                func=func,
+                max_retries=max_retries,
+                retry_delay=retry_delay,
+                geo=geo,
+                timeout=timeout)
             if result["status"]:
                 return result
         return {"status": False, "error": "All attempts failed."}
@@ -526,5 +531,10 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
         api_data = IPV4_API_MAP.get(api)
         if api_data:
             func = api_data["function"]
-            return _attempt_with_retries(func=func, max_retries=max_retries, retry_delay=retry_delay, geo=geo, timeout=timeout)
+            return _attempt_with_retries(
+                func=func,
+                max_retries=max_retries,
+                retry_delay=retry_delay,
+                geo=geo,
+                timeout=timeout)
         return {"status": False, "error": "Unsupported API: {api}".format(api=api)}
