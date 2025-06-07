@@ -1,4 +1,4 @@
-from ipspot.utils import _filter_parameter
+from ipspot.utils import _filter_parameter, _attempt_with_retries
 from unittest.mock import Mock
 
 TEST_CASE_NAME = "Utils tests"
