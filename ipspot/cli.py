@@ -19,7 +19,7 @@ def ipspot_info() -> None:  # pragma: no cover
 
 def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE, geo: bool=False,
                     timeout: Union[float, Tuple[float, float]]=5,
-                    max_retries: int = 0,  retry_delay: float = 1.0) -> None:  # pragma: no cover
+                    max_retries: int = 0, retry_delay: float = 1.0) -> None:  # pragma: no cover
     """
     Print collected IP and location data.
 
@@ -39,7 +39,12 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE, geo: bool=False,
         public_title += " and Location Info"
     public_title += ":\n"
     print(public_title)
-    public_result = get_public_ipv4(ipv4_api, geo=geo, timeout=timeout, max_retries=max_retries, retry_delay=retry_delay)
+    public_result = get_public_ipv4(
+        ipv4_api,
+        geo=geo,
+        timeout=timeout,
+        max_retries=max_retries,
+        retry_delay=retry_delay)
     if public_result["status"]:
         for name, parameter in sorted(public_result["data"].items()):
             print(
@@ -75,4 +80,9 @@ def main() -> None:  # pragma: no cover
     else:
         ipv4_api = IPv4API(args.ipv4_api)
         geo = not args.no_geo
-        display_ip_info(ipv4_api=ipv4_api, geo=geo, timeout=args.timeout, max_retries=args.max_retries, retry_delay=args.retry_delay)
+        display_ip_info(
+            ipv4_api=ipv4_api,
+            geo=geo,
+            timeout=args.timeout,
+            max_retries=args.max_retries,
+            retry_delay=args.retry_delay)
