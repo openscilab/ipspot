@@ -26,8 +26,7 @@ def _attempt_with_retries(
         result = func(**kwargs)
         if result["status"]:
             break
-        if attempt < max_retries:
-            time.sleep(retry_delay)
+        time.sleep(retry_delay)
     return result
 
 
