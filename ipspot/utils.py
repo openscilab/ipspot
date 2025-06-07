@@ -17,7 +17,7 @@ def _attempt_with_retries(
 
     :param func: function to execute
     :param max_retries: number of retries
-    :param retry_delay: initial delay between retries (in seconds)
+    :param retry_delay: delay between retries (in seconds)
     :param kwargs: keyword arguments to pass to the function
     """
     max_retries = max(0, max_retries)

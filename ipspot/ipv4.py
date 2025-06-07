@@ -511,7 +511,7 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
     :param geo: geolocation flag
     :param timeout: timeout value for API
     :param max_retries: number of retries
-    :param retry_delay: initial delay between retries (in seconds)
+    :param retry_delay: delay between retries (in seconds)
     """
     if api in [IPv4API.AUTO, IPv4API.AUTO_SAFE]:
         for _, api_data in IPV4_API_MAP.items():
