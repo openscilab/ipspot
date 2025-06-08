@@ -1,9 +1,33 @@
 # -*- coding: utf-8 -*-
 """ipspot utils."""
+import time
 import ipaddress
 import requests
+from typing import Callable, Dict
 from typing import Union, Tuple, Any
 from .params import REQUEST_HEADERS
+
+
+def _attempt_with_retries(
+        func: Callable,
+        max_retries: int,
+        retry_delay: float, **kwargs: dict) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Attempt a function call with retries and delay.
+
+    :param func: function to execute
+    :param max_retries: number of retries
+    :param retry_delay: delay between retries (in seconds)
+    :param kwargs: keyword arguments to pass to the function
+    """
+    max_retries = max(0, max_retries)
+    result = {"status": False, "error": ""}
+    for attempt in range(max_retries + 1):
+        result = func(**kwargs)
+        if result["status"]:
+            break
+        time.sleep(retry_delay)
+    return result
 
 
 def is_loopback(ip: str) -> bool:

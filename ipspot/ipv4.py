@@ -6,7 +6,7 @@ from typing import Union, Dict, List, Tuple
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
-from .utils import is_loopback, _get_json_standard
+from .utils import is_loopback, _get_json_standard, _attempt_with_retries
 from .params import REQUEST_HEADERS, IPv4API
 
 
@@ -380,7 +380,7 @@ def _tnedi_me_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
 
 
 def _myip_la_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
-                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                  ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using myip.la.
 
@@ -435,7 +435,7 @@ def _freeipapi_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, floa
     except Exception as e:
         return {"status": False, "error": str(e)}
 
-      
+
 IPV4_API_MAP = {
     IPv4API.IFCONFIG_CO: {
         "thread_safe": False,
@@ -501,20 +501,29 @@ IPV4_API_MAP = {
 
 
 def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
-                    timeout: Union[float, Tuple[float, float]]=5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                    timeout: Union[float, Tuple[float, float]]=5,
+                    max_retries: int = 0,
+                    retry_delay: float = 1.0) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IPv4 and geolocation info based on the selected API.
 
     :param api: public IPv4 API
     :param geo: geolocation flag
     :param timeout: timeout value for API
+    :param max_retries: number of retries
+    :param retry_delay: delay between retries (in seconds)
     """
     if api in [IPv4API.AUTO, IPv4API.AUTO_SAFE]:
         for _, api_data in IPV4_API_MAP.items():
             if api == IPv4API.AUTO_SAFE and not api_data["thread_safe"]:
                 continue
             func = api_data["function"]
-            result = func(geo=geo, timeout=timeout)
+            result = _attempt_with_retries(
+                func=func,
+                max_retries=max_retries,
+                retry_delay=retry_delay,
+                geo=geo,
+                timeout=timeout)
             if result["status"]:
                 return result
         return {"status": False, "error": "All attempts failed."}
@@ -522,5 +531,10 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
         api_data = IPV4_API_MAP.get(api)
         if api_data:
             func = api_data["function"]
-            return func(geo=geo, timeout=timeout)
+            return _attempt_with_retries(
+                func=func,
+                max_retries=max_retries,
+                retry_delay=retry_delay,
+                geo=geo,
+                timeout=timeout)
         return {"status": False, "error": "Unsupported API: {api}".format(api=api)}
