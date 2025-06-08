@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [0.4] - 2025-06-09
 ### Added
 - Support [ipapi.co](https://ipapi.co/json/)
 - Support [ipleak.net](https://ipleak.net/json/)
@@ -63,7 +64,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `--no-geo` argument
 - Logo
 
-[Unreleased]: https://github.com/openscilab/ipspot/compare/v0.3...dev
+[Unreleased]: https://github.com/openscilab/ipspot/compare/v0.4...dev
+[0.4]: https://github.com/openscilab/ipspot/compare/v0.3...v0.4
 [0.3]: https://github.com/openscilab/ipspot/compare/v0.2...v0.3
 [0.2]: https://github.com/openscilab/ipspot/compare/v0.1...v0.2
 [0.1]: https://github.com/openscilab/ipspot/compare/3216fb7...v0.1
