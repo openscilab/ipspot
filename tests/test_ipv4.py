@@ -209,6 +209,28 @@ def test_public_ipv4_myip_la_timeout_error():
 def test_public_ipv4_myip_la_net_error():
     with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
         result = get_public_ipv4(api=IPv4API.MYIP_LA)
+        assert not result["status"]
+        assert result["error"] == "No Internet"
+
+
+def test_public_ipv4_ipquery_io_success():
+    result = get_public_ipv4(api=IPv4API.IPQUERY_IO, geo=True)
+    assert result["status"]
+    assert is_ipv4(result["data"]["ip"])
+    assert set(result["data"].keys()) == DATA_ITEMS
+    assert result["data"]["api"] == "ipquery.io"
+
+
+def test_public_ipv4_ipquery_io_timeout_error():
+    result = get_public_ipv4(api=IPv4API.IPQUERY_IO, geo=True, timeout="5")
+    assert not result["status"]
+
+
+def test_public_ipv4_ipquery_io_net_error():
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.IPQUERY_IO)
+        assert not result["status"]
+        assert result["error"] == "No Internet"
 
 
 def test_public_ipv4_ipwho_is_success():

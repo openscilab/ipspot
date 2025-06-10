@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Support [ipwho.is](https://ipwho.is/)
+- Support [ipquery.io](http://api.ipquery.io/?format=json)
 ### Changed
 ## [0.4] - 2025-06-09
 ### Added
