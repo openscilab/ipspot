@@ -436,6 +436,36 @@ def _freeipapi_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, floa
         return {"status": False, "error": str(e)}
 
 
+def _ipquery_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
+                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using ipquery.io.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_standard(url="https://api.ipquery.io/?format=json", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ipquery.io"}}
+        if geo:
+            loc = data.get("location", {})
+            isp = data.get("isp", {})
+            geo_data = {
+                "city": loc.get("city"),
+                "region": loc.get("state"),
+                "country": loc.get("country"),
+                "country_code": loc.get("country_code"),
+                "latitude": loc.get("latitude"),
+                "longitude": loc.get("longitude"),
+                "timezone": loc.get("timezone"),
+                "organization": isp.get("org"),
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 IPV4_API_MAP = {
     IPv4API.IFCONFIG_CO: {
         "thread_safe": False,
@@ -496,6 +526,11 @@ IPV4_API_MAP = {
         "thread_safe": False,
         "geo": True,
         "function": _myip_la_ipv4,
+    },
+    IPv4API.IPQUERY_IO: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _ipquery_io_ipv4,
     },
 }
 
