@@ -35,6 +35,7 @@ class IPv4API(Enum):
     REALLYFREEGEOIP_ORG = "reallyfreegeoip.org"
     MYIP_LA = "myip.la"
     FREEIPAPI_COM = "freeipapi.com"
+    IPWHO_IS = "ipwho.is"
 
 
 PARAMETERS_NAME_MAP = {
