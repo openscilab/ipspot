@@ -466,6 +466,36 @@ def _ipquery_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _ipwho_is_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
+                  ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using ipwho.is.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_ipv4_forced(url="https://ipwho.is", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ipwho.is"}}
+        if geo:
+            connection = data.get("connection", {})
+            timezone = data.get("timezone", {})
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("region"),
+                "country": data.get("country"),
+                "country_code": data.get("country_code"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": connection.get("org"),
+                "timezone": timezone.get("id")
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 IPV4_API_MAP = {
     IPv4API.IFCONFIG_CO: {
         "thread_safe": False,
@@ -531,6 +561,11 @@ IPV4_API_MAP = {
         "thread_safe": False,
         "geo": True,
         "function": _ipquery_io_ipv4,
+    },
+    IPv4API.IPWHO_IS: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _ipwho_is_ipv4,
     },
 }
 

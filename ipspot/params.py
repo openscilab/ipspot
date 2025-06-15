@@ -36,6 +36,7 @@ class IPv4API(Enum):
     MYIP_LA = "myip.la"
     FREEIPAPI_COM = "freeipapi.com"
     IPQUERY_IO = "ipquery.io"
+    IPWHO_IS = "ipwho.is"
 
 
 PARAMETERS_NAME_MAP = {
