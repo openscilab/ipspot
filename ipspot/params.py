@@ -37,6 +37,7 @@ class IPv4API(Enum):
     FREEIPAPI_COM = "freeipapi.com"
     IPQUERY_IO = "ipquery.io"
     IPWHO_IS = "ipwho.is"
+    WTFISMYIP_COM = "wtfismyip.com"
 
 
 PARAMETERS_NAME_MAP = {
