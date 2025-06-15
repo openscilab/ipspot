@@ -595,6 +595,11 @@ IPV4_API_MAP = {
         "geo": True,
         "function": _ipwho_is_ipv4,
     },
+    IPv4API.WTFISMYIP_COM: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _wtfismyip_com_ipv4
+    },
 }
 
 
