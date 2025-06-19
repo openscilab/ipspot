@@ -505,7 +505,7 @@ def _wtfismyip_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, floa
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_ipv4_forced(url="https://wtfismyip.com/json", timeout=timeout)
+        data = _get_json_standard(url="https://json.ipv4.wtfismyip.com", timeout=timeout)
         result = {"status": True, "data": {"ip": data["YourFuckingIPAddress"], "api": "wtfismyip.com"}}
         if geo:
             geo_data = {
@@ -596,7 +596,7 @@ IPV4_API_MAP = {
         "function": _ipwho_is_ipv4,
     },
     IPv4API.WTFISMYIP_COM: {
-        "thread_safe": False,
+        "thread_safe": True,
         "geo": True,
         "function": _wtfismyip_com_ipv4
     },
