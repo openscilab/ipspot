@@ -437,7 +437,7 @@ def _freeipapi_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, floa
 
 
 def _ipquery_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
-                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                     ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ipquery.io.
 
@@ -467,7 +467,7 @@ def _ipquery_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
 
 
 def _ipwho_is_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
-                  ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                   ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ipwho.is.
 
@@ -497,7 +497,7 @@ def _ipwho_is_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
 
 
 def _wtfismyip_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
-                          ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using wtfismyip.com.
 
