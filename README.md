@@ -85,6 +85,14 @@
 {'status': True, 'data': {'ip': '10.36.18.154'}}
 ```
 
+#### Private IPv6
+
+```pycon
+>>> from ipspot import get_private_ipv6
+>>> get_private_ipv6()
+{'status': True, 'data': {'ip': 'fe80::e1bd:f78:b233:21c9'}}
+```
+
 ### CLI
 
 ℹ️ You can use `ipspot` or `python -m ipspot` to run this program
@@ -131,7 +139,9 @@ Repo : https://github.com/openscilab/ipspot
 > ipspot
 Private IP:
 
-  10.36.18.154
+  IPv4: 192.168.1.35
+
+  IPv6: fe80::e1bd:f78:b233:21c9
 
 Public IP and Location Info:
 
@@ -157,7 +167,9 @@ Public IP and Location Info:
 > ipspot --ipv4-api="ipinfo.io"
 Private IP:
 
-  10.36.18.154
+  IPv4: 192.168.1.35
+
+  IPv6: fe80::e1bd:f78:b233:21c9
 
 Public IP and Location Info:
 
@@ -179,7 +191,9 @@ Public IP and Location Info:
 > ipspot --no-geo
 Private IP:
 
-  IP: 10.36.18.154
+  IPv4: 192.168.1.35
+
+  IPv6: fe80::e1bd:f78:b233:21c9
 
 Public IP:
 
