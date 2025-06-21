@@ -27,6 +27,7 @@ def get_private_ipv6() -> Dict[str, Union[bool, Dict[str, str], str]]:
         with socket.socket(socket.AF_INET6, socket.SOCK_DGRAM) as s:
             s.connect(("2001:4860:4860::8888", 80))
             private_ip = s.getsockname()[0]
+            private_ip = private_ip.split("%")[0]
         if is_ipv6(private_ip) and not is_loopback(private_ip):
             return {"status": True, "data": {"ip": private_ip}}
         return {"status": False, "error": "Could not identify a non-loopback IPv6 address for this system."}
