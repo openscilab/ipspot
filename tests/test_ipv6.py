@@ -1,3 +1,4 @@
+import socket
 from unittest import mock
 from ipspot import get_private_ipv6, is_ipv6
 from ipspot import is_loopback
@@ -34,11 +35,14 @@ def test_is_ipv6_7():
     assert not is_ipv6("1234:5678:9abc:defg::1")
 
 
-def test_private_ipv6_success():
+@mock.patch("socket.socket")
+def test_private_ipv6_success(mock_socket_class):
+    mock_socket_instance = mock.MagicMock()
+    mock_socket_class.return_value.__enter__.return_value = mock_socket_instance
+    mock_socket_instance.getsockname.return_value = ("fe80::e1bd:f78:b233:21c9", 1, 0, 0)
     result = get_private_ipv6()
     assert result["status"]
-    assert is_ipv6(result["data"]["ip"])
-    assert not is_loopback(result["data"]["ip"])
+    assert result["data"]["ip"] == "fe80::e1bd:f78:b233:21c9"
 
 
 def test_get_private_ipv6_loopback():
