@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support [ipwho.is](https://ipwho.is/)
 - Support [ipquery.io](http://api.ipquery.io/?format=json)
 - Support [wtfismyip.com](https://wtfismyip.com/json)
+- `is_ipv6` function
+- `get_private_ipv6` function
 ### Changed
+- Test system modified
+- `README.md` updated
 ## [0.4] - 2025-06-09
 ### Added
 - Support [ipapi.co](https://ipapi.co/json/)

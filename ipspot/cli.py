@@ -4,6 +4,7 @@ import argparse
 from typing import Union, Tuple
 from art import tprint
 from .ipv4 import get_public_ipv4, get_private_ipv4
+from .ipv6 import get_private_ipv6
 from .utils import _filter_parameter
 from .params import IPv4API, PARAMETERS_NAME_MAP
 from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
@@ -29,10 +30,20 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE, geo: bool=False,
     :param max_retries: number of retries
     :param retry_delay: delay between retries (in seconds)
     """
-    private_result = get_private_ipv4()
     print("Private IP:\n")
-    print("  IP: {private_result[data][ip]}".format(private_result=private_result) if private_result["status"]
-          else "  Error: {private_result[error]}".format(private_result=private_result))
+    private_ipv4_result = get_private_ipv4()
+    if private_ipv4_result["status"]:
+        private_ipv4 = private_ipv4_result["data"]["ip"]
+    else:
+        private_ipv4 = private_ipv4_result["error"]
+    print("  IPv4: {private_ipv4}\n".format(private_ipv4=private_ipv4))
+
+    private_ipv6_result = get_private_ipv6()
+    if private_ipv6_result["status"]:
+        private_ipv6 = private_ipv6_result["data"]["ip"]
+    else:
+        private_ipv6 = private_ipv6_result["error"]
+    print("  IPv6: {private_ipv6}".format(private_ipv6=private_ipv6))
 
     public_title = "\nPublic IP"
     if geo:
