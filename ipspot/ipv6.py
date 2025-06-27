@@ -3,6 +3,7 @@
 import ipaddress
 import socket
 from typing import Union, Dict, List, Tuple
+from .params import IPv6API
 from .utils import is_loopback, _get_json_standard
 
 
@@ -61,3 +62,12 @@ def _ip_sb_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return result
     except Exception as e:
         return {"status": False, "error": str(e)}
+
+
+IPV6_API_MAP = {
+    IPv6API.IP_SB: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _ip_sb_ipv6
+    }
+}
