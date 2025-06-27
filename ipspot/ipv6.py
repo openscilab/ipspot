@@ -4,7 +4,7 @@ import ipaddress
 import socket
 from typing import Union, Dict, List, Tuple
 from .params import IPv6API
-from .utils import is_loopback, _get_json_standard
+from .utils import is_loopback, _get_json_standard, _attempt_with_retries
 
 
 def is_ipv6(ip: str) -> bool:
@@ -71,3 +71,43 @@ IPV6_API_MAP = {
         "function": _ip_sb_ipv6
     }
 }
+
+
+def get_public_ipv6(api: IPv6API=IPv6API.AUTO_SAFE, geo: bool=False,
+                    timeout: Union[float, Tuple[float, float]]=5,
+                    max_retries: int = 0,
+                    retry_delay: float = 1.0) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IPv6 and geolocation info based on the selected API.
+
+    :param api: public IPv6 API
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    :param max_retries: number of retries
+    :param retry_delay: delay between retries (in seconds)
+    """
+    if api in [IPv6API.AUTO, IPv6API.AUTO_SAFE]:
+        for _, api_data in IPV6_API_MAP.items():
+            if api == IPv6API.AUTO_SAFE and not api_data["thread_safe"]:
+                continue
+            func = api_data["function"]
+            result = _attempt_with_retries(
+                func=func,
+                max_retries=max_retries,
+                retry_delay=retry_delay,
+                geo=geo,
+                timeout=timeout)
+            if result["status"]:
+                return result
+        return {"status": False, "error": "All attempts failed."}
+    else:
+        api_data = IPV6_API_MAP.get(api)
+        if api_data:
+            func = api_data["function"]
+            return _attempt_with_retries(
+                func=func,
+                max_retries=max_retries,
+                retry_delay=retry_delay,
+                geo=geo,
+                timeout=timeout)
+        return {"status": False, "error": "Unsupported API: {api}".format(api=api)}
