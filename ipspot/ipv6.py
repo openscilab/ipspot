@@ -3,7 +3,7 @@
 import ipaddress
 import socket
 from typing import Union, Dict, List, Tuple
-from .utils import is_loopback
+from .utils import is_loopback, _get_json_standard
 
 
 def is_ipv6(ip: str) -> bool:
@@ -31,5 +31,33 @@ def get_private_ipv6() -> Dict[str, Union[bool, Dict[str, str], str]]:
         if is_ipv6(private_ip) and not is_loopback(private_ip):
             return {"status": True, "data": {"ip": private_ip}}
         return {"status": False, "error": "Could not identify a non-loopback IPv6 address for this system."}
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
+def _ip_sb_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using ip.sb.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_standard(url="https://api-ipv6.ip.sb/geoip", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ip.sb"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("region"),
+                "country": data.get("country"),
+                "country_code": data.get("country_code"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("organization"),
+                "timezone": data.get("timezone")
+            }
+            result["data"].update(geo_data)
+        return result
     except Exception as e:
         return {"status": False, "error": str(e)}
