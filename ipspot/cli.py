@@ -96,6 +96,13 @@ def main() -> None:  # pragma: no cover
         choices=[
             x.value for x in IPv4API],
         default=IPv4API.AUTO_SAFE.value)
+    parser.add_argument(
+        '--ipv6-api',
+        help='public IPv6 API',
+        type=str.lower,
+        choices=[
+            x.value for x in IPv6API],
+        default=IPv6API.AUTO_SAFE.value)
     parser.add_argument('--info', help='info', nargs="?", const=1)
     parser.add_argument('--version', help='version', nargs="?", const=1)
     parser.add_argument('--no-geo', help='no geolocation data', nargs="?", const=1, default=False)
@@ -110,9 +117,11 @@ def main() -> None:  # pragma: no cover
         ipspot_info()
     else:
         ipv4_api = IPv4API(args.ipv4_api)
+        ipv6_api = IPv6API(args.ipv6_api)
         geo = not args.no_geo
         display_ip_info(
             ipv4_api=ipv4_api,
+            ipv6_api=ipv6_api,
             geo=geo,
             timeout=args.timeout,
             max_retries=args.max_retries,
