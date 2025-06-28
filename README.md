@@ -85,6 +85,18 @@
 {'status': True, 'data': {'ip': '10.36.18.154'}}
 ```
 
+#### Public IPv6
+
+```pycon
+>>> from ipspot import get_public_ipv6, IPv6API
+>>> get_public_ipv6(api=IPv6API.IP_SB)
+{'data': {'api': 'ip.sb', 'ip': 'xx:xx:xx:xx::xx'}, 'status': True}
+>>> get_public_ipv6(api=IPv6API.IP_SB, geo=True, timeout=10)
+{'data': {'latitude': 51.2993, 'region': None, 'city': None, 'country_code': 'DE', 'api': 'ip.sb', 'longitude': 9.491, 'country': 'Germany', 'organization': 'Hetzner Online', 'timezone': 'Europe/Berlin', 'ip': 'xx:xx:xx:xx::xx'}, 'status': True}
+>>> get_public_ipv6(api=IPv6API.IP_SB, geo=True, timeout=10, max_retries=5, retry_delay=4)
+{'data': {'latitude': 51.2993, 'region': None, 'city': None, 'country_code': 'DE', 'api': 'ip.sb', 'longitude': 9.491, 'country': 'Germany', 'organization': 'Hetzner Online', 'timezone': 'Europe/Berlin', 'ip': 'xx:xx:xx:xx::xx'}, 'status': True}
+```
+
 #### Private IPv6
 
 ```pycon
@@ -173,16 +185,74 @@ Private IP:
 
 Public IP and Location Info:
 
-  API: ipinfo.io
-  City: Leatherhead
-  Country: N/A
-  Country Code: GB
-  IP: xx.xx.xx.xx
-  Latitude: 51.2965
-  Longitude: -0.3338
-  Organization: AS212238 Datacamp Limited
-  Region: England
-  Timezone: Europe/London
+  IPv4:
+
+    API: ipinfo.io
+    City: Nuremberg
+    Country: Germany
+    Country Code: DE
+    IP: 91.99.195.6
+    Latitude: 49.4527
+    Longitude: 11.0783
+    Organization: Hetzner Online GmbH
+    Region: Bavaria
+    Timezone: Europe/Berlin
+
+  IPv6:
+
+    API: ip.sb
+    City: N/A
+    Country: Germany
+    Country Code: DE
+    IP: 2a01:4f8:c2c:af12::1
+    Latitude: 51.2993
+    Longitude: 9.491
+    Organization: Hetzner Online
+    Region: N/A
+    Timezone: Europe/Berlin
+```
+
+#### IPv6 API
+
+ℹ️ `ipv6-api` valid choices: [`auto-safe`, `auto`, `ip.sb`]
+
+ℹ️ The default value: `auto-safe`
+
+```console
+> ipspot --ipv6-api="ip.sb"
+Private IP:
+
+  IPv4: 192.168.1.35
+
+  IPv6: fe80::e1bd:f78:b233:21c9
+
+Public IP and Location Info:
+
+  IPv4:
+
+    API: ipinfo.io
+    City: Nuremberg
+    Country: Germany
+    Country Code: DE
+    IP: 91.99.195.6
+    Latitude: 49.4527
+    Longitude: 11.0783
+    Organization: Hetzner Online GmbH
+    Region: Bavaria
+    Timezone: Europe/Berlin
+
+  IPv6:
+
+    API: ip.sb
+    City: N/A
+    Country: Germany
+    Country Code: DE
+    IP: 2a01:4f8:c2c:af12::1
+    Latitude: 51.2993
+    Longitude: 9.491
+    Organization: Hetzner Online
+    Region: N/A
+    Timezone: Europe/Berlin
 ```
 
 #### No Geolocation
@@ -193,12 +263,19 @@ Private IP:
 
   IPv4: 192.168.1.35
 
-  IPv6: fe80::e1bd:f78:b233:21c9
+  IPv6: fe80::5c40:769f:22de:c196
 
 Public IP:
 
-  API: ipinfo.io
-  IP: xx.xx.xx.xx
+  IPv4:
+
+    API: tnedi.me
+    IP: 91.99.195.6
+
+  IPv6:
+
+    API: ip.sb
+    IP: 2a01:4f8:c2c:af12::1
 ```
 
 ## Issues & Bug Reports			
