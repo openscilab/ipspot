@@ -191,7 +191,7 @@ Public IP and Location Info:
     City: Nuremberg
     Country: Germany
     Country Code: DE
-    IP: 91.99.195.6
+    IP: xx.xx.xx.xx
     Latitude: 49.4527
     Longitude: 11.0783
     Organization: Hetzner Online GmbH
@@ -204,7 +204,7 @@ Public IP and Location Info:
     City: N/A
     Country: Germany
     Country Code: DE
-    IP: 2a01:4f8:c2c:af12::1
+    IP: xx:xx:xx:xx::xx
     Latitude: 51.2993
     Longitude: 9.491
     Organization: Hetzner Online
@@ -234,7 +234,7 @@ Public IP and Location Info:
     City: Nuremberg
     Country: Germany
     Country Code: DE
-    IP: 91.99.195.6
+    IP: xx.xx.xx.xx
     Latitude: 49.4527
     Longitude: 11.0783
     Organization: Hetzner Online GmbH
@@ -247,7 +247,7 @@ Public IP and Location Info:
     City: N/A
     Country: Germany
     Country Code: DE
-    IP: 2a01:4f8:c2c:af12::1
+    IP: xx:xx:xx:xx::xx
     Latitude: 51.2993
     Longitude: 9.491
     Organization: Hetzner Online
@@ -270,12 +270,12 @@ Public IP:
   IPv4:
 
     API: tnedi.me
-    IP: 91.99.195.6
+    IP: xx.xx.xx.xx
 
   IPv6:
 
     API: ip.sb
-    IP: 2a01:4f8:c2c:af12::1
+    IP: xx:xx:xx:xx::xx
 ```
 
 ## Issues & Bug Reports			
