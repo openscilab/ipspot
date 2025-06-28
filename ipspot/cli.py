@@ -67,7 +67,7 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE,
                     name=PARAMETERS_NAME_MAP[name],
                     parameter=_filter_parameter(parameter)))
     else:
-        print("  Error: {public_ipv4_result[error]}".format(public_ipv4_result=public_ipv4_result))
+        print("    Error: {public_ipv4_result[error]}".format(public_ipv4_result=public_ipv4_result))
 
     print("  IPv6:\n")
     public_ipv6_result = get_public_ipv6(
@@ -83,7 +83,7 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE,
                     name=PARAMETERS_NAME_MAP[name],
                     parameter=_filter_parameter(parameter)))
     else:
-        print("  Error: {public_ipv6_result[error]}".format(public_ipv6_result=public_ipv6_result))
+        print("    Error: {public_ipv6_result[error]}".format(public_ipv6_result=public_ipv6_result))
 
 
 def main() -> None:  # pragma: no cover
