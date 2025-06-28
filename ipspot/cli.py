@@ -69,7 +69,7 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE,
     else:
         print("    Error: {public_ipv4_result[error]}".format(public_ipv4_result=public_ipv4_result))
 
-    print("  IPv6:\n")
+    print("\n  IPv6:\n")
     public_ipv6_result = get_public_ipv6(
         ipv6_api,
         geo=geo,
