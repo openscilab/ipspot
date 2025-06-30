@@ -40,6 +40,14 @@ class IPv4API(Enum):
     WTFISMYIP_COM = "wtfismyip.com"
 
 
+class IPv6API(Enum):
+    """Public IPv6 API enum."""
+
+    AUTO = "auto"
+    AUTO_SAFE = "auto-safe"
+    IP_SB = "ip.sb"
+
+
 PARAMETERS_NAME_MAP = {
     "ip": "IP",
     "city": "City",

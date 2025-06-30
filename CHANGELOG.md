@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support [wtfismyip.com](https://wtfismyip.com/json)
 - `is_ipv6` function
 - `get_private_ipv6` function
+- `get_public_ipv6` function
+- `IPv6API` enum
+- `--ipv6-api` argument
 ### Changed
 - Test system modified
 - `README.md` updated

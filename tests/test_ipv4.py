@@ -401,7 +401,7 @@ def test_public_ipv4_reallyfreegeoip_org_net_error():
 
 
 def test_public_ipv4_wtfismyip_com_success():
-    result = get_public_ipv4(api=IPv4API.WTFISMYIP_COM, geo=True)
+    result = get_public_ipv4(api=IPv4API.WTFISMYIP_COM, geo=True, timeout=10)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
