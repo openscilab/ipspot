@@ -1,5 +1,6 @@
 name: 'Setup WARP'
 description: 'Install and configure Cloudflare WARP on GitHub Actions runners'
+author: 'you@example.com'
 
 inputs:
   mode:
@@ -21,10 +22,12 @@ runs:
           sudo apt-get update
           sudo apt-get install -y cloudflare-warp
 
-          # Auto-detect old/new CLI
+          # Detect old or new CLI and register appropriately
           if warp-cli --help | grep -q 'registration'; then
-            sudo warp-cli --accept-tos registration
+            echo "Using new CLI: warp-cli registration new"
+            sudo warp-cli --accept-tos registration new
           else
+            echo "Using old CLI: warp-cli register"
             sudo warp-cli --accept-tos register
           fi
 
@@ -59,4 +62,5 @@ runs:
 
         # Test IPv6 connectivity
         sleep 1
+        echo "Testing IPv6 connectivity..."
         sudo curl -s6 --retry 3 -A Mozilla https://api64.ipify.org || echo "IPv6 not available"
