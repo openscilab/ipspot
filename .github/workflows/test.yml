@@ -32,7 +32,7 @@ jobs:
     # Setup WARP (Ubuntu only)
     - name: Setup WARP
       if: matrix.os == 'ubuntu-22.04'
-      uses: ./.github/actions/setup_warp.yml
+      uses: ./.github/actions/setup-warp
       with:
         mode: client
     - name: Set up Python ${{ matrix.python-version }}
