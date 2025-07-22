@@ -31,7 +31,15 @@ runs:
             sudo warp-cli --accept-tos register
           fi
 
-          sudo warp-cli --accept-tos set-mode warp+doh
+          # Set mode only if supported
+          if warp-cli --help | grep -q 'set-mode'; then
+            echo "Setting mode warp+doh (old CLI)..."
+            sudo warp-cli --accept-tos set-mode warp+doh
+          else
+            echo "Skipping set-mode (new CLI does not support it)..."
+          fi
+
+          # Connect
           sudo warp-cli --accept-tos connect
 
         elif [ "${{ inputs.mode }}" == "wireguard" ]; then
