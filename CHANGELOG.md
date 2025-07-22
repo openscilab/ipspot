@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- `Setup WARP` step in `test.yml`
+- `setup-warp` action
 - Support [ipwho.is](https://ipwho.is/)
 - Support [ipquery.io](http://api.ipquery.io/?format=json)
 - Support [wtfismyip.com](https://wtfismyip.com/json)
