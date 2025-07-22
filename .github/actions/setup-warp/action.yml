@@ -1,6 +1,6 @@
 name: 'Setup WARP'
 description: 'Install and configure Cloudflare WARP on GitHub Actions runners'
-author: 'you@example.com'
+author: 'ipspot@openscilab.com'
 
 inputs:
   mode:
