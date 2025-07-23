@@ -174,7 +174,7 @@ def test_public_ipv4_my_ip_io_net_error():
 
 
 def test_public_ipv4_ifconfig_co_success():
-    result = get_public_ipv4(api=IPv4API.IFCONFIG_CO, geo=True)
+    result = get_public_ipv4(api=IPv4API.IFCONFIG_CO, geo=True, timeout=20)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
