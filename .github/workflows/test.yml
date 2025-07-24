@@ -35,6 +35,9 @@ jobs:
       uses: ./.github/actions/setup-warp
       with:
         mode: client
+        wg_private_key: ${{ secrets.WARP_WG_PRIVATE_KEY }}
+        wg_peer_public_key: ${{ secrets.WARP_WG_PEER_PUBLIC_KEY }}
+        wg_endpoint: ${{ secrets.WARP_WG_ENDPOINT }}
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
