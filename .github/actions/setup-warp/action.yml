@@ -4,9 +4,21 @@ author: 'ipspot@openscilab.com'
 
 inputs:
   mode:
-    description: 'Choose WARP mode: client or wireguard'
+    description: Choose WARP mode: client or wireguard
     required: false
-    default: 'client'
+    default: client
+
+  wg_private_key:
+    description: WireGuard private key
+    required: false
+
+  wg_peer_public_key:
+    description: WireGuard peer public key
+    required: false
+
+  wg_endpoint:
+    description: WireGuard endpoint IP and port
+    required: false
 
 runs:
   using: "composite"
@@ -48,7 +60,7 @@ runs:
           sudo apt-get -y install --no-install-recommends net-tools iproute2 openresolv dnsutils iptables wireguard-tools
           LAN=$(ip route get 192.168.193.10 | grep -oP 'src \K\S+')
           echo "[Interface]
-          PrivateKey = ${{ secrets.WARP_WG_PRIVATE_KEY }}
+          PrivateKey = ${{ inputs.wg_private_key }}
           Address = 172.16.0.2/32
           Address = fd01:5ca1:ab1e:823e:e094:eb1c:ff87:1fab/128
           PostUp = ip -4 rule add from $LAN lookup main
@@ -57,10 +69,10 @@ runs:
           MTU = 1280
 
           [Peer]
-          PublicKey = ${{ secrets.WARP_WG_PEER_PUBLIC_KEY }}
+          PublicKey = ${{ inputs.wg_peer_public_key }}
           AllowedIPs = 0.0.0.0/0
           AllowedIPs = ::/0
-          Endpoint = ${{ secrets.WARP_WG_ENDPOINT }}" | sed "s/^[ ]\+//g" | sudo tee /etc/wireguard/warp.conf
+          Endpoint = ${{ inputs.wg_endpoint }}" | sed "s/^[ ]\+//g" | sudo tee /etc/wireguard/warp.conf
           sudo wg-quick up warp
 
         else
