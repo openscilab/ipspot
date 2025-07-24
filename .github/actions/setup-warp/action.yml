@@ -2,83 +2,20 @@ name: 'Setup WARP'
 description: 'Install and configure Cloudflare WARP on GitHub Actions runners'
 author: 'ipspot@openscilab.com'
 
-inputs:
-  mode:
-    description: WARP mode (client or wireguard)
-    required: false
-    default: client
-
-  wg_private_key:
-    description: WireGuard private key
-    required: false
-
-  wg_peer_public_key:
-    description: WireGuard peer public key
-    required: false
-
-  wg_endpoint:
-    description: WireGuard endpoint IP and port
-    required: false
-
 runs:
   using: "composite"
   steps:
     - name: Install and configure WARP
       shell: bash
       run: |
-        if [ "${{ inputs.mode }}" == "client" ]; then
-          echo "WARP mode: client warp+doh."
-          sudo apt-get -y update
-          curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
-          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
-          sudo apt-get update
-          sudo apt-get install -y cloudflare-warp
-
-          # Detect old or new CLI and register appropriately
-          if warp-cli --help | grep -q 'registration'; then
-            echo "Using new CLI: warp-cli registration new"
-            sudo warp-cli --accept-tos registration new
-          else
-            echo "Using old CLI: warp-cli register"
-            sudo warp-cli --accept-tos register
-          fi
-
-          # Set mode only if supported
-          if warp-cli --help | grep -q 'set-mode'; then
-            echo "Setting mode warp+doh (old CLI)..."
-            sudo warp-cli --accept-tos set-mode warp+doh
-          else
-            echo "Skipping set-mode (new CLI does not support it)..."
-          fi
-
-          # Connect
-          sudo warp-cli --accept-tos connect
-
-        elif [ "${{ inputs.mode }}" == "wireguard" ]; then
-          echo "WARP mode: wireguard."
-          sudo apt-get -y update
-          sudo apt-get -y install --no-install-recommends net-tools iproute2 openresolv dnsutils iptables wireguard-tools
-          LAN=$(ip route get 192.168.193.10 | grep -oP 'src \K\S+')
-          echo "[Interface]
-          PrivateKey = ${{ inputs.wg_private_key }}
-          Address = 172.16.0.2/32
-          Address = fd01:5ca1:ab1e:823e:e094:eb1c:ff87:1fab/128
-          PostUp = ip -4 rule add from $LAN lookup main
-          PostDown = ip -4 rule delete from $LAN lookup main
-          DNS = 8.8.8.8,8.8.4.4
-          MTU = 1280
-
-          [Peer]
-          PublicKey = ${{ inputs.wg_peer_public_key }}
-          AllowedIPs = 0.0.0.0/0
-          AllowedIPs = ::/0
-          Endpoint = ${{ inputs.wg_endpoint }}" | sed "s/^[ ]\+//g" | sudo tee /etc/wireguard/warp.conf
-          sudo wg-quick up warp
-
-        else
-          echo "Invalid mode: ${{ inputs.mode }}. Choose 'client' or 'wireguard'."
-          exit 1
-        fi
+        echo "WARP mode: client warp+doh."
+        sudo apt-get -y update
+        curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
+        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
+        sudo apt-get update
+        sudo apt-get install -y cloudflare-warp
+        sudo warp-cli --accept-tos registration new
+        sudo warp-cli --accept-tos connect
 
         # Test IPv6 connectivity
         sleep 1
