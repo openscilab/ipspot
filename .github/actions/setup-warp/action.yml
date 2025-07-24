@@ -4,7 +4,7 @@ author: 'ipspot@openscilab.com'
 
 inputs:
   mode:
-    description: Choose WARP mode: client or wireguard
+    description: WARP mode (client or wireguard)
     required: false
     default: client
 
