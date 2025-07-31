@@ -62,7 +62,12 @@ jobs:
         pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
     - name: Test with pytest 
       run: |
-        python -m pytest . --cov=ipspot --cov-report=term
+        if [[ "${{ matrix.os }}" == "ubuntu-22.04" ]]; then
+          python -m pytest . --cov=ipspot --cov-report=term
+        else
+          python -m pytest . --cov=ipspot --cov-report=term --ignore=tests/test_ipv6.py
+        fi
+      shell: bash
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
