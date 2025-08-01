@@ -29,6 +29,10 @@ jobs:
         python-version: [3.7, 3.8, 3.9, 3.10.5, 3.11.0, 3.12.0, 3.13.0]
     steps:
     - uses: actions/checkout@v2
+    # Setup WARP (Ubuntu only)
+    - name: Setup WARP
+      if: matrix.os == 'ubuntu-22.04'
+      uses: ./.github/actions/setup-warp
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -58,7 +62,14 @@ jobs:
         pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
     - name: Test with pytest 
       run: |
-        python -m pytest . --cov=ipspot --cov-report=term
+        OS="${{ matrix.os }}"
+        TEST_OS="${{ env.TEST_OS }}"
+        if [[ "$OS" == "$TEST_OS" ]]; then
+          python -m pytest . --cov=ipspot --cov-report=term
+        else
+          python -m pytest . --cov=ipspot --cov-report=term --ignore=tests/test_ipv6.py
+        fi
+      shell: bash
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:

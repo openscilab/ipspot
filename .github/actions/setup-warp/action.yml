@@ -1,0 +1,23 @@
+name: 'Setup WARP'
+description: 'Install and configure Cloudflare WARP on GitHub Actions runners'
+author: 'ipspot@openscilab.com'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install and configure WARP
+      shell: bash
+      run: |
+        echo "WARP mode: client warp+doh."
+        sudo apt-get -y update
+        curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
+        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
+        sudo apt-get update
+        sudo apt-get install -y cloudflare-warp
+        sudo warp-cli --accept-tos registration new
+        sudo warp-cli --accept-tos connect
+
+        # Test IPv6 connectivity
+        sleep 1
+        echo "Testing IPv6 connectivity..."
+        sudo curl -s6 --retry 3 -A Mozilla https://api64.ipify.org || echo "IPv6 not available"
