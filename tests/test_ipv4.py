@@ -114,7 +114,7 @@ def test_public_ipv4_auto_safe_net_error():
 
 
 def test_public_ipv4_ipapi_co_success():
-    result = get_public_ipv4(api=IPv4API.IPAPI_CO, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.IPAPI_CO, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -134,7 +134,7 @@ def test_public_ipv4_ipapi_co_net_error():
 
 
 def test_public_ipv4_ipleak_net_success():
-    result = get_public_ipv4(api=IPv4API.IPLEAK_NET, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.IPLEAK_NET, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -154,7 +154,7 @@ def test_public_ipv4_ipleak_net_net_error():
 
 
 def test_public_ipv4_my_ip_io_success():
-    result = get_public_ipv4(api=IPv4API.MY_IP_IO, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.MY_IP_IO, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -174,7 +174,7 @@ def test_public_ipv4_my_ip_io_net_error():
 
 
 #def test_public_ipv4_ifconfig_co_success():
-#    result = get_public_ipv4(api=IPv4API.IFCONFIG_CO, geo=True, timeout=20, max_retries=2, retry_delay=60)
+#    result = get_public_ipv4(api=IPv4API.IFCONFIG_CO, geo=True, timeout=35, max_retries=3, retry_delay=80)
 #    assert result["status"]
 #    assert is_ipv4(result["data"]["ip"])
 #    assert set(result["data"].keys()) == DATA_ITEMS
@@ -194,7 +194,7 @@ def test_public_ipv4_ifconfig_co_net_error():
 
 
 def test_public_ipv4_myip_la_success():
-    result = get_public_ipv4(api=IPv4API.MYIP_LA, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.MYIP_LA, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -214,7 +214,7 @@ def test_public_ipv4_myip_la_net_error():
 
 
 def test_public_ipv4_ipquery_io_success():
-    result = get_public_ipv4(api=IPv4API.IPQUERY_IO, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.IPQUERY_IO, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -234,7 +234,7 @@ def test_public_ipv4_ipquery_io_net_error():
 
 
 def test_public_ipv4_ipwho_is_success():
-    result = get_public_ipv4(api=IPv4API.IPWHO_IS, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.IPWHO_IS, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -254,7 +254,7 @@ def test_public_ipv4_ipwho_is_net_error():
 
 
 def test_public_ipv4_freeipapi_com_success():
-    result = get_public_ipv4(api=IPv4API.FREEIPAPI_COM, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.FREEIPAPI_COM, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -274,7 +274,7 @@ def test_public_ipv4_freeipapi_com_net_error():
 
 
 def test_public_ipv4_ip_api_com_success():
-    result = get_public_ipv4(api=IPv4API.IP_API_COM, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.IP_API_COM, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -294,7 +294,7 @@ def test_public_ipv4_ip_api_com_net_error():
 
 
 def test_public_ipv4_ipinfo_io_success():
-    result = get_public_ipv4(api=IPv4API.IPINFO_IO, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.IPINFO_IO, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -314,7 +314,7 @@ def test_public_ipv4_ipinfo_io_net_error():
 
 
 def test_public_ipv4_ip_sb_success():
-    result = get_public_ipv4(api=IPv4API.IP_SB, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.IP_SB, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -335,7 +335,7 @@ def test_public_ipv4_ip_sb_net_error():
 
 
 def test_public_ipv4_ident_me_success():
-    result = get_public_ipv4(api=IPv4API.IDENT_ME, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.IDENT_ME, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -355,7 +355,7 @@ def test_public_ipv4_ident_me_net_error():
 
 
 def test_public_ipv4_tnedi_me_success():
-    result = get_public_ipv4(api=IPv4API.TNEDI_ME, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.TNEDI_ME, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -381,7 +381,7 @@ def test_public_ipv4_api_error():
 
 
 def test_public_ipv4__reallyfreegeoip_org_success():
-    result = get_public_ipv4(api=IPv4API.REALLYFREEGEOIP_ORG, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.REALLYFREEGEOIP_ORG, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
@@ -401,7 +401,7 @@ def test_public_ipv4_reallyfreegeoip_org_net_error():
 
 
 def test_public_ipv4_wtfismyip_com_success():
-    result = get_public_ipv4(api=IPv4API.WTFISMYIP_COM, geo=True, timeout=20, max_retries=2, retry_delay=60)
+    result = get_public_ipv4(api=IPv4API.WTFISMYIP_COM, geo=True, timeout=35, max_retries=3, retry_delay=80)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
