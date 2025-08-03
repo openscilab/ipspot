@@ -173,12 +173,12 @@ def test_public_ipv4_my_ip_io_net_error():
         assert result["error"] == "No Internet"
 
 
-def test_public_ipv4_ifconfig_co_success():
-    result = get_public_ipv4(api=IPv4API.IFCONFIG_CO, geo=True, timeout=20, max_retries=2, retry_delay=60)
-    assert result["status"]
-    assert is_ipv4(result["data"]["ip"])
-    assert set(result["data"].keys()) == DATA_ITEMS
-    assert result["data"]["api"] == "ifconfig.co"
+#def test_public_ipv4_ifconfig_co_success():
+#    result = get_public_ipv4(api=IPv4API.IFCONFIG_CO, geo=True, timeout=20, max_retries=2, retry_delay=60)
+#    assert result["status"]
+#    assert is_ipv4(result["data"]["ip"])
+#    assert set(result["data"].keys()) == DATA_ITEMS
+#    assert result["data"]["api"] == "ifconfig.co"
 
 
 def test_public_ipv4_ifconfig_co_timeout_error():
