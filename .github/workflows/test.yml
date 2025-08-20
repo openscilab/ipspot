@@ -60,10 +60,14 @@ jobs:
       run: |
         python otherfiles/requirements-splitter.py
         pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
-    - name: Test with pytest
+    - name: Test with pytest (IPv4 functions)
       run: |
           python -m pytest . --cov=ipspot --cov-report=term --ignore-glob="tests/test_ipv6_*.py" --ignore=tests/test_ipv4_api.py
-    - name: Test with pytest (Public APIs + IPv6)
+    - name: Test with pytest (IPv4 / IPv6 functions)
+      run: |
+          python -m pytest . --cov=ipspot --cov-report=term --ignore=tests/test_ipv6_api.py --ignore=tests/test_ipv4_api.py
+      if: matrix.os == env.TEST_OS
+    - name: Test with pytest (Full)
       run: |
           python -m pytest . --cov=ipspot --cov-report=term
       if: matrix.python-version == env.TEST_PYTHON_VERSION && matrix.os == env.TEST_OS
