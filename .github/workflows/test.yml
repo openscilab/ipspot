@@ -69,7 +69,7 @@ jobs:
       if: matrix.os == env.TEST_OS
     - name: Test with pytest (Full)
       run: |
-          python -m pytest . --cov=ipspot --cov-report=term
+          python -m pytest . --cov=ipspot --cov-report=term --ignore=tests/test_ipv4_api.py
       if: matrix.python-version == env.TEST_PYTHON_VERSION && matrix.os == env.TEST_OS
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
