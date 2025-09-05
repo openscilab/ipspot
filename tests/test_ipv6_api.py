@@ -7,7 +7,8 @@ DATA_ITEMS = {'country_code', 'latitude', 'longitude', 'api', 'country', 'timezo
 
 def test_public_ipv6_auto_success():
     result = get_public_ipv6(api=IPv6API.AUTO, geo=True, timeout=40, max_retries=4, retry_delay=90)
-    assert result["status"]
+    assert not result["status"]
+    assert result["error"] == "test"
     assert is_ipv6(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
 
