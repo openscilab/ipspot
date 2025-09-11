@@ -67,9 +67,9 @@ jobs:
       run: |
           python -m pytest . --cov=ipspot --cov-report=term --ignore=tests/test_ipv6_api.py --ignore=tests/test_ipv4_api.py
       if: matrix.os == env.TEST_OS
-    - name: Test with pytest (Full)
+    - name: Test with pytest (IPv4 API)
       run: |
-          python -m pytest . --cov=ipspot --cov-report=term --ignore=tests/test_ipv4_api.py
+          python -m pytest . --cov=ipspot --cov-report=term --ignore=tests/test_ipv6_api.py
       if: matrix.python-version == env.TEST_PYTHON_VERSION && matrix.os == env.TEST_OS
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
