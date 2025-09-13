@@ -180,7 +180,7 @@ def _my_ip_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
-def _ifconfig_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]] # very low rate limit
+def _ifconfig_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]  # very low rate limit
                       =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ifconfig.co.

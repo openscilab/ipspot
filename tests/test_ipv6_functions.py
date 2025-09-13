@@ -3,7 +3,7 @@ from unittest import mock
 from ipspot import get_private_ipv6, is_ipv6
 from ipspot import is_loopback
 
-TEST_CASE_NAME = "IPv6 tests"
+TEST_CASE_NAME = "IPv6 functions tests"
 DATA_ITEMS = {'country_code', 'latitude', 'longitude', 'api', 'country', 'timezone', 'organization', 'region', 'ip', 'city'}
 
 

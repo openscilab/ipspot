@@ -28,13 +28,13 @@ jobs:
         os: [ubuntu-22.04, windows-2022, macOS-13]
         python-version: [3.7, 3.8, 3.9, 3.10.5, 3.11.0, 3.12.0, 3.13.0]
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     # Setup WARP (Ubuntu only)
     - name: Setup WARP
       if: matrix.os == 'ubuntu-22.04'
       uses: ./.github/actions/setup-warp
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     - name: Installation
@@ -60,16 +60,17 @@ jobs:
       run: |
         python otherfiles/requirements-splitter.py
         pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
-    - name: Test with pytest 
+    - name: Test with pytest (IPv4 functions)
       run: |
-        OS="${{ matrix.os }}"
-        TEST_OS="${{ env.TEST_OS }}"
-        if [[ "$OS" == "$TEST_OS" ]]; then
-          python -m pytest . --cov=ipspot --cov-report=term
-        else
-          python -m pytest . --cov=ipspot --cov-report=term --ignore=tests/test_ipv6.py
-        fi
-      shell: bash
+          python -m pytest . --cov=ipspot --cov-report=term --ignore-glob="tests/test_ipv6_*.py" --ignore=tests/test_ipv4_api.py
+    - name: Test with pytest (IPv4 / IPv6 functions)
+      run: |
+          python -m pytest . --cov=ipspot --cov-report=term --ignore=tests/test_ipv6_api.py --ignore=tests/test_ipv4_api.py
+      if: matrix.os == env.TEST_OS
+    - name: Test with pytest (IPv4 API)
+      run: |
+          python -m pytest . --cov=ipspot --cov-report=term --ignore=tests/test_ipv6_api.py
+      if: matrix.python-version == env.TEST_PYTHON_VERSION && matrix.os == env.TEST_OS
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
