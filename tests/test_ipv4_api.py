@@ -51,7 +51,6 @@ def test_public_ipv4_ifconfig_co_success():
     assert result["data"]["api"] == "ifconfig.co"
 
 
-
 def test_public_ipv4_myip_la_success():
     result = get_public_ipv4(api=IPv4API.MYIP_LA, geo=True, timeout=40, max_retries=4, retry_delay=90)
     assert result["status"]
@@ -84,15 +83,12 @@ def test_public_ipv4_freeipapi_com_success():
     assert result["data"]["api"] == "freeipapi.com"
 
 
-
 def test_public_ipv4_ip_api_com_success():
     result = get_public_ipv4(api=IPv4API.IP_API_COM, geo=True, timeout=40, max_retries=4, retry_delay=90)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "ip-api.com"
-
-
 
 
 def test_public_ipv4_ipinfo_io_success():
@@ -103,17 +99,12 @@ def test_public_ipv4_ipinfo_io_success():
     assert result["data"]["api"] == "ipinfo.io"
 
 
-
-
-
 def test_public_ipv4_ip_sb_success():
     result = get_public_ipv4(api=IPv4API.IP_SB, geo=True, timeout=40, max_retries=4, retry_delay=90)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "ip.sb"
-
-
 
 
 def test_public_ipv4_ident_me_success():
@@ -124,9 +115,6 @@ def test_public_ipv4_ident_me_success():
     assert result["data"]["api"] == "ident.me"
 
 
-
-
-
 def test_public_ipv4_tnedi_me_success():
     result = get_public_ipv4(api=IPv4API.TNEDI_ME, geo=True, timeout=40, max_retries=4, retry_delay=90)
     assert result["status"]
@@ -135,16 +123,12 @@ def test_public_ipv4_tnedi_me_success():
     assert result["data"]["api"] == "tnedi.me"
 
 
-
-
 def test_public_ipv4__reallyfreegeoip_org_success():
     result = get_public_ipv4(api=IPv4API.REALLYFREEGEOIP_ORG, geo=True, timeout=40, max_retries=4, retry_delay=90)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "reallyfreegeoip.org"
-
-
 
 
 def test_public_ipv4_wtfismyip_com_success():
