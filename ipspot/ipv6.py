@@ -125,7 +125,17 @@ IPV6_API_MAP = {
         "thread_safe": True,
         "geo": True,
         "function": _ip_sb_ipv6
-    }
+    },
+    IPv6API.IDENT_ME: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _ident_me_ipv6
+    },
+    IPv6API.TNEDI_ME: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _tnedi_me_ipv6
+    },
 }
 
 

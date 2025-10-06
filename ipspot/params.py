@@ -46,6 +46,8 @@ class IPv6API(Enum):
     AUTO = "auto"
     AUTO_SAFE = "auto-safe"
     IP_SB = "ip.sb"
+    IDENT_ME = "ident.me"
+    TNEDI_ME = "tnedi.me"
 
 
 PARAMETERS_NAME_MAP = {
