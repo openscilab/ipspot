@@ -120,6 +120,34 @@ def _tnedi_me_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _ipleak_net_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                     =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using ipleak.net.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_standard(url="https://ipv6.ipleak.net/json/", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ipleak.net"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city_name"),
+                "region": data.get("region_name"),
+                "country": data.get("country_name"),
+                "country_code": data.get("country_code"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("isp_name"),
+                "timezone": data.get("time_zone")
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 IPV6_API_MAP = {
     IPv6API.IP_SB: {
         "thread_safe": True,
@@ -135,6 +163,11 @@ IPV6_API_MAP = {
         "thread_safe": True,
         "geo": True,
         "function": _tnedi_me_ipv6
+    },
+    IPv6API.IPLEAK_NET: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _ipleak_net_ipv6
     },
 }
 
