@@ -64,12 +64,78 @@ def _ip_sb_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _ident_me_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                   =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using ident.me.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_standard(url="https://6.ident.me/json", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "ident.me"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": None,
+                "country": data.get("country"),
+                "country_code": data.get("cc"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("aso"),
+                "timezone": data.get("tz")
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
+def _tnedi_me_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                   =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using tnedi.me.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_standard(url="https://6.tnedi.me/json", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "tnedi.me"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": None,
+                "country": data.get("country"),
+                "country_code": data.get("cc"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": data.get("aso"),
+                "timezone": data.get("tz")
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 IPV6_API_MAP = {
     IPv6API.IP_SB: {
         "thread_safe": True,
         "geo": True,
         "function": _ip_sb_ipv6
-    }
+    },
+    IPv6API.IDENT_ME: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _ident_me_ipv6
+    },
+    IPv6API.TNEDI_ME: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _tnedi_me_ipv6
+    },
 }
 
 

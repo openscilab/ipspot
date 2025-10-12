@@ -214,7 +214,7 @@ Public IP and Location Info:
 
 #### IPv6 API
 
-ℹ️ `ipv6-api` valid choices: [`auto-safe`, `auto`, `ip.sb`]
+ℹ️ `ipv6-api` valid choices: [`auto-safe`, `auto`, `ip.sb`, `ident.me`, `tnedi.me`]
 
 ℹ️ The default value: `auto-safe`
 

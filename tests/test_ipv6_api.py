@@ -11,6 +11,23 @@ def test_public_ipv6_ip_sb_success():
     assert is_ipv6(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
 
+
+def test_public_ipv6_ident_me_success():
+    result = get_public_ipv6(api=IPv6API.IDENT_ME, geo=True, timeout=40, max_retries=4, retry_delay=90)
+    assert result["status"]
+    assert is_ipv6(result["data"]["ip"])
+    assert set(result["data"].keys()) == DATA_ITEMS
+    assert result["data"]["api"] == "ident.me"
+
+
+def test_public_ipv6_tnedi_me_success():
+    result = get_public_ipv6(api=IPv6API.TNEDI_ME, geo=True, timeout=40, max_retries=4, retry_delay=90)
+    assert result["status"]
+    assert is_ipv6(result["data"]["ip"])
+    assert set(result["data"].keys()) == DATA_ITEMS
+    assert result["data"]["api"] == "tnedi.me"
+
+
 def test_public_ipv6_auto_success():
     result = get_public_ipv6(api=IPv6API.AUTO, geo=True, timeout=40, max_retries=4, retry_delay=90)
     assert result["status"]
