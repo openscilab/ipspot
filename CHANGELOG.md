@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support [ident.me](https://ident.me/json) IPv6 API
 - Support [tnedi.me](https://tnedi.me/json) IPv6 API
 - Support [ip.sb](https://api.ip.sb/geoip) IPv6 API
+- Support [ipleak.net](https://ipleak.net/json/) IPv6 API
 - `is_ipv6` function
 - `get_private_ipv6` function
 - `get_public_ipv6` function
