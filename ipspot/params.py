@@ -48,6 +48,7 @@ class IPv6API(Enum):
     IP_SB = "ip.sb"
     IDENT_ME = "ident.me"
     TNEDI_ME = "tnedi.me"
+    IPLEAK_NET = "ipleak.net"
 
 
 PARAMETERS_NAME_MAP = {
