@@ -148,6 +148,34 @@ def _ipleak_net_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _my_ip_io_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                   =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using my-ip.io.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_standard(url="https://api6.my-ip.io/v2/ip.json", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["ip"], "api": "my-ip.io"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("region"),
+                "country": data.get("country", {}).get("name"),
+                "country_code": data.get("country", {}).get("code"),
+                "latitude": data.get("location", {}).get("lat"),
+                "longitude": data.get("location", {}).get("lon"),
+                "organization": data.get("asn", {}).get("name"),
+                "timezone": data.get("timeZone")
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 IPV6_API_MAP = {
     IPv6API.IP_SB: {
         "thread_safe": True,
@@ -168,6 +196,11 @@ IPV6_API_MAP = {
         "thread_safe": True,
         "geo": True,
         "function": _ipleak_net_ipv6
+    },
+    IPv6API.MY_IP_IO: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _my_ip_io_ipv6
     },
 }
 
