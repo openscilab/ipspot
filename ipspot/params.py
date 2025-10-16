@@ -2,7 +2,7 @@
 """ipspot params."""
 from enum import Enum
 
-IPSPOT_VERSION = "0.4"
+IPSPOT_VERSION = "0.5"
 
 IPSPOT_OVERVIEW = '''
 IPSpot is a Python library for retrieving the current system's IP address and location information.

@@ -52,13 +52,13 @@
 ## Installation		
 
 ### Source Code
-- Download [Version 0.4](https://github.com/openscilab/ipspot/archive/v0.4.zip) or [Latest Source](https://github.com/openscilab/ipspot/archive/dev.zip)
+- Download [Version 0.5](https://github.com/openscilab/ipspot/archive/v0.5.zip) or [Latest Source](https://github.com/openscilab/ipspot/archive/dev.zip)
 - `pip install .`				
 
 ### PyPI
 
 - Check [Python Packaging User Guide](https://packaging.python.org/installing/)     
-- `pip install ipspot==0.4`						
+- `pip install ipspot==0.5`						
 
 
 ## Usage
@@ -114,7 +114,7 @@
 ```console
 > ipspot --version
 
-0.4
+0.5
 ```
 
 #### Info
@@ -129,11 +129,11 @@
 |___||_|    |____/ | .__/  \___/  \__|
                    |_|
 
-__     __     ___      _  _
-\ \   / / _  / _ \    | || |
- \ \ / / (_)| | | |   | || |_
-  \ V /   _ | |_| | _ |__   _|
-   \_/   (_) \___/ (_)   |_|
+__     __     ___      ____
+\ \   / / _  / _ \    | ___|
+ \ \ / / (_)| | | |   |___ \
+  \ V /   _ | |_| | _  ___) |
+   \_/   (_) \___/ (_)|____/
 
 
 
