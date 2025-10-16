@@ -5,8 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [0.5] - 2025-10-17
 ### Added
-- `Setup WARP` step in `test.yml`
 - `setup-warp` action
 - Support [ipwho.is](https://ipwho.is/)
 - Support [ipquery.io](http://api.ipquery.io/?format=json)
@@ -83,7 +83,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `--no-geo` argument
 - Logo
 
-[Unreleased]: https://github.com/openscilab/ipspot/compare/v0.4...dev
+[Unreleased]: https://github.com/openscilab/ipspot/compare/v0.5...dev
+[0.5]: https://github.com/openscilab/ipspot/compare/v0.4...v0.5
 [0.4]: https://github.com/openscilab/ipspot/compare/v0.3...v0.4
 [0.3]: https://github.com/openscilab/ipspot/compare/v0.2...v0.3
 [0.2]: https://github.com/openscilab/ipspot/compare/v0.1...v0.2
