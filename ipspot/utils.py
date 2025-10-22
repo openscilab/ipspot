@@ -7,14 +7,14 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
 from typing import Callable, Dict
-from typing import Union, Tuple, Any, Literal
+from typing import Union, Tuple, Any, List
 from .params import REQUEST_HEADERS
 
 
 class ForceIPHTTPAdapter(HTTPAdapter):
     """A custom HTTPAdapter that enforces IPv4 or IPv6 DNS resolution for HTTP(S) requests."""
 
-    def __init__(self, version: Literal["ipv4", "ipv6"] = "ipv4", *args, **kwargs):
+    def __init__(self, version: str = "ipv4", *args, **kwargs):
         """
         Initialize the adapter with the desired IP version.
 
@@ -62,7 +62,7 @@ class ForceIPHTTPAdapter(HTTPAdapter):
 
 
 def _get_json_ip_forced(url: str, timeout: Union[float, Tuple[float, float]],
-                        version: Literal["ipv4", "ipv6"] = "ipv4") -> dict:
+                        version: str = "ipv4") -> dict:
     """
     Send GET request with forced IPv4/IPv6 using ForceIPHTTPAdapter that returns JSON response.
 
