@@ -3,7 +3,8 @@
 import ipaddress
 import socket
 from typing import Union, Dict, List, Tuple
-from .utils import is_loopback, _get_json_standard, _attempt_with_retries, _get_json_force_ip
+from .utils import is_loopback, _attempt_with_retries
+from .utils import  _get_json_standard, _get_json_force_ip
 from .params import REQUEST_HEADERS, IPv4API
 
 
