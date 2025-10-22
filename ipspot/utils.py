@@ -61,7 +61,8 @@ class ForceIPHTTPAdapter(HTTPAdapter):
             socket.getaddrinfo = self._original_getaddrinfo
 
 
-def _get_json_ip_forced(url: str, timeout: Union[float, Tuple[float, float]], version: Literal["ipv4", "ipv6"] = "ipv4") -> dict:
+def _get_json_ip_forced(url: str, timeout: Union[float, Tuple[float, float]],
+                        version: Literal["ipv4", "ipv6"] = "ipv4") -> dict:
     """
     Send GET request with forced IPv4/IPv6 using ForceIPHTTPAdapter that returns JSON response.
 
@@ -75,6 +76,7 @@ def _get_json_ip_forced(url: str, timeout: Union[float, Tuple[float, float]], ve
         response = session.get(url, headers=REQUEST_HEADERS, timeout=timeout)
         response.raise_for_status()
         return response.json()
+
 
 def _attempt_with_retries(
         func: Callable,
