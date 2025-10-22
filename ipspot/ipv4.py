@@ -3,7 +3,7 @@
 import ipaddress
 import socket
 from typing import Union, Dict, List, Tuple
-from .utils import is_loopback, _get_json_standard, _attempt_with_retries, _get_json_ip_forced
+from .utils import is_loopback, _get_json_standard, _attempt_with_retries, _get_json_force_ip
 from .params import REQUEST_HEADERS, IPv4API
 
 
@@ -128,7 +128,7 @@ def _ifconfig_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_ip_forced(url="https://ifconfig.co/json", timeout=timeout, version="ipv4")
+        data = _get_json_force_ip(url="https://ifconfig.co/json", timeout=timeout, version="ipv4")
         result = {"status": True, "data": {"ip": data["ip"], "api": "ifconfig.co"}}
         if geo:
             geo_data = {
@@ -156,7 +156,7 @@ def _ipapi_co_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_ip_forced(url="https://ipapi.co/json/", timeout=timeout, version="ipv4")
+        data = _get_json_force_ip(url="https://ipapi.co/json/", timeout=timeout, version="ipv4")
         result = {"status": True, "data": {"ip": data["ip"], "api": "ipapi.co"}}
         if geo:
             geo_data = {
@@ -184,7 +184,7 @@ def _ip_api_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_ip_forced(url="http://ip-api.com/json/", timeout=timeout, version="ipv4")
+        data = _get_json_force_ip(url="http://ip-api.com/json/", timeout=timeout, version="ipv4")
         if data.get("status") != "success":
             return {"status": False, "error": "ip-api lookup failed"}
         result = {"status": True, "data": {"ip": data["query"], "api": "ip-api.com"}}
@@ -214,7 +214,7 @@ def _ipinfo_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_ip_forced(url="https://ipinfo.io/json", timeout=timeout, version="ipv4")
+        data = _get_json_force_ip(url="https://ipinfo.io/json", timeout=timeout, version="ipv4")
         result = {"status": True, "data": {"ip": data["ip"], "api": "ipinfo.io"}}
         if geo:
             loc = data.get("loc", "").split(",")
@@ -243,7 +243,7 @@ def _reallyfreegeoip_org_ipv4(geo: bool=False, timeout: Union[float, Tuple[float
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_ip_forced(url="https://reallyfreegeoip.org/json/", timeout=timeout, version="ipv4")
+        data = _get_json_force_ip(url="https://reallyfreegeoip.org/json/", timeout=timeout, version="ipv4")
         result = {"status": True, "data": {"ip": data["ip"], "api": "reallyfreegeoip.org"}}
         if geo:
             geo_data = {
@@ -327,7 +327,7 @@ def _myip_la_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_ip_forced(url="https://api.myip.la/en?json", timeout=timeout, version="ipv4")
+        data = _get_json_force_ip(url="https://api.myip.la/en?json", timeout=timeout, version="ipv4")
         result = {"status": True, "data": {"ip": data["ip"], "api": "myip.la"}}
         if geo:
             loc = data.get("location", {})
@@ -356,7 +356,7 @@ def _freeipapi_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, floa
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_ip_forced(url="https://freeipapi.com/api/json", timeout=timeout, version="ipv4")
+        data = _get_json_force_ip(url="https://freeipapi.com/api/json", timeout=timeout, version="ipv4")
         result = {"status": True, "data": {"ip": data["ipAddress"], "api": "freeipapi.com"}}
         if geo:
             geo_data = {
@@ -384,7 +384,7 @@ def _ipquery_io_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_ip_forced(url="https://api.ipquery.io/?format=json", timeout=timeout, version="ipv4")
+        data = _get_json_force_ip(url="https://api.ipquery.io/?format=json", timeout=timeout, version="ipv4")
         result = {"status": True, "data": {"ip": data["ip"], "api": "ipquery.io"}}
         if geo:
             loc = data.get("location", {})
@@ -414,7 +414,7 @@ def _ipwho_is_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, float]]=5
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_ip_forced(url="https://ipwho.is", timeout=timeout, version="ipv4")
+        data = _get_json_force_ip(url="https://ipwho.is", timeout=timeout, version="ipv4")
         result = {"status": True, "data": {"ip": data["ip"], "api": "ipwho.is"}}
         if geo:
             connection = data.get("connection", {})
