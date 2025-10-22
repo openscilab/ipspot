@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- `ForceIPHTTPAdapter` class
+- `_get_json_ip_forced` function
+### Removed
+- `IPv4HTTPAdapter` class
+- `_get_json_ipv4_forced` function
 ## [0.5] - 2025-10-17
 ### Added
 - `setup-warp` action
