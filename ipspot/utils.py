@@ -14,11 +14,13 @@ from .params import REQUEST_HEADERS
 class ForceIPHTTPAdapter(HTTPAdapter):
     """A custom HTTPAdapter that enforces IPv4 or IPv6 DNS resolution for HTTP(S) requests."""
 
-    def __init__(self, version: str = "ipv4", *args, **kwargs):
+    def __init__(self, version: str = "ipv4", *args: list, **kwargs: dict):
         """
         Initialize the adapter with the desired IP version.
 
-        :param version: 'ipv4' or 'ipv6'
+        :param version: 'ipv4' or 'ipv6' to select address family
+        :param args: additional list arguments for the HTTPAdapter
+        :param kwargs: additional keyword arguments for the HTTPAdapter
         """
         self.version = version.lower()
         if self.version not in ("ipv4", "ipv6"):
@@ -28,6 +30,11 @@ class ForceIPHTTPAdapter(HTTPAdapter):
     def init_poolmanager(self, connections: int, maxsize: int, block: bool = False, **kwargs: dict) -> None:
         """
         Initialize the connection pool manager with DNS filtering based on the selected IP version.
+
+        :param connections: the number of connection pools to cache
+        :param maxsize: the maximum number of connections to save in the pool
+        :param block: whether the connections should block when reaching the max size
+        :param kwargs: additional keyword arguments for the PoolManager
         """
         self.poolmanager = PoolManager(
             num_pools=connections,
