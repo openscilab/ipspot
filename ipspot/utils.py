@@ -2,11 +2,63 @@
 """ipspot utils."""
 import time
 import ipaddress
+import socket
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.poolmanager import PoolManager
 from typing import Callable, Dict
-from typing import Union, Tuple, Any
+from typing import Union, Tuple, Any, Literal
 from .params import REQUEST_HEADERS
 
+
+class ForceIPHTTPAdapter(HTTPAdapter):
+    """A custom HTTPAdapter that enforces IPv4 or IPv6 DNS resolution for HTTP(S) requests."""
+
+    def __init__(self, version: Literal["ipv4", "ipv6"] = "ipv4", *args, **kwargs):
+        """
+        Initialize the adapter with the desired IP version.
+
+        :param version: 'ipv4' or 'ipv6'
+        """
+        self.version = version.lower()
+        if self.version not in ("ipv4", "ipv6"):
+            raise ValueError("version must be either 'ipv4' or 'ipv6'")
+        super().__init__(*args, **kwargs)
+
+    def init_poolmanager(self, connections: int, maxsize: int, block: bool = False, **kwargs: dict) -> None:
+        """
+        Initialize the connection pool manager with DNS filtering based on the selected IP version.
+        """
+        self.poolmanager = PoolManager(
+            num_pools=connections,
+            maxsize=maxsize,
+            block=block,
+            socket_options=self._ip_socket_options(),
+            **kwargs
+        )
+
+    def _ip_socket_options(self) -> list:
+        """
+        Temporarily patches socket.getaddrinfo to filter addresses based on the selected IP version.
+
+        :return: an empty list of socket options; DNS patching occurs here
+        """
+        original_getaddrinfo = socket.getaddrinfo
+        family = socket.AF_INET if self.version == "ipv4" else socket.AF_INET6
+
+        def filtered_getaddrinfo(*args: list, **kwargs: dict) -> List[Tuple]:
+            results = original_getaddrinfo(*args, **kwargs)
+            return [res for res in results if res[0] == family]
+
+        self._original_getaddrinfo = socket.getaddrinfo
+        socket.getaddrinfo = filtered_getaddrinfo
+
+        return []
+
+    def __del__(self) -> None:
+        """Restores the original socket.getaddrinfo function upon adapter deletion."""
+        if hasattr(self, "_original_getaddrinfo"):
+            socket.getaddrinfo = self._original_getaddrinfo
 
 def _attempt_with_retries(
         func: Callable,
