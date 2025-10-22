@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `ForceIPHTTPAdapter` class
-- `_get_json_ip_forced` function
+- `_get_json_force_ip` function
 ### Removed
 - `IPv4HTTPAdapter` class
 - `_get_json_ipv4_forced` function
