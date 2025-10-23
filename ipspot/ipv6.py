@@ -7,6 +7,7 @@ from .params import IPv6API
 from .utils import is_loopback, _attempt_with_retries
 from .utils import _get_json_standard, _get_json_force_ip
 
+
 def is_ipv6(ip: str) -> bool:
     """
     Check if the given input is a valid IPv6 address.
