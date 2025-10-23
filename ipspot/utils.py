@@ -2,10 +2,87 @@
 """ipspot utils."""
 import time
 import ipaddress
+import socket
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.poolmanager import PoolManager
 from typing import Callable, Dict
-from typing import Union, Tuple, Any
+from typing import Union, Tuple, Any, List
 from .params import REQUEST_HEADERS
+
+
+class ForceIPHTTPAdapter(HTTPAdapter):
+    """A custom HTTPAdapter that enforces IPv4 or IPv6 DNS resolution for HTTP(S) requests."""
+
+    def __init__(self, version: str = "ipv4", *args: list, **kwargs: dict):
+        """
+        Initialize the adapter with the desired IP version.
+
+        :param version: 'ipv4' or 'ipv6' to select address family
+        :param args: additional list arguments for the HTTPAdapter
+        :param kwargs: additional keyword arguments for the HTTPAdapter
+        """
+        self.version = version.lower()
+        if self.version not in ("ipv4", "ipv6"):
+            raise ValueError("version must be either 'ipv4' or 'ipv6'")
+        super().__init__(*args, **kwargs)
+
+    def init_poolmanager(self, connections: int, maxsize: int, block: bool = False, **kwargs: dict) -> None:
+        """
+        Initialize the connection pool manager with DNS filtering based on the selected IP version.
+
+        :param connections: the number of connection pools to cache
+        :param maxsize: the maximum number of connections to save in the pool
+        :param block: whether the connections should block when reaching the max size
+        :param kwargs: additional keyword arguments for the PoolManager
+        """
+        self.poolmanager = PoolManager(
+            num_pools=connections,
+            maxsize=maxsize,
+            block=block,
+            socket_options=self._ip_socket_options(),
+            **kwargs
+        )
+
+    def _ip_socket_options(self) -> list:
+        """
+        Temporarily patches socket.getaddrinfo to filter addresses based on the selected IP version.
+
+        :return: an empty list of socket options; DNS patching occurs here
+        """
+        original_getaddrinfo = socket.getaddrinfo
+        family = socket.AF_INET if self.version == "ipv4" else socket.AF_INET6
+
+        def filtered_getaddrinfo(*args: list, **kwargs: dict) -> List[Tuple]:
+            results = original_getaddrinfo(*args, **kwargs)
+            return [res for res in results if res[0] == family]
+
+        self._original_getaddrinfo = socket.getaddrinfo
+        socket.getaddrinfo = filtered_getaddrinfo
+
+        return []
+
+    def __del__(self) -> None:
+        """Restores the original socket.getaddrinfo function upon adapter deletion."""
+        if hasattr(self, "_original_getaddrinfo"):
+            socket.getaddrinfo = self._original_getaddrinfo
+
+
+def _get_json_force_ip(url: str, timeout: Union[float, Tuple[float, float]],
+                       version: str = "ipv4") -> dict:
+    """
+    Send GET request with forced IPv4/IPv6 using ForceIPHTTPAdapter that returns JSON response.
+
+    :param url: API url
+    :param timeout: timeout value for API
+    :param version: 'ipv4' or 'ipv6' to select address family
+    """
+    with requests.Session() as session:
+        session.mount("http://", ForceIPHTTPAdapter(version=version))
+        session.mount("https://", ForceIPHTTPAdapter(version=version))
+        response = session.get(url, headers=REQUEST_HEADERS, timeout=timeout)
+        response.raise_for_status()
+        return response.json()
 
 
 def _attempt_with_retries(
