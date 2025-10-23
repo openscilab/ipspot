@@ -50,6 +50,7 @@ class IPv6API(Enum):
     TNEDI_ME = "tnedi.me"
     IPLEAK_NET = "ipleak.net"
     MY_IP_IO = "my-ip.io"
+    IFCONFIG_CO = "ifconfig.co"
 
 
 PARAMETERS_NAME_MAP = {
