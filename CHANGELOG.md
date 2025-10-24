@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `ForceIPHTTPAdapter` class
 - `_get_json_force_ip` function
+- Support [ifconfig.co](https://ifconfig.co/json) IPv6 API
 ### Removed
 - `IPv4HTTPAdapter` class
 - `_get_json_ipv4_forced` function
