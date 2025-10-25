@@ -27,45 +27,32 @@ class ForceIPHTTPAdapter(HTTPAdapter):
             raise ValueError("version must be either 'ipv4' or 'ipv6'")
         super().__init__(*args, **kwargs)
 
-    def init_poolmanager(self, connections: int, maxsize: int, block: bool = False, **kwargs: dict) -> None:
+    def send(self, *args: list, **kwargs: dict):
         """
-        Initialize the connection pool manager with DNS filtering based on the selected IP version.
+        Override send method to apply the monkey patch only during the request.
 
-        :param connections: the number of connection pools to cache
-        :param maxsize: the maximum number of connections to save in the pool
-        :param block: whether the connections should block when reaching the max size
-        :param kwargs: additional keyword arguments for the PoolManager
+        :param args: additional list arguments for the send method
+        :param kwargs: additional keyword arguments for the send method
         """
-        self.poolmanager = PoolManager(
-            num_pools=connections,
-            maxsize=maxsize,
-            block=block,
-            socket_options=self._ip_socket_options(),
-            **kwargs
-        )
-
-    def _ip_socket_options(self) -> list:
-        """
-        Temporarily patches socket.getaddrinfo to filter addresses based on the selected IP version.
-
-        :return: an empty list of socket options; DNS patching occurs here
-        """
-        original_getaddrinfo = socket.getaddrinfo
         family = socket.AF_INET if self.version == "ipv4" else socket.AF_INET6
+        original_getaddrinfo = socket.getaddrinfo
 
-        def filtered_getaddrinfo(*args: list, **kwargs: dict) -> List[Tuple]:
-            results = original_getaddrinfo(*args, **kwargs)
+        def filtered_getaddrinfo(*gargs: list, **gkwargs: dict):
+            """
+            Filtered getaddrinfo.
+
+            :param gargs: additional list arguments for the original_getaddrinfo function
+            :param kwargs: additional keyword arguments for the original_getaddrinfo function
+            """
+            results = original_getaddrinfo(*gargs, **gkwargs)
             return [res for res in results if res[0] == family]
 
-        self._original_getaddrinfo = socket.getaddrinfo
         socket.getaddrinfo = filtered_getaddrinfo
-
-        return []
-
-    def __del__(self) -> None:
-        """Restores the original socket.getaddrinfo function upon adapter deletion."""
-        if hasattr(self, "_original_getaddrinfo"):
-            socket.getaddrinfo = self._original_getaddrinfo
+        try:
+            response = super().send(*args, **kwargs)
+        finally:
+            socket.getaddrinfo = original_getaddrinfo
+        return response
 
 
 def _get_json_force_ip(url: str, timeout: Union[float, Tuple[float, float]],
