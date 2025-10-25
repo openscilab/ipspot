@@ -5,7 +5,6 @@ import ipaddress
 import socket
 import requests
 from requests.adapters import HTTPAdapter
-from urllib3.poolmanager import PoolManager
 from typing import Callable, Dict
 from typing import Union, Tuple, Any, List
 from .params import REQUEST_HEADERS
@@ -14,7 +13,7 @@ from .params import REQUEST_HEADERS
 class ForceIPHTTPAdapter(HTTPAdapter):
     """A custom HTTPAdapter that enforces IPv4 or IPv6 DNS resolution for HTTP(S) requests."""
 
-    def __init__(self, version: str = "ipv4", *args: list, **kwargs: dict):
+    def __init__(self, version: str = "ipv4", *args: list, **kwargs: dict) -> None:
         """
         Initialize the adapter with the desired IP version.
 
@@ -27,7 +26,7 @@ class ForceIPHTTPAdapter(HTTPAdapter):
             raise ValueError("version must be either 'ipv4' or 'ipv6'")
         super().__init__(*args, **kwargs)
 
-    def send(self, *args: list, **kwargs: dict):
+    def send(self, *args: list, **kwargs: dict) -> Any:
         """
         Override send method to apply the monkey patch only during the request.
 
@@ -37,7 +36,7 @@ class ForceIPHTTPAdapter(HTTPAdapter):
         family = socket.AF_INET if self.version == "ipv4" else socket.AF_INET6
         original_getaddrinfo = socket.getaddrinfo
 
-        def filtered_getaddrinfo(*gargs: list, **gkwargs: dict):
+        def filtered_getaddrinfo(*gargs: list, **gkwargs: dict) -> List[Tuple]:
             """
             Filtered getaddrinfo.
 
