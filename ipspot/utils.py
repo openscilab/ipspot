@@ -41,7 +41,7 @@ class ForceIPHTTPAdapter(HTTPAdapter):
             Filter getaddrinfo.
 
             :param gargs: additional list arguments for the original_getaddrinfo function
-            :param kwargs: additional keyword arguments for the original_getaddrinfo function
+            :param gkwargs: additional keyword arguments for the original_getaddrinfo function
             """
             results = original_getaddrinfo(*gargs, **gkwargs)
             return [res for res in results if res[0] == family]
