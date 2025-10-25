@@ -38,7 +38,7 @@ class ForceIPHTTPAdapter(HTTPAdapter):
 
         def filtered_getaddrinfo(*gargs: list, **gkwargs: dict) -> List[Tuple]:
             """
-            Filtered getaddrinfo.
+            Filter getaddrinfo.
 
             :param gargs: additional list arguments for the original_getaddrinfo function
             :param kwargs: additional keyword arguments for the original_getaddrinfo function
