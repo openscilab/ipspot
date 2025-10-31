@@ -123,7 +123,7 @@ def test_public_ipv4_tnedi_me_success():
     assert result["data"]["api"] == "tnedi.me"
 
 
-def test_public_ipv4__reallyfreegeoip_org_success():
+def test_public_ipv4_reallyfreegeoip_org_success():
     result = get_public_ipv4(api=IPv4API.REALLYFREEGEOIP_ORG, geo=True, timeout=40, max_retries=4, retry_delay=90)
     assert result["status"]
     assert is_ipv4(result["data"]["ip"])
