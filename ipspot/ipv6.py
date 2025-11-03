@@ -233,6 +233,34 @@ def _reallyfreegeoip_org_ipv6(geo: bool=False, timeout: Union[float, Tuple[float
         return {"status": False, "error": str(e)}
 
 
+def _myip_la_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
+                  =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using myip.la.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_force_ip(url="https://api.myip.la/en?json", timeout=timeout, version="ipv6")
+        result = {"status": True, "data": {"ip": data["ip"], "api": "myip.la"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": None,  # does not provide region
+                "country": data.get("country_name"),
+                "country_code": data.get("country_code"),
+                "latitude": data.get("latitude"),
+                "longitude": data.get("longitude"),
+                "organization": None,  # does not provide organization
+                "timezone": None  # does not provide organization
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 IPV6_API_MAP = {
     IPv6API.IP_SB: {
         "thread_safe": True,
@@ -269,6 +297,11 @@ IPV6_API_MAP = {
         "geo": True,
         "function": _reallyfreegeoip_org_ipv6
     },
+    IPv6API.MYIP_LA: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _myip_la_ipv6
+    }
 }
 
 
