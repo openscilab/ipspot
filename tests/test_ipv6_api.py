@@ -68,6 +68,14 @@ def test_public_ipv6_myip_la_success():
     assert result["data"]["api"] == "myip.la"
 
 
+def test_public_freeipapi_com_success():
+    result = get_public_ipv6(api=IPv6API.FREEIPAPI_COM, geo=True, timeout=40, max_retries=4, retry_delay=90)
+    assert result["status"]
+    assert is_ipv6(result["data"]["ip"])
+    assert set(result["data"].keys()) == DATA_ITEMS
+    assert result["data"]["api"] == "freeipapi.com"
+
+
 def test_public_ipv6_auto_success():
     result = get_public_ipv6(api=IPv6API.AUTO, geo=True, timeout=40, max_retries=4, retry_delay=90)
     assert result["status"]
