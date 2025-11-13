@@ -273,7 +273,7 @@ def _freeipapi_com_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, floa
     try:
         data = _get_json_force_ip(url="https://free.freeipapi.com/api/json", timeout=timeout, version="ipv6")
         result = {"status": True, "data": {"ip": data["ipAddress"], "api": "freeipapi.com"}}
-        tzs = data.get("timeZones", [None])
+        tzs = data.get("timeZones", [])
         if geo:
             geo_data = {
                 "city": data.get("cityName"),
