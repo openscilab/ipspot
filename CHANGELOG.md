@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Support [reallyfreegeoip.org](https://reallyfreegeoip.org/json/) IPv6 API
 - Support [myip.la](https://api.myip.la/en?json) IPv6 API
 - Support [freeipapi.com](https://freeipapi.com/api/json) IPv6 API
+### Changed
+- [freeipapi.com](https://freeipapi.com/api/json) IPv4 API bug fixed
+- `README.md` updated
 ### Removed
 - `IPv4HTTPAdapter` class
 - `_get_json_ipv4_forced` function
