@@ -369,7 +369,7 @@ def _freeipapi_com_ipv4(geo: bool=False, timeout: Union[float, Tuple[float, floa
                 "latitude": data.get("latitude"),
                 "longitude": data.get("longitude"),
                 "organization": data.get("asnOrganization"),
-                "timezone": tzs[0]
+                "timezone": tzs[0] if len(tzs) > 0 else None
             }
             result["data"].update(geo_data)
         return result
