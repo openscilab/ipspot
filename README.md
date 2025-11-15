@@ -2,6 +2,7 @@
 <img src="https://github.com/openscilab/ipspot/raw/main/otherfiles/logo.png" width="350">
 <h1>IPSpot: A Python Tool to Fetch the System's IP Address</h1>
 <br/>
+<a href="https://codecov.io/gh/openscilab/ipspot"><img src="https://codecov.io/gh/openscilab/ipspot/graph/badge.svg?token=XCFKASULS8"></a>
 <a href="https://badge.fury.io/py/ipspot"><img src="https://badge.fury.io/py/ipspot.svg" alt="PyPI version"></a>
 <a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3"></a>
 <a href="https://github.com/openscilab/ipspot"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/openscilab/ipspot"></a>
@@ -157,16 +158,31 @@ Private IP:
 
 Public IP and Location Info:
 
-  API: ip-api.com
-  City: Southampton
-  Country: United Kingdom
-  Country Code: GB
-  IP: xx.xx.xx.xx
-  Latitude: 50.9097
-  Longitude: -1.4043
-  Organization: N/A
-  Region: England
-  Timezone: Europe/London
+  IPv4:
+
+    API: ipinfo.io
+    City: Nuremberg
+    Country: Germany
+    Country Code: DE
+    IP: xx.xx.xx.xx
+    Latitude: 49.4527
+    Longitude: 11.0783
+    Organization: Hetzner Online GmbH
+    Region: Bavaria
+    Timezone: Europe/Berlin
+
+  IPv6:
+
+    API: ip.sb
+    City: N/A
+    Country: Germany
+    Country Code: DE
+    IP: xx:xx:xx:xx::xx
+    Latitude: 51.2993
+    Longitude: 9.491
+    Organization: Hetzner Online
+    Region: N/A
+    Timezone: Europe/Berlin
 ```
 
 #### IPv4 API
