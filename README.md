@@ -2,6 +2,7 @@
 <img src="https://github.com/openscilab/ipspot/raw/main/otherfiles/logo.png" width="350">
 <h1>IPSpot: A Python Tool to Fetch the System's IP Address</h1>
 <br/>
+<a href="https://codecov.io/gh/openscilab/ipspot"><img src="https://codecov.io/gh/openscilab/ipspot/graph/badge.svg?token=XCFKASULS8"></a>
 <a href="https://badge.fury.io/py/ipspot"><img src="https://badge.fury.io/py/ipspot.svg" alt="PyPI version"></a>
 <a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3"></a>
 <a href="https://github.com/openscilab/ipspot"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/openscilab/ipspot"></a>
