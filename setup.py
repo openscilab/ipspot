@@ -32,7 +32,7 @@ def read_description() -> str:
 setup(
     name='ipspot',
     packages=['ipspot'],
-    version='0.5',
+    version='0.6',
     description='IPSpot: A Python Tool to Fetch the System\'s IP Address',
     long_description=read_description(),
     long_description_content_type='text/markdown',
@@ -40,7 +40,7 @@ setup(
     author='IPSpot Development Team',
     author_email='ipspot@openscilab.com',
     url='https://github.com/openscilab/ipspot',
-    download_url='https://github.com/openscilab/ipspot/tarball/v0.5',
+    download_url='https://github.com/openscilab/ipspot/tarball/v0.6',
     keywords="ip ipv4 geo geolocation network location ipspot cli",
     project_urls={
         'Source': 'https://github.com/openscilab/ipspot'
