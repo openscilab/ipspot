@@ -84,6 +84,7 @@ body:
       label: IPSpot version
       description: Which version of IPSpot are you using?
       options:
+        - IPSpot 0.6
         - IPSpot 0.5
         - IPSpot 0.4
         - IPSpot 0.3
