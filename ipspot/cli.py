@@ -8,6 +8,8 @@ from .ipv6 import get_public_ipv6, get_private_ipv6
 from .utils import _filter_parameter
 from .params import IPv4API, IPv6API, PARAMETERS_NAME_MAP
 from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
+from .params import PUBLIC_IPV4_ERROR, PRIVATE_IPV4_ERROR
+from .params import PUBLIC_IPV6_ERROR, PRIVATE_IPV6_ERROR
 
 
 def ipspot_info() -> None:  # pragma: no cover
@@ -38,14 +40,14 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE,
     if private_ipv4_result["status"]:
         private_ipv4 = private_ipv4_result["data"]["ip"]
     else:
-        private_ipv4 = private_ipv4_result["error"]
+        private_ipv4 = PRIVATE_IPV4_ERROR
     print("  IPv4: {private_ipv4}\n".format(private_ipv4=private_ipv4))
 
     private_ipv6_result = get_private_ipv6()
     if private_ipv6_result["status"]:
         private_ipv6 = private_ipv6_result["data"]["ip"]
     else:
-        private_ipv6 = private_ipv6_result["error"]
+        private_ipv6 = PRIVATE_IPV6_ERROR
     print("  IPv6: {private_ipv6}".format(private_ipv6=private_ipv6))
 
     public_title = "\nPublic IP"
@@ -67,7 +69,7 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE,
                     name=PARAMETERS_NAME_MAP[name],
                     parameter=_filter_parameter(parameter)))
     else:
-        print("    Error: {public_ipv4_result[error]}".format(public_ipv4_result=public_ipv4_result))
+        print("    Error: {public_ipv4_result}".format(public_ipv4_result=PUBLIC_IPV4_ERROR))
 
     print("\n  IPv6:\n")
     public_ipv6_result = get_public_ipv6(
@@ -83,7 +85,7 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE,
                     name=PARAMETERS_NAME_MAP[name],
                     parameter=_filter_parameter(parameter)))
     else:
-        print("    Error: {public_ipv6_result[error]}".format(public_ipv6_result=public_ipv6_result))
+        print("    Error: {public_ipv6_result}".format(public_ipv6_result=PUBLIC_IPV6_ERROR))
 
 
 def main() -> None:  # pragma: no cover
