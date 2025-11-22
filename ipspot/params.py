@@ -68,3 +68,8 @@ PARAMETERS_NAME_MAP = {
     "organization": "Organization",
     "api": "API"
 }
+
+PUBLIC_IPV4_ERROR = "Unable to retrieve public IPv4 information."
+PRIVATE_IPV4_ERROR = "Unable to retrieve private IPv4 address."
+PUBLIC_IPV6_ERROR = "Unable to retrieve public IPv6 information."
+PRIVATE_IPV6_ERROR = "Unable to retrieve private IPv6 address."
