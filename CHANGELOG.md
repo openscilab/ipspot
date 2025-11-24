@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - CLI messages updated
+- `Python 3.14` added to `test.yml`
 ## [0.6] - 2025-11-18
 ### Added
 - `ForceIPHTTPAdapter` class
