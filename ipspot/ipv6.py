@@ -37,8 +37,7 @@ def get_private_ipv6() -> Dict[str, Union[bool, Dict[str, str], str]]:
         return {"status": False, "error": str(e)}
 
 
-def _ip_sb_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _ip_sb_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ip.sb.
 
@@ -65,8 +64,7 @@ def _ip_sb_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
-def _ident_me_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                   =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _ident_me_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ident.me.
 
@@ -93,8 +91,7 @@ def _ident_me_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
-def _tnedi_me_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                   =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _tnedi_me_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using tnedi.me.
 
@@ -121,8 +118,7 @@ def _tnedi_me_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
-def _ipleak_net_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                     =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _ipleak_net_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using ipleak.net.
 
@@ -149,8 +145,7 @@ def _ipleak_net_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
-def _my_ip_io_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                   =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _my_ip_io_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using my-ip.io.
 
@@ -177,8 +172,7 @@ def _my_ip_io_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
-def _ifconfig_co_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]  # very low rate limit
-                      =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _ifconfig_co_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]: # very low rate limit
     """
     Get public IP and geolocation using ifconfig.co.
 
@@ -205,8 +199,7 @@ def _ifconfig_co_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]
         return {"status": False, "error": str(e)}
 
 
-def _reallyfreegeoip_org_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                              =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _reallyfreegeoip_org_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using reallyfreegeoip.org.
 
@@ -233,8 +226,7 @@ def _reallyfreegeoip_org_ipv6(geo: bool=False, timeout: Union[float, Tuple[float
         return {"status": False, "error": str(e)}
 
 
-def _myip_la_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                  =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _myip_la_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using myip.la.
 
@@ -262,8 +254,7 @@ def _myip_la_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
-def _freeipapi_com_ipv6(geo: bool=False, timeout: Union[float, Tuple[float, float]]
-                        =5) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+def _freeipapi_com_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using freeipapi.com.
 
