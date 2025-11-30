@@ -24,7 +24,8 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE,
                     ipv6_api: IPv6API = IPv6API.AUTO_SAFE,
                     geo: bool=False,
                     timeout: Union[float, Tuple[float, float]]=5,
-                    max_retries: int = 0, retry_delay: float = 1.0) -> None:  # pragma: no cover
+                    max_retries: int = 0, retry_delay: float = 1.0,
+                    backoff_factor: float = 1.0) -> None:  # pragma: no cover
     """
     Print collected IP and location data.
 
@@ -34,6 +35,7 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE,
     :param timeout: timeout value for API
     :param max_retries: number of retries
     :param retry_delay: delay between retries (in seconds)
+    :param backoff_factor: backoff factor
     """
     print("Private IP:\n")
     private_ipv4_result = get_private_ipv4()
@@ -61,7 +63,8 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE,
         geo=geo,
         timeout=timeout,
         max_retries=max_retries,
-        retry_delay=retry_delay)
+        retry_delay=retry_delay,
+        backoff_factor=backoff_factor)
     if public_ipv4_result["status"]:
         for name, parameter in sorted(public_ipv4_result["data"].items()):
             print(
@@ -77,7 +80,8 @@ def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE,
         geo=geo,
         timeout=timeout,
         max_retries=max_retries,
-        retry_delay=retry_delay)
+        retry_delay=retry_delay,
+        backoff_factor=backoff_factor)
     if public_ipv6_result["status"]:
         for name, parameter in sorted(public_ipv6_result["data"].items()):
             print(
@@ -111,6 +115,7 @@ def main() -> None:  # pragma: no cover
     parser.add_argument('--timeout', help='timeout for the API request', type=float, default=5.0)
     parser.add_argument('--max-retries', help='number of retries', type=int, default=0)
     parser.add_argument('--retry-delay', help='delay between retries (in seconds)', type=float, default=1.0)
+    parser.add_argument('--backoff-factor', help='backoff factor', type=float, default=1.0)
 
     args = parser.parse_args()
     if args.version:
@@ -127,4 +132,5 @@ def main() -> None:  # pragma: no cover
             geo=geo,
             timeout=args.timeout,
             max_retries=args.max_retries,
-            retry_delay=args.retry_delay)
+            retry_delay=args.retry_delay,
+            backoff_factor=args.backoff_factor)

@@ -74,22 +74,27 @@ def _get_json_force_ip(url: str, timeout: Union[float, Tuple[float, float]],
 def _attempt_with_retries(
         func: Callable,
         max_retries: int,
-        retry_delay: float, **kwargs: dict) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+        retry_delay: float,
+        backoff_factor: float,
+        **kwargs: dict) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Attempt a function call with retries and delay.
 
     :param func: function to execute
     :param max_retries: number of retries
     :param retry_delay: delay between retries (in seconds)
+    :param backoff_factor: backoff factor
     :param kwargs: keyword arguments to pass to the function
     """
     max_retries = max(0, max_retries)
     result = {"status": False, "error": ""}
+    next_delay = retry_delay
     for attempt in range(max_retries + 1):
         result = func(**kwargs)
         if result["status"]:
             break
-        time.sleep(retry_delay)
+        time.sleep(next_delay)
+        next_delay *= backoff_factor
     return result
 
 
