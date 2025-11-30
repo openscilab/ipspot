@@ -74,7 +74,7 @@
 {'status': True, 'data': {'ip': 'xx.xx.xx.xx', 'api': 'ip-api.com'}}
 >>> get_public_ipv4(api=IPv4API.IP_API_COM, geo=True, timeout=10)
 {'data': {'country_code': 'GB', 'latitude': 50.9097, 'longitude': -1.4043, 'api': 'ip-api.com', 'country': 'United Kingdom', 'timezone': 'Europe/London', 'organization': '', 'region': 'England', 'ip': 'xx.xx.xx.xx', 'city': 'Southampton'}, 'status': True}
->>> get_public_ipv4(api=IPv4API.IP_API_COM, geo=True, timeout=10, max_retries=5, retry_delay=4)
+>>> get_public_ipv4(api=IPv4API.IP_API_COM, geo=True, timeout=10, max_retries=5, retry_delay=4, backoff_factor=1.2)
 {'data': {'country_code': 'GB', 'latitude': 50.9097, 'longitude': -1.4043, 'api': 'ip-api.com', 'country': 'United Kingdom', 'timezone': 'Europe/London', 'organization': '', 'region': 'England', 'ip': 'xx.xx.xx.xx', 'city': 'Southampton'}, 'status': True}
 ```
 
@@ -94,7 +94,7 @@
 {'data': {'api': 'ip.sb', 'ip': 'xx:xx:xx:xx::xx'}, 'status': True}
 >>> get_public_ipv6(api=IPv6API.IP_SB, geo=True, timeout=10)
 {'data': {'latitude': 51.2993, 'region': None, 'city': None, 'country_code': 'DE', 'api': 'ip.sb', 'longitude': 9.491, 'country': 'Germany', 'organization': 'Hetzner Online', 'timezone': 'Europe/Berlin', 'ip': 'xx:xx:xx:xx::xx'}, 'status': True}
->>> get_public_ipv6(api=IPv6API.IP_SB, geo=True, timeout=10, max_retries=5, retry_delay=4)
+>>> get_public_ipv6(api=IPv6API.IP_SB, geo=True, timeout=10, max_retries=5, retry_delay=4, backoff_factor=1.2)
 {'data': {'latitude': 51.2993, 'region': None, 'city': None, 'country_code': 'DE', 'api': 'ip.sb', 'longitude': 9.491, 'country': 'Germany', 'organization': 'Hetzner Online', 'timezone': 'Europe/Berlin', 'ip': 'xx:xx:xx:xx::xx'}, 'status': True}
 ```
 
