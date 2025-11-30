@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- `-backoff-factor` argument
+- `--backoff-factor` argument
 ### Changed
 - CLI messages updated
 - `Python 3.14` added to `test.yml`
