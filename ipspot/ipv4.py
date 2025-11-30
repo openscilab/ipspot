@@ -548,7 +548,8 @@ IPV4_API_MAP = {
 def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
                     timeout: Union[float, Tuple[float, float]]=5,
                     max_retries: int = 0,
-                    retry_delay: float = 1.0) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                    retry_delay: float = 1.0,
+                    backoff_factor: float = 1.0) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IPv4 and geolocation info based on the selected API.
 
@@ -557,6 +558,7 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
     :param timeout: timeout value for API
     :param max_retries: number of retries
     :param retry_delay: delay between retries (in seconds)
+    :param backoff_factor: backoff factor
     """
     if api in [IPv4API.AUTO, IPv4API.AUTO_SAFE]:
         for _, api_data in IPV4_API_MAP.items():
@@ -567,6 +569,7 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
                 func=func,
                 max_retries=max_retries,
                 retry_delay=retry_delay,
+                backoff_factor=backoff_factor,
                 geo=geo,
                 timeout=timeout)
             if result["status"]:
@@ -580,6 +583,7 @@ def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
                 func=func,
                 max_retries=max_retries,
                 retry_delay=retry_delay,
+                backoff_factor=backoff_factor,
                 geo=geo,
                 timeout=timeout)
         return {"status": False, "error": "Unsupported API: {api}".format(api=api)}
