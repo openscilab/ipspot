@@ -12,7 +12,7 @@ from .params import PUBLIC_IPV4_ERROR, PRIVATE_IPV4_ERROR
 from .params import PUBLIC_IPV6_ERROR, PRIVATE_IPV6_ERROR
 
 
-def ipspot_info() -> None:  # pragma: no cover
+def _print_ipspot_info() -> None:  # pragma: no cover
     """Print ipspot details."""
     tprint("IPSpot")
     tprint("V:" + IPSPOT_VERSION)
@@ -121,7 +121,7 @@ def main() -> None:  # pragma: no cover
     if args.version:
         print(IPSPOT_VERSION)
     elif args.info:
-        ipspot_info()
+        _print_ipspot_info()
     else:
         ipv4_api = IPv4API(args.ipv4_api)
         ipv6_api = IPv6API(args.ipv6_api)
