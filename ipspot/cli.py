@@ -20,12 +20,12 @@ def _print_ipspot_info() -> None:  # pragma: no cover
     print("Repo : " + IPSPOT_REPO)
 
 
-def display_ip_info(ipv4_api: IPv4API = IPv4API.AUTO_SAFE,
-                    ipv6_api: IPv6API = IPv6API.AUTO_SAFE,
-                    geo: bool=False,
-                    timeout: Union[float, Tuple[float, float]]=5,
-                    max_retries: int = 0, retry_delay: float = 1.0,
-                    backoff_factor: float = 1.0) -> None:  # pragma: no cover
+def _print_report(ipv4_api: IPv4API,
+                    ipv6_api: IPv6API,
+                    geo: bool,
+                    timeout: Union[float, Tuple[float, float]],
+                    max_retries: int, retry_delay: float,
+                    backoff_factor: float) -> None:  # pragma: no cover
     """
     Print collected IP and location data.
 
@@ -126,7 +126,7 @@ def main() -> None:  # pragma: no cover
         ipv4_api = IPv4API(args.ipv4_api)
         ipv6_api = IPv6API(args.ipv6_api)
         geo = not args.no_geo
-        display_ip_info(
+        _print_report(
             ipv4_api=ipv4_api,
             ipv6_api=ipv6_api,
             geo=geo,

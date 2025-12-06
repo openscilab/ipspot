@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `README.md` updated
 - Test system modified
 - `ipspot_info` function renamed to `_print_ipspot_info`
+- `display_ip_info` function renamed to `_print_report`
 ## [0.6] - 2025-11-18
 ### Added
 - `ForceIPHTTPAdapter` class
