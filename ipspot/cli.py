@@ -21,11 +21,12 @@ def _print_ipspot_info() -> None:  # pragma: no cover
 
 
 def _print_report(ipv4_api: IPv4API,
-                    ipv6_api: IPv6API,
-                    geo: bool,
-                    timeout: Union[float, Tuple[float, float]],
-                    max_retries: int, retry_delay: float,
-                    backoff_factor: float) -> None:  # pragma: no cover
+                  ipv6_api: IPv6API,
+                  geo: bool,
+                  timeout: Union[float, Tuple[float, float]],
+                  max_retries: int,
+                  retry_delay: float,
+                  backoff_factor: float) -> None:  # pragma: no cover
     """
     Print collected IP and location data.
 
