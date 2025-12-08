@@ -53,13 +53,13 @@
 ## Installation		
 
 ### Source Code
-- Download [Version 0.6](https://github.com/openscilab/ipspot/archive/v0.6.zip) or [Latest Source](https://github.com/openscilab/ipspot/archive/dev.zip)
+- Download [Version 0.7](https://github.com/openscilab/ipspot/archive/v0.7.zip) or [Latest Source](https://github.com/openscilab/ipspot/archive/dev.zip)
 - `pip install .`				
 
 ### PyPI
 
 - Check [Python Packaging User Guide](https://packaging.python.org/installing/)     
-- `pip install ipspot==0.6`						
+- `pip install ipspot==0.7`						
 
 
 ## Usage
@@ -115,7 +115,7 @@
 ```console
 > ipspot --version
 
-0.6
+0.7
 ```
 
 #### Info
@@ -123,18 +123,18 @@
 ```console
 > ipspot --info
 
- ___  ____   ____                 _
-|_ _||  _ \ / ___|  _ __    ___  | |_
+ ___  ____   ____                 _   
+|_ _||  _ \ / ___|  _ __    ___  | |_ 
  | | | |_) |\___ \ | '_ \  / _ \ | __|
- | | |  __/  ___) || |_) || (_) || |_
+ | | |  __/  ___) || |_) || (_) || |_ 
 |___||_|    |____/ | .__/  \___/  \__|
-                   |_|
+                   |_|                
 
-__     __     ___       __
-\ \   / / _  / _ \     / /_
- \ \ / / (_)| | | |   | '_ \
-  \ V /   _ | |_| | _ | (_) |
-   \_/   (_) \___/ (_) \___/
+__     __     ___      _____ 
+\ \   / / _  / _ \    |___  |
+ \ \ / / (_)| | | |      / / 
+  \ V /   _ | |_| | _   / /  
+   \_/   (_) \___/ (_) /_/ 
 
 
 
