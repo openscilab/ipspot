@@ -12,7 +12,7 @@
 ## Overview	
 
 <p align="justify">					
-<b>IPSpot</b> is a Python library for retrieving the current system's IP address and location information. It currently supports public and private <b>IPv4</b> detection using multiple API providers with a fallback mechanism for reliability. Designed with simplicity and modularity in mind, <b>IPSpot</b> offers quick IP and geolocation lookups directly from your machine.
+<b>IPSpot</b> is a Python library for retrieving the current system’s IP data and detailed location information such as region, longitude, and latitude. It supports both public and private <b>IPv4</b> and <b>IPv6</b> detection through multiple API providers, using a fallback mechanism for improved reliability. It has a simple and modular design, making it easy to perform fast IP, geolocation, provider, and regional lookups directly from your machine.
 </p>
 
 <table>
@@ -138,9 +138,9 @@ __     __     ___      _____
 
 
 
-IPSpot is a Python library for retrieving the current system's IP address and location information.
-It currently supports public and private IPv4 detection using multiple API providers with a fallback mechanism for reliability.
-Designed with simplicity and modularity in mind, IPSpot offers quick IP and geolocation lookups directly from your machine.
+IPSpot is a Python library for retrieving the current system’s IP data and detailed location information such as region, longitude, and latitude.
+It supports both public and private IPv4 and IPv6 detection through multiple API providers, using a fallback mechanism for improved reliability.
+It has a simple and modular design, making it easy to perform fast IP, geolocation, provider, and regional lookups directly from your machine.
 
 Repo : https://github.com/openscilab/ipspot
 
