@@ -24,7 +24,7 @@ def read_description() -> str:
             description += c.read()
         return description
     except Exception:
-        return '''IPSpot is a Python library for retrieving the current system’s IP data and detailed location information such as region, longitude, and latitude.
+        return '''IPSpot is a Python library for retrieving the current system's IP data and detailed location information such as region, longitude, and latitude.
         It supports both public and private IPv4 and IPv6 detection through multiple API providers, using a fallback mechanism for improved reliability.
         It has a simple and modular design, making it easy to perform fast IP, geolocation, provider, and regional lookups directly from your machine.'''
 
@@ -33,7 +33,7 @@ setup(
     name='ipspot',
     packages=['ipspot'],
     version='0.7',
-    description='IPSpot: A Python Tool to Fetch the System\'s IP Address',
+    description='IPSpot: Retrieve Public & Private IPv4/IPv6 System Data',
     long_description=read_description(),
     long_description_content_type='text/markdown',
     include_package_data=True,

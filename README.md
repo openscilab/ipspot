@@ -1,6 +1,6 @@
 <div align="center">
 <img src="https://github.com/openscilab/ipspot/raw/main/otherfiles/logo.png" width="350">
-<h1>IPSpot: IPSpot: Retrieve Public & Private IPv4/IPv6 System Data</h1>
+<h1>IPSpot: Retrieve Public & Private IPv4/IPv6 System Data</h1>
 <br/>
 <a href="https://codecov.io/gh/openscilab/ipspot"><img src="https://codecov.io/gh/openscilab/ipspot/graph/badge.svg?token=XCFKASULS8"></a>
 <a href="https://badge.fury.io/py/ipspot"><img src="https://badge.fury.io/py/ipspot.svg" alt="PyPI version"></a>
@@ -12,7 +12,7 @@
 ## Overview	
 
 <p align="justify">					
-<b>IPSpot</b> is a Python library for retrieving the current system’s IP data and detailed location information such as region, longitude, and latitude. It supports both public and private <b>IPv4</b> and <b>IPv6</b> detection through multiple API providers, using a fallback mechanism for improved reliability. It has a simple and modular design, making it easy to perform fast IP, geolocation, provider, and regional lookups directly from your machine.
+<b>IPSpot</b> is a Python library for retrieving the current system's IP data and detailed location information such as region, longitude, and latitude. It supports both public and private <b>IPv4</b> and <b>IPv6</b> detection through multiple API providers, using a fallback mechanism for improved reliability. It has a simple and modular design, making it easy to perform fast IP, geolocation, provider, and regional lookups directly from your machine.
 </p>
 
 <table>
