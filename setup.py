@@ -41,7 +41,7 @@ setup(
     author_email='ipspot@openscilab.com',
     url='https://github.com/openscilab/ipspot',
     download_url='https://github.com/openscilab/ipspot/tarball/v0.7',
-    keywords="ip ipv4 geo geolocation network location ipspot cli",
+    keywords="ip ipv4 ipv6 geo geolocation network location ipspot cli",
     project_urls={
         'Source': 'https://github.com/openscilab/ipspot'
     },
