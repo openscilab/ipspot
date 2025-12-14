@@ -24,16 +24,16 @@ def read_description() -> str:
             description += c.read()
         return description
     except Exception:
-        return '''IPSpot is a Python library for retrieving the current system's IP address and location information.
-        It currently supports public and local IPv4 detection using multiple API providers with a fallback mechanism for reliability.
-        Designed with simplicity and modularity in mind, IPSpot offers quick IP and geolocation lookups directly from your machine.'''
+        return '''IPSpot is a Python library for retrieving the current system's IP data and detailed location information such as region, longitude, and latitude.
+        It supports both public and private IPv4 and IPv6 detection through multiple API providers, using a fallback mechanism for improved reliability.
+        It has a simple and modular design, making it easy to perform fast IP, geolocation, provider, and regional lookups directly from your machine.'''
 
 
 setup(
     name='ipspot',
     packages=['ipspot'],
     version='0.7',
-    description='IPSpot: A Python Tool to Fetch the System\'s IP Address',
+    description='IPSpot: Retrieve IPv4/IPv6 Addresses with Geolocation Data',
     long_description=read_description(),
     long_description_content_type='text/markdown',
     include_package_data=True,
@@ -41,7 +41,7 @@ setup(
     author_email='ipspot@openscilab.com',
     url='https://github.com/openscilab/ipspot',
     download_url='https://github.com/openscilab/ipspot/tarball/v0.7',
-    keywords="ip ipv4 geo geolocation network location ipspot cli",
+    keywords="ip ipv4 ipv6 geo geolocation network location ipspot cli",
     project_urls={
         'Source': 'https://github.com/openscilab/ipspot'
     },
