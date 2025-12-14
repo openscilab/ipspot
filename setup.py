@@ -33,7 +33,7 @@ setup(
     name='ipspot',
     packages=['ipspot'],
     version='0.7',
-    description='IPSpot: Retrieve Public & Private IPv4/IPv6 System Data',
+    description='IPSpot: Retrieve IPv4/IPv6 Addresses with Geolocation Data',
     long_description=read_description(),
     long_description_content_type='text/markdown',
     include_package_data=True,

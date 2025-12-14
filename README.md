@@ -1,6 +1,6 @@
 <div align="center">
 <img src="https://github.com/openscilab/ipspot/raw/main/otherfiles/logo.png" width="350">
-<h1>IPSpot: Retrieve Public & Private IPv4/IPv6 System Data</h1>
+<h1>IPSpot: Retrieve IPv4/IPv6 Addresses with Geolocation Data</h1>
 <br/>
 <a href="https://codecov.io/gh/openscilab/ipspot"><img src="https://codecov.io/gh/openscilab/ipspot/graph/badge.svg?token=XCFKASULS8"></a>
 <a href="https://badge.fury.io/py/ipspot"><img src="https://badge.fury.io/py/ipspot.svg" alt="PyPI version"></a>
