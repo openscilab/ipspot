@@ -230,7 +230,7 @@ Public IP and Location Info:
 
 #### IPv6 API
 
-ℹ️ `ipv6-api` valid choices: [`auto-safe`, `auto`, `ip.sb`, `ident.me`, `tnedi.me`, `ipleak.net`, `my-ip.io`, `ifconfig.co`, `reallyfreegeoip.org`, `myip.la`, `freeipapi.com`]
+ℹ️ `ipv6-api` valid choices: [`auto-safe`, `auto`, `ip.sb`, `ident.me`, `tnedi.me`, `ipleak.net`, `my-ip.io`, `ifconfig.co`, `reallyfreegeoip.org`, `myip.la`, `freeipapi.com`, `wtfismyip.com`]
 
 ℹ️ The default value: `auto-safe`
 
