@@ -37,6 +37,34 @@ def get_private_ipv6() -> Dict[str, Union[bool, Dict[str, str], str]]:
         return {"status": False, "error": str(e)}
 
 
+def _wtfismyip_com_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]
+                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using wtfismyip.com.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_standard(url="https://json.ipv6.wtfismyip.com", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["YourFuckingIPAddress"], "api": "wtfismyip.com"}}
+        if geo:
+            geo_data = {
+                "city": data.get("YourFuckingCity"),
+                "region": None,
+                "country": data.get("YourFuckingCountry"),
+                "country_code": data.get("YourFuckingCountryCode"),
+                "latitude": None,
+                "longitude": None,
+                "organization": data.get("YourFuckingISP"),
+                "timezone": None
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 def _ip_sb_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]
                 ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
