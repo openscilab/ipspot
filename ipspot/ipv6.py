@@ -365,7 +365,12 @@ IPV6_API_MAP = {
         "thread_safe": False,
         "geo": True,
         "function": _freeipapi_com_ipv6
-    }
+    },
+    IPv6API.WTFISMYIP_COM: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _wtfismyip_com_ipv6
+    },
 }
 
 
