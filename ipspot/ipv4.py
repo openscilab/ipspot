@@ -467,7 +467,7 @@ def _wtfismyip_com_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
 
 
 def _myip_wtf_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
-                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                   ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using myip.wtf.
 
@@ -495,7 +495,7 @@ def _myip_wtf_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
 
 
 def _whoer_net_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
-                     ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                    ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using whoer.net.
 
@@ -615,8 +615,8 @@ IPV4_API_MAP = {
 }
 
 
-def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
-                    timeout: Union[float, Tuple[float, float]]=5,
+def get_public_ipv4(api: IPv4API = IPv4API.AUTO_SAFE, geo: bool = False,
+                    timeout: Union[float, Tuple[float, float]] = 5,
                     max_retries: int = 0,
                     retry_delay: float = 1.0,
                     backoff_factor: float = 1.0) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
