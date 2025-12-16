@@ -466,6 +466,38 @@ def _wtfismyip_com_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _whoer_net_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
+                     ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using whoer.net.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_standard(url="https://whoer.net/en/main/api/ip", timeout=timeout)
+        if data.get("status") != "OK":
+            return {"status": False, "error": "whoer.net lookup failed"}
+        data_obj = data.get("data", {})
+        result = {"status": True, "data": {"ip": data_obj.get("ip"), "api": "whoer.net"}}
+        if geo:
+            time_obj = data_obj.get("time", {})
+            geo_data = {
+                "city": data_obj.get("city"),
+                "region": data_obj.get("region"),
+                "country": data_obj.get("country"),
+                "country_code": data_obj.get("iso"),
+                "latitude": None,  # not provided by API
+                "longitude": None,  # not provided by API
+                "organization": data_obj.get("org") or data_obj.get("isp"),
+                "timezone": time_obj.get("zone")
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 IPV4_API_MAP = {
     IPv4API.IFCONFIG_CO: {
         "thread_safe": False,
@@ -541,6 +573,11 @@ IPV4_API_MAP = {
         "thread_safe": True,
         "geo": True,
         "function": _wtfismyip_com_ipv4
+    },
+    IPv4API.WHOER_NET: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _whoer_net_ipv4
     },
 }
 
