@@ -38,6 +38,7 @@ class IPv4API(Enum):
     IPQUERY_IO = "ipquery.io"
     IPWHO_IS = "ipwho.is"
     WTFISMYIP_COM = "wtfismyip.com"
+    WHOER_NET = "whoer.net"
 
 
 class IPv6API(Enum):
