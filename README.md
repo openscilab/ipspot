@@ -187,7 +187,7 @@ Public IP and Location Info:
 
 #### IPv4 API
 
-ℹ️ `ipv4-api` valid choices: [`auto-safe`, `auto`, `ip-api.com`, `ipinfo.io`, `ip.sb`, `ident.me`, `tnedi.me`, `ipapi.co`, `ipleak.net`, `my-ip.io`, `ifconfig.co`, `reallyfreegeoip.org`, `freeipapi.com`, `myip.la`, `ipquery.io`, `ipwho.is`, `wtfismyip.com`]
+ℹ️ `ipv4-api` valid choices: [`auto-safe`, `auto`, `ip-api.com`, `ipinfo.io`, `ip.sb`, `ident.me`, `tnedi.me`, `ipapi.co`, `ipleak.net`, `my-ip.io`, `ifconfig.co`, `reallyfreegeoip.org`, `freeipapi.com`, `myip.la`, `ipquery.io`, `ipwho.is`, `wtfismyip.com`, `whoer.net`]
 
 ℹ️ The default value: `auto-safe`
 
