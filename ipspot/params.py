@@ -38,6 +38,7 @@ class IPv4API(Enum):
     IPQUERY_IO = "ipquery.io"
     IPWHO_IS = "ipwho.is"
     WTFISMYIP_COM = "wtfismyip.com"
+    MYIP_WTF = "myip.wtf"
     WHOER_NET = "whoer.net"
 
 
@@ -56,6 +57,7 @@ class IPv6API(Enum):
     MYIP_LA = "myip.la"
     FREEIPAPI_COM = "freeipapi.com"
     WTFISMYIP_COM = "wtfismyip.com"
+    MYIP_WTF = "myip.wtf"
 
 
 PARAMETERS_NAME_MAP = {
