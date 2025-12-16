@@ -320,6 +320,34 @@ def _wtfismyip_com_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]
         return {"status": False, "error": str(e)}
 
 
+def _myip_wtf_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]
+                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using myip.wtf.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_standard(url="https://json.ipv6.myip.wtf", timeout=timeout)
+        result = {"status": True, "data": {"ip": data["YourFuckingIPAddress"], "api": "myip.wtf"}}
+        if geo:
+            geo_data = {
+                "city": data.get("YourFuckingCity"),
+                "region": None,
+                "country": data.get("YourFuckingCountry"),
+                "country_code": data.get("YourFuckingCountryCode"),
+                "latitude": None,
+                "longitude": None,
+                "organization": data.get("YourFuckingISP"),
+                "timezone": None
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 IPV6_API_MAP = {
     IPv6API.IP_SB: {
         "thread_safe": True,
@@ -370,6 +398,11 @@ IPV6_API_MAP = {
         "thread_safe": True,
         "geo": True,
         "function": _wtfismyip_com_ipv6
+    },
+    IPv6API.MYIP_WTF: {
+        "thread_safe": True,
+        "geo": True,
+        "function": _myip_wtf_ipv6
     },
 }
 

@@ -137,3 +137,11 @@ def test_public_ipv4_wtfismyip_com_success():
     assert is_ipv4(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
     assert result["data"]["api"] == "wtfismyip.com"
+
+
+def test_public_ipv4_myip_wtf_success():
+    result = get_public_ipv4(api=IPv4API.MYIP_WTF, geo=True, timeout=40, max_retries=4, retry_delay=90, backoff_factor=1.1)
+    assert result["status"]
+    assert is_ipv4(result["data"]["ip"])
+    assert set(result["data"].keys()) == DATA_ITEMS
+    assert result["data"]["api"] == "myip.wtf"
