@@ -99,7 +99,7 @@ def test_public_ipv6_auto_safe_success():
 
 
 def test_public_ipv6_myip_wtf_success():
-    result = get_public_ipv6(api=IPv4API.MYIP_WTF, geo=True, timeout=40, max_retries=4, retry_delay=90, backoff_factor=1.1)
+    result = get_public_ipv6(api=IPv6API.MYIP_WTF, geo=True, timeout=40, max_retries=4, retry_delay=90, backoff_factor=1.1)
     assert result["status"]
     assert is_ipv6(result["data"]["ip"])
     assert set(result["data"].keys()) == DATA_ITEMS
