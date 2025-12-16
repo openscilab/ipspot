@@ -470,6 +470,7 @@ def _myip_wtf_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
                         ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using myip.wtf.
+
     :param geo: geolocation flag
     :param timeout: timeout value for API
     """
