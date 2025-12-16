@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- Support [whoer.net](https://whoer.net/en/main/api/ip) IPv4 API
 - Support [wtfismyip.com](https://wtfismyip.com/json) IPv6 API
 ### Changed
 - `README.md` updated
