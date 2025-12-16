@@ -56,6 +56,7 @@ class IPv6API(Enum):
     MYIP_LA = "myip.la"
     FREEIPAPI_COM = "freeipapi.com"
     WTFISMYIP_COM = "wtfismyip.com"
+    MYIP_WTF = "myip.wtf"
 
 
 PARAMETERS_NAME_MAP = {
