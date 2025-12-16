@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Support [wtfismyip.com](https://wtfismyip.com/json) IPv6 API
+- Support [myip.wtf](https://myip.wtf/) IPv6 API
+- Support [myip.wtf](https://myip.wtf/) IPv4 API
 ### Changed
 - `README.md` updated
 ## [0.7] - 2025-12-09
