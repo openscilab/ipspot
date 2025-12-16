@@ -334,3 +334,15 @@ def test_public_ipv4_wtfismyip_com_net_error():
         result = get_public_ipv4(api=IPv4API.WTFISMYIP_COM)
         assert not result["status"]
         assert result["error"] == "No Internet"
+
+
+def test_public_ipv4_whoer_net_timeout_error():
+    result = get_public_ipv4(api=IPv4API.WHOER_NET, geo=True, timeout="5")
+    assert not result["status"]
+
+
+def test_public_ipv4_whoer_net_net_error():
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.WHOER_NET)
+        assert not result["status"]
+        assert result["error"] == "No Internet"
