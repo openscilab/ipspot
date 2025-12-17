@@ -503,7 +503,7 @@ def _whoer_net_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_standard(url="https://whoer.net/en/main/api/ip", timeout=timeout)
+        data = _get_json_force_ip(url="https://whoer.net/en/main/api/ip", timeout=timeout, version="ipv4")
         if data.get("status") != "OK":
             return {"status": False, "error": "whoer.net lookup failed"}
         data_obj = data.get("data", {})
