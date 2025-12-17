@@ -237,7 +237,8 @@ def _ipinfo_io_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
 
 
 def _reallyfreegeoip_org_ipv4(
-        geo: bool, timeout: Union[float, Tuple[float, float]]) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+        geo: bool, timeout: Union[float, Tuple[float, float]]
+) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using reallyfreegeoip.org.
 

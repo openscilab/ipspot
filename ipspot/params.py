@@ -5,9 +5,12 @@ from enum import Enum
 IPSPOT_VERSION = "0.7"
 
 IPSPOT_OVERVIEW = '''
-IPSpot is a Python library for retrieving the current system's IP data and detailed location information such as region, longitude, and latitude.
-It supports both public and private IPv4 and IPv6 detection through multiple API providers, using a fallback mechanism for improved reliability.
-It has a simple and modular design, making it easy to perform fast IP, geolocation, provider, and regional lookups directly from your machine.
+IPSpot is a Python library for retrieving the current system's IP data and
+detailed location information such as region, longitude, and latitude.
+It supports both public and private IPv4 and IPv6 detection through multiple
+API providers, using a fallback mechanism for improved reliability.
+It has a simple and modular design, making it easy to perform fast IP,
+geolocation, provider, and regional lookups directly from your machine.
 '''
 
 IPSPOT_REPO = "https://github.com/openscilab/ipspot"

@@ -207,7 +207,8 @@ def _ifconfig_co_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]
 
 
 def _reallyfreegeoip_org_ipv6(
-        geo: bool, timeout: Union[float, Tuple[float, float]]) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+        geo: bool, timeout: Union[float, Tuple[float, float]]
+) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using reallyfreegeoip.org.
 
