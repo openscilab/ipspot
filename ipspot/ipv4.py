@@ -503,7 +503,7 @@ def _db_ip_com_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     :param timeout: timeout value for API
     """
     try:
-        data = _get_json_standard(url="https://api.db-ip.com/v2/free/self", timeout=timeout)
+        data = _get_json_force_ip(url="https://api.db-ip.com/v2/free/self", timeout=timeout, version="ipv4")
         result = {"status": True, "data": {"ip": data["ipAddress"], "api": "db-ip.com"}}
         if geo:
             geo_data = {
@@ -604,7 +604,7 @@ IPV4_API_MAP = {
         "function": _myip_wtf_ipv4
     },
     IPv4API.DB_IP_COM: {
-        "thread_safe": True,
+        "thread_safe": False,
         "geo": True,
         "function": _db_ip_com_ipv4
     },
