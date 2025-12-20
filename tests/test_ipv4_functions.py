@@ -75,9 +75,6 @@ def test_get_private_ipv4_exception():
         assert result["error"] == "Test error"
 
 
-
-
-
 def test_public_ipv4_auto_timeout_error():
     result = get_public_ipv4(api=IPv4API.AUTO, geo=True, timeout="5")
     assert not result["status"]
@@ -88,9 +85,6 @@ def test_public_ipv4_auto_net_error():
         result = get_public_ipv4(api=IPv4API.AUTO)
         assert not result["status"]
         assert result["error"] == "All attempts failed."
-
-
-
 
 
 def test_public_ipv4_auto_safe_timeout_error():
@@ -105,9 +99,6 @@ def test_public_ipv4_auto_safe_net_error():
         assert result["error"] == "All attempts failed."
 
 
-
-
-
 def test_public_ipv4_ipapi_co_timeout_error():
     result = get_public_ipv4(api=IPv4API.IPAPI_CO, geo=True, timeout="5")
     assert not result["status"]
@@ -118,9 +109,6 @@ def test_public_ipv4_ipapi_co_net_error():
         result = get_public_ipv4(api=IPv4API.IPAPI_CO)
         assert not result["status"]
         assert result["error"] == "No Internet"
-
-
-
 
 
 def test_public_ipv4_ipleak_net_timeout_error():
@@ -135,9 +123,6 @@ def test_public_ipv4_ipleak_net_net_error():
         assert result["error"] == "No Internet"
 
 
-
-
-
 def test_public_ipv4_my_ip_io_timeout_error():
     result = get_public_ipv4(api=IPv4API.MY_IP_IO, geo=True, timeout="5")
     assert not result["status"]
@@ -148,9 +133,6 @@ def test_public_ipv4_my_ip_io_net_error():
         result = get_public_ipv4(api=IPv4API.MY_IP_IO)
         assert not result["status"]
         assert result["error"] == "No Internet"
-
-
-
 
 
 def test_public_ipv4_ifconfig_co_timeout_error():
@@ -165,9 +147,6 @@ def test_public_ipv4_ifconfig_co_net_error():
         assert result["error"] == "No Internet"
 
 
-
-
-
 def test_public_ipv4_myip_la_timeout_error():
     result = get_public_ipv4(api=IPv4API.MYIP_LA, geo=True, timeout="5")
     assert not result["status"]
@@ -178,9 +157,6 @@ def test_public_ipv4_myip_la_net_error():
         result = get_public_ipv4(api=IPv4API.MYIP_LA)
         assert not result["status"]
         assert result["error"] == "No Internet"
-
-
-
 
 
 def test_public_ipv4_ipquery_io_timeout_error():
@@ -195,9 +171,6 @@ def test_public_ipv4_ipquery_io_net_error():
         assert result["error"] == "No Internet"
 
 
-
-
-
 def test_public_ipv4_ipwho_is_timeout_error():
     result = get_public_ipv4(api=IPv4API.IPWHO_IS, geo=True, timeout="5")
     assert not result["status"]
@@ -208,9 +181,6 @@ def test_public_ipv4_ipwho_is_net_error():
         result = get_public_ipv4(api=IPv4API.IPWHO_IS)
         assert not result["status"]
         assert result["error"] == "No Internet"
-
-
-
 
 
 def test_public_ipv4_freeipapi_com_timeout_error():
@@ -225,9 +195,6 @@ def test_public_ipv4_freeipapi_com_net_error():
         assert result["error"] == "No Internet"
 
 
-
-
-
 def test_public_ipv4_ip_api_com_timeout_error():
     result = get_public_ipv4(api=IPv4API.IP_API_COM, geo=True, timeout="5")
     assert not result["status"]
@@ -238,9 +205,6 @@ def test_public_ipv4_ip_api_com_net_error():
         result = get_public_ipv4(api=IPv4API.IP_API_COM)
         assert not result["status"]
         assert result["error"] == "No Internet"
-
-
-
 
 
 def test_public_ipv4_ipinfo_io_timeout_error():
@@ -255,13 +219,9 @@ def test_public_ipv4_ipinfo_io_net_error():
         assert result["error"] == "No Internet"
 
 
-
-
-
 def test_public_ipv4_ip_sb_timeout_error():
     result = get_public_ipv4(api=IPv4API.IP_SB, geo=True, timeout="5")
     assert not result["status"]
-
 
 
 def test_public_ipv4_ip_sb_net_error():
@@ -269,9 +229,6 @@ def test_public_ipv4_ip_sb_net_error():
         result = get_public_ipv4(api=IPv4API.IP_SB)
         assert not result["status"]
         assert result["error"] == "No Internet"
-
-
-
 
 
 def test_public_ipv4_ident_me_timeout_error():
@@ -284,9 +241,6 @@ def test_public_ipv4_ident_me_net_error():
         result = get_public_ipv4(api=IPv4API.IDENT_ME)
         assert not result["status"]
         assert result["error"] == "No Internet"
-
-
-
 
 
 def test_public_ipv4_tnedi_me_timeout_error():
@@ -307,9 +261,6 @@ def test_public_ipv4_api_error():
     assert result["error"] == "Unsupported API: api1"
 
 
-
-
-
 def test_public_ipv4_reallyfreegeoip_org_timeout_error():
     result = get_public_ipv4(api=IPv4API.REALLYFREEGEOIP_ORG, geo=True, timeout="5")
     assert not result["status"]
@@ -322,8 +273,6 @@ def test_public_ipv4_reallyfreegeoip_org_net_error():
         assert result["error"] == "No Internet"
 
 
-
-
 def test_public_ipv4_wtfismyip_com_timeout_error():
     result = get_public_ipv4(api=IPv4API.WTFISMYIP_COM, geo=True, timeout="5")
     assert not result["status"]
@@ -332,5 +281,17 @@ def test_public_ipv4_wtfismyip_com_timeout_error():
 def test_public_ipv4_wtfismyip_com_net_error():
     with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
         result = get_public_ipv4(api=IPv4API.WTFISMYIP_COM)
+        assert not result["status"]
+        assert result["error"] == "No Internet"
+
+
+def test_public_ipv4_db_ip_com_timeout_error():
+    result = get_public_ipv4(api=IPv4API.DB_IP_COM, geo=True, timeout="5")
+    assert not result["status"]
+
+
+def test_public_ipv4_db_ip_com_net_error():
+    with mock.patch.object(requests.Session, "get", side_effect=Exception("No Internet")):
+        result = get_public_ipv4(api=IPv4API.DB_IP_COM)
         assert not result["status"]
         assert result["error"] == "No Internet"

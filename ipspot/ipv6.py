@@ -321,7 +321,7 @@ def _wtfismyip_com_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]
 
 
 def _myip_wtf_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]
-                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                   ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using myip.wtf.
 
@@ -407,8 +407,8 @@ IPV6_API_MAP = {
 }
 
 
-def get_public_ipv6(api: IPv6API=IPv6API.AUTO_SAFE, geo: bool=False,
-                    timeout: Union[float, Tuple[float, float]]=5,
+def get_public_ipv6(api: IPv6API = IPv6API.AUTO_SAFE, geo: bool = False,
+                    timeout: Union[float, Tuple[float, float]] = 5,
                     max_retries: int = 0,
                     retry_delay: float = 1.0,
                     backoff_factor: float = 1.0) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:

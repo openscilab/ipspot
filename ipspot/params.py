@@ -39,6 +39,7 @@ class IPv4API(Enum):
     IPWHO_IS = "ipwho.is"
     WTFISMYIP_COM = "wtfismyip.com"
     MYIP_WTF = "myip.wtf"
+    DB_IP_COM = "db-ip.com"
 
 
 class IPv6API(Enum):

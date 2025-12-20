@@ -467,7 +467,7 @@ def _wtfismyip_com_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
 
 
 def _myip_wtf_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
-                        ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+                   ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
     """
     Get public IP and geolocation using myip.wtf.
 
@@ -487,6 +487,34 @@ def _myip_wtf_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
                 "longitude": None,
                 "organization": data.get("YourFuckingISP"),
                 "timezone": None
+            }
+            result["data"].update(geo_data)
+        return result
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
+def _db_ip_com_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
+                    ) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
+    """
+    Get public IP and geolocation using db-ip.com.
+
+    :param geo: geolocation flag
+    :param timeout: timeout value for API
+    """
+    try:
+        data = _get_json_force_ip(url="https://api.db-ip.com/v2/free/self", timeout=timeout, version="ipv4")
+        result = {"status": True, "data": {"ip": data["ipAddress"], "api": "db-ip.com"}}
+        if geo:
+            geo_data = {
+                "city": data.get("city"),
+                "region": data.get("stateProv"),
+                "country": data.get("countryName"),
+                "country_code": data.get("countryCode"),
+                "latitude": None,  # not provided by free API
+                "longitude": None,  # not provided by free API
+                "organization": None,  # not provided by free API
+                "timezone": None  # not provided by free API
             }
             result["data"].update(geo_data)
         return result
@@ -575,11 +603,16 @@ IPV4_API_MAP = {
         "geo": True,
         "function": _myip_wtf_ipv4
     },
+    IPv4API.DB_IP_COM: {
+        "thread_safe": False,
+        "geo": True,
+        "function": _db_ip_com_ipv4
+    },
 }
 
 
-def get_public_ipv4(api: IPv4API=IPv4API.AUTO_SAFE, geo: bool=False,
-                    timeout: Union[float, Tuple[float, float]]=5,
+def get_public_ipv4(api: IPv4API = IPv4API.AUTO_SAFE, geo: bool = False,
+                    timeout: Union[float, Tuple[float, float]] = 5,
                     max_retries: int = 0,
                     retry_delay: float = 1.0,
                     backoff_factor: float = 1.0) -> Dict[str, Union[bool, Dict[str, Union[str, float]], str]]:
