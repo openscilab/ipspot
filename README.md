@@ -53,13 +53,13 @@
 ## Installation		
 
 ### Source Code
-- Download [Version 0.7](https://github.com/openscilab/ipspot/archive/v0.7.zip) or [Latest Source](https://github.com/openscilab/ipspot/archive/dev.zip)
+- Download [Version 0.8](https://github.com/openscilab/ipspot/archive/v0.8.zip) or [Latest Source](https://github.com/openscilab/ipspot/archive/dev.zip)
 - `pip install .`				
 
 ### PyPI
 
 - Check [Python Packaging User Guide](https://packaging.python.org/installing/)     
-- `pip install ipspot==0.7`						
+- `pip install ipspot==0.8`						
 
 
 ## Usage
@@ -115,7 +115,7 @@
 ```console
 > ipspot --version
 
-0.7
+0.8
 ```
 
 #### Info
@@ -130,15 +130,15 @@
 |___||_|    |____/ | .__/  \___/  \__|
                    |_|                
 
-__     __     ___      _____ 
-\ \   / / _  / _ \    |___  |
- \ \ / / (_)| | | |      / / 
-  \ V /   _ | |_| | _   / /  
-   \_/   (_) \___/ (_) /_/ 
+__     __     ___       ___  
+\ \   / / _  / _ \     ( _ ) 
+ \ \ / / (_)| | | |    / _ \ 
+  \ V /   _ | |_| | _ | (_) |
+   \_/   (_) \___/ (_) \___/ 
 
 
 
-IPSpot is a Python library for retrieving the current system’s IP data and detailed location information such as region, longitude, and latitude.
+IPSpot is a Python library for retrieving the current system's IP data and detailed location information such as region, longitude, and latitude.
 It supports both public and private IPv4 and IPv6 detection through multiple API providers, using a fallback mechanism for improved reliability.
 It has a simple and modular design, making it easy to perform fast IP, geolocation, provider, and regional lookups directly from your machine.
 
