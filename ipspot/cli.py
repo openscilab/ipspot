@@ -149,7 +149,7 @@ def _run(args: argparse.Namespace) -> None:  # pragma: no cover
 def main() -> None:  # pragma: no cover
     """CLI main function."""
     try:
-        args = parse_args()
-        run(args)
+        args = _parse_args()
+        _run(args)
     except (KeyboardInterrupt, EOFError):
         print(EXIT_MESSAGE)
