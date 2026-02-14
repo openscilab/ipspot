@@ -10,6 +10,7 @@ from .params import IPv4API, IPv6API, PARAMETERS_NAME_MAP
 from .params import IPSPOT_OVERVIEW, IPSPOT_REPO, IPSPOT_VERSION
 from .params import PUBLIC_IPV4_ERROR, PRIVATE_IPV4_ERROR
 from .params import PUBLIC_IPV6_ERROR, PRIVATE_IPV6_ERROR
+from .params import EXIT_MESSAGE
 
 
 def _print_ipspot_info() -> None:  # pragma: no cover
@@ -150,7 +151,7 @@ def main() -> None:  # pragma: no cover
     try:
         args = parse_args()
         run(args)
-    except KeyboardInterrupt:
-        print("message")
+    except (KeyboardInterrupt, EOFError):
+        print(EXIT_MESSAGE)
     
     
