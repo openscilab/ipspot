@@ -94,7 +94,7 @@ def _print_report(ipv4_api: IPv4API,
         print("    Error: {public_ipv6_result}".format(public_ipv6_result=PUBLIC_IPV6_ERROR))
 
 
-def _parse_args() -> argparse.Namespace: # pragma: no cover
+def _parse_args() -> argparse.Namespace:  # pragma: no cover
     """Parse arguments."""
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -122,7 +122,7 @@ def _parse_args() -> argparse.Namespace: # pragma: no cover
     return args
 
 
-def _run(args: argparse.Namespace) -> None: # pragma: no cover
+def _run(args: argparse.Namespace) -> None:  # pragma: no cover
     """
     Run ipspot CLI.
 
@@ -153,5 +153,3 @@ def main() -> None:  # pragma: no cover
         run(args)
     except (KeyboardInterrupt, EOFError):
         print(EXIT_MESSAGE)
-    
-    
