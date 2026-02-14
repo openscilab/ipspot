@@ -93,8 +93,8 @@ def _print_report(ipv4_api: IPv4API,
         print("    Error: {public_ipv6_result}".format(public_ipv6_result=PUBLIC_IPV6_ERROR))
 
 
-def main() -> None:  # pragma: no cover
-    """CLI main function."""
+def _parse_args() -> argparse.Namespace:
+    """Parse arguments."""
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--ipv4-api',
@@ -117,8 +117,16 @@ def main() -> None:  # pragma: no cover
     parser.add_argument('--max-retries', help='number of retries', type=int, default=0)
     parser.add_argument('--retry-delay', help='delay between retries (in seconds)', type=float, default=1.0)
     parser.add_argument('--backoff-factor', help='backoff factor', type=float, default=1.0)
-
     args = parser.parse_args()
+    return args
+
+
+def _run(args: argparse.Namespace) -> None:
+    """
+    Run ipspot CLI.
+
+    :param args: arguments
+    """
     if args.version:
         print(IPSPOT_VERSION)
     elif args.info:
@@ -135,3 +143,14 @@ def main() -> None:  # pragma: no cover
             max_retries=args.max_retries,
             retry_delay=args.retry_delay,
             backoff_factor=args.backoff_factor)
+
+
+def main() -> None:  # pragma: no cover
+    """CLI main function."""
+    try:
+        args = parse_args()
+        run(args)
+    except KeyboardInterrupt:
+        print("message")
+    
+    
