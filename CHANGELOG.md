@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - CLI messages updated
 - CLI modified
+- Dependencies structure modified
 ## [0.8] - 2026-02-05
 ### Added
 - Support [wtfismyip.com](https://wtfismyip.com/json) IPv6 API
