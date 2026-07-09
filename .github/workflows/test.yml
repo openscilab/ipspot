@@ -58,8 +58,7 @@ jobs:
         ipspot --timeout=15
     - name: Install dev-requirements
       run: |
-        python otherfiles/requirements-splitter.py
-        pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
+        pip install --upgrade --upgrade-strategy=only-if-needed -r requirements-dev.txt
     - name: Test with pytest (IPv4 functions)
       run: |
           python -m pytest . --cov=ipspot --cov-report=term --ignore-glob="tests/test_ipv6_*.py" --ignore=tests/test_ipv4_api.py

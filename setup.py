@@ -1,17 +1,6 @@
 # -*- coding: utf-8 -*-
 """Setup module."""
-from typing import List
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
-
-
-def get_requires() -> List[str]:
-    """Read requirements.txt."""
-    requirements = open("requirements.txt", "r").read()
-    return list(filter(lambda x: x != "", requirements.split()))
-
+from setuptools import setup
 
 def read_description() -> str:
     """Read README.md and CHANGELOG.md."""
@@ -41,11 +30,14 @@ setup(
     author_email='ipspot@openscilab.com',
     url='https://github.com/openscilab/ipspot',
     download_url='https://github.com/openscilab/ipspot/tarball/v0.8',
-    keywords="ip ipv4 ipv6 geo geolocation network location ipspot cli",
+    keywords='ip ipv4 ipv6 geo geolocation network location ipspot cli',
     project_urls={
         'Source': 'https://github.com/openscilab/ipspot'
     },
-    install_requires=get_requires(),
+    install_requires=[
+        'art>=5.3',
+        'requests>=2.20.0'
+    ],
     python_requires='>=3.7',
     classifiers=[
         'Development Status :: 4 - Beta',
