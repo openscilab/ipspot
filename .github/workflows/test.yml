@@ -48,7 +48,7 @@ jobs:
         python -m ipspot --info
         ipspot --version
         ipspot --info
-    - name: Install dev-requirements
+    - name: Dev requirements installation
       run: |
         pip install --upgrade --upgrade-strategy=only-if-needed -r requirements-dev.txt
     - name: Test with pytest (IPv4 functions)
