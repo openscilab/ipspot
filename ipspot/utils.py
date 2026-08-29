@@ -91,10 +91,14 @@ def _attempt_with_retries(
     next_delay = retry_delay
     for attempt in range(max_retries + 1):
         result = func(**kwargs)
+
         if result["status"]:
-            break
-        time.sleep(next_delay)
-        next_delay *= backoff_factor
+            return result
+
+        if attempt < max_retries:
+            time.sleep(next_delay)
+            next_delay *= backoff_factor
+
     return result
 
 
