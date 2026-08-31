@@ -54,6 +54,22 @@ class ForceIPHTTPAdapter(HTTPAdapter):
         return response
 
 
+def _build_result(ip: str, api: str, geo_data: Dict[str, Any] = None) -> Dict[str, Union[bool, Dict[str, Any]]]:
+    """Build a standardized provider result."""
+    result = {
+        "status": True,
+        "data": {
+            "ip": ip,
+            "api": api
+        }
+    }
+
+    if geo_data:
+        result["data"].update(geo_data)
+
+    return result
+
+
 def _get_json_force_ip(url: str, timeout: Union[float, Tuple[float, float]],
                        version: str = "ipv4") -> dict:
     """
