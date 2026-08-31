@@ -55,7 +55,13 @@ class ForceIPHTTPAdapter(HTTPAdapter):
 
 
 def _build_result(ip: str, api: str, geo_data: Dict[str, Any] = None) -> Dict[str, Union[bool, Dict[str, Any]]]:
-    """Build a standardized provider result."""
+    """
+    Build a standardized provider result.
+
+    :param ip: IP address
+    :param api: API provider name
+    :param geo_data: geolocation data
+    """
     result = {
         "status": True,
         "data": {
