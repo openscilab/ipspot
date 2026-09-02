@@ -5,7 +5,7 @@ import ipaddress
 import socket
 import requests
 from requests.adapters import HTTPAdapter
-from typing import Callable, Dict
+from typing import Callable, Dict, Optional
 from typing import Union, Tuple, Any, List
 from .params import REQUEST_HEADERS
 
@@ -54,7 +54,7 @@ class ForceIPHTTPAdapter(HTTPAdapter):
         return response
 
 
-def _build_result(ip: str, api: str, geo_data: Dict[str, Any] = None) -> Dict[str, Union[bool, Dict[str, Any]]]:
+def _build_result(ip: str, api: str, geo_data: Optional[Dict[str, Any]] = None) -> Dict[str, Union[bool, Dict[str, Any]]]:
     """
     Build a standardized provider result.
 
