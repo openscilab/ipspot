@@ -223,6 +223,7 @@ def _myip_la_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://api.myip.la/en?json", timeout=timeout, version="ipv6")
+        geo_data = None
         if geo:
             loc = data.get("location", {})
             geo_data = {
