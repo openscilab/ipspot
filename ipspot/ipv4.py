@@ -4,7 +4,7 @@ import ipaddress
 import socket
 from typing import Union, Dict, List, Tuple
 from .utils import is_loopback, _attempt_with_retries
-from .utils import _get_json_standard, _get_json_force_ip
+from .utils import _get_json_standard, _get_json_force_ip, _build_result
 from .params import IPv4API
 
 
@@ -46,20 +46,17 @@ def _ip_sb_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_standard(url="https://api-ipv4.ip.sb/geoip", timeout=timeout)
-        result = {"status": True, "data": {"ip": data["ip"], "api": "ip.sb"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("region"),
-                "country": data.get("country"),
-                "country_code": data.get("country_code"),
-                "latitude": data.get("latitude"),
-                "longitude": data.get("longitude"),
-                "organization": data.get("organization"),
-                "timezone": data.get("timezone")
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("city"),
+            "region": data.get("region"),
+            "country": data.get("country"),
+            "country_code": data.get("country_code"),
+            "latitude": data.get("latitude"),
+            "longitude": data.get("longitude"),
+            "organization": data.get("organization"),
+            "timezone": data.get("timezone")
+        } if geo else None
+        return _build_result(ip=data["ip"], api="ip.sb", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -74,20 +71,17 @@ def _ipleak_net_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_standard(url="https://ipv4.ipleak.net/json/", timeout=timeout)
-        result = {"status": True, "data": {"ip": data["ip"], "api": "ipleak.net"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city_name"),
-                "region": data.get("region_name"),
-                "country": data.get("country_name"),
-                "country_code": data.get("country_code"),
-                "latitude": data.get("latitude"),
-                "longitude": data.get("longitude"),
-                "organization": data.get("isp_name"),
-                "timezone": data.get("time_zone")
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("city_name"),
+            "region": data.get("region_name"),
+            "country": data.get("country_name"),
+            "country_code": data.get("country_code"),
+            "latitude": data.get("latitude"),
+            "longitude": data.get("longitude"),
+            "organization": data.get("isp_name"),
+            "timezone": data.get("time_zone")
+        } if geo else None
+        return _build_result(ip=data["ip"], api="ipleak.net", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -102,20 +96,17 @@ def _my_ip_io_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_standard(url="https://api4.my-ip.io/v2/ip.json", timeout=timeout)
-        result = {"status": True, "data": {"ip": data["ip"], "api": "my-ip.io"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("region"),
-                "country": data.get("country", {}).get("name"),
-                "country_code": data.get("country", {}).get("code"),
-                "latitude": data.get("location", {}).get("lat"),
-                "longitude": data.get("location", {}).get("lon"),
-                "organization": data.get("asn", {}).get("name"),
-                "timezone": data.get("timeZone")
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("city"),
+            "region": data.get("region"),
+            "country": data.get("country", {}).get("name"),
+            "country_code": data.get("country", {}).get("code"),
+            "latitude": data.get("location", {}).get("lat"),
+            "longitude": data.get("location", {}).get("lon"),
+            "organization": data.get("asn", {}).get("name"),
+            "timezone": data.get("timeZone")
+        } if geo else None
+        return _build_result(ip=data["ip"], api="my-ip.io", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -131,20 +122,17 @@ def _ifconfig_co_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://ifconfig.co/json", timeout=timeout, version="ipv4")
-        result = {"status": True, "data": {"ip": data["ip"], "api": "ifconfig.co"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("region_name"),
-                "country": data.get("country"),
-                "country_code": data.get("country_iso"),
-                "latitude": data.get("latitude"),
-                "longitude": data.get("longitude"),
-                "organization": data.get("asn_org"),
-                "timezone": data.get("time_zone")
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("city"),
+            "region": data.get("region_name"),
+            "country": data.get("country"),
+            "country_code": data.get("country_iso"),
+            "latitude": data.get("latitude"),
+            "longitude": data.get("longitude"),
+            "organization": data.get("asn_org"),
+            "timezone": data.get("time_zone")
+        } if geo else None
+        return _build_result(ip=data["ip"], api="ifconfig.co", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -159,20 +147,17 @@ def _ipapi_co_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://ipapi.co/json/", timeout=timeout, version="ipv4")
-        result = {"status": True, "data": {"ip": data["ip"], "api": "ipapi.co"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("region"),
-                "country": data.get("country_name"),
-                "country_code": data.get("country_code"),
-                "latitude": data.get("latitude"),
-                "longitude": data.get("longitude"),
-                "organization": data.get("org"),
-                "timezone": data.get("timezone")
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("city"),
+            "region": data.get("region"),
+            "country": data.get("country_name"),
+            "country_code": data.get("country_code"),
+            "latitude": data.get("latitude"),
+            "longitude": data.get("longitude"),
+            "organization": data.get("org"),
+            "timezone": data.get("timezone")
+        } if geo else None
+        return _build_result(ip=data["ip"], api="ipapi.co", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -189,20 +174,17 @@ def _ip_api_com_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
         data = _get_json_force_ip(url="http://ip-api.com/json/", timeout=timeout, version="ipv4")
         if data.get("status") != "success":
             return {"status": False, "error": "ip-api lookup failed"}
-        result = {"status": True, "data": {"ip": data["query"], "api": "ip-api.com"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("regionName"),
-                "country": data.get("country"),
-                "country_code": data.get("countryCode"),
-                "latitude": data.get("lat"),
-                "longitude": data.get("lon"),
-                "organization": data.get("org"),
-                "timezone": data.get("timezone")
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("city"),
+            "region": data.get("regionName"),
+            "country": data.get("country"),
+            "country_code": data.get("countryCode"),
+            "latitude": data.get("lat"),
+            "longitude": data.get("lon"),
+            "organization": data.get("org"),
+            "timezone": data.get("timezone")
+        } if geo else None
+        return _build_result(ip=data["query"], api="ip-api.com", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -217,7 +199,7 @@ def _ipinfo_io_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://ipinfo.io/json", timeout=timeout, version="ipv4")
-        result = {"status": True, "data": {"ip": data["ip"], "api": "ipinfo.io"}}
+        geo_data = None
         if geo:
             loc = data.get("loc", "").split(",")
             geo_data = {
@@ -230,8 +212,7 @@ def _ipinfo_io_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
                 "organization": data.get("org"),
                 "timezone": data.get("timezone")
             }
-            result["data"].update(geo_data)
-        return result
+        return _build_result(ip=data["ip"], api="ipinfo.io", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -246,20 +227,17 @@ def _reallyfreegeoip_org_ipv4(
     """
     try:
         data = _get_json_force_ip(url="https://reallyfreegeoip.org/json/", timeout=timeout, version="ipv4")
-        result = {"status": True, "data": {"ip": data["ip"], "api": "reallyfreegeoip.org"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("region_name"),
-                "country": data.get("country_name"),
-                "country_code": data.get("country_code"),
-                "latitude": data.get("latitude"),
-                "longitude": data.get("longitude"),
-                "organization": None,  # does not provide organization
-                "timezone": data.get("time_zone")
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("city"),
+            "region": data.get("region_name"),
+            "country": data.get("country_name"),
+            "country_code": data.get("country_code"),
+            "latitude": data.get("latitude"),
+            "longitude": data.get("longitude"),
+            "organization": None,  # does not provide organization
+            "timezone": data.get("time_zone")
+        } if geo else None
+        return _build_result(ip=data["ip"], api="reallyfreegeoip.org", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -274,20 +252,17 @@ def _ident_me_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_standard(url="https://4.ident.me/json", timeout=timeout)
-        result = {"status": True, "data": {"ip": data["ip"], "api": "ident.me"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city"),
-                "region": None,
-                "country": data.get("country"),
-                "country_code": data.get("cc"),
-                "latitude": data.get("latitude"),
-                "longitude": data.get("longitude"),
-                "organization": data.get("aso"),
-                "timezone": data.get("tz")
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("city"),
+            "region": None,
+            "country": data.get("country"),
+            "country_code": data.get("cc"),
+            "latitude": data.get("latitude"),
+            "longitude": data.get("longitude"),
+            "organization": data.get("aso"),
+            "timezone": data.get("tz")
+        } if geo else None
+        return _build_result(ip=data["ip"], api="ident.me", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -302,20 +277,17 @@ def _tnedi_me_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_standard(url="https://4.tnedi.me/json", timeout=timeout)
-        result = {"status": True, "data": {"ip": data["ip"], "api": "tnedi.me"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city"),
-                "region": None,
-                "country": data.get("country"),
-                "country_code": data.get("cc"),
-                "latitude": data.get("latitude"),
-                "longitude": data.get("longitude"),
-                "organization": data.get("aso"),
-                "timezone": data.get("tz")
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("city"),
+            "region": None,
+            "country": data.get("country"),
+            "country_code": data.get("cc"),
+            "latitude": data.get("latitude"),
+            "longitude": data.get("longitude"),
+            "organization": data.get("aso"),
+            "timezone": data.get("tz")
+        } if geo else None
+        return _build_result(ip=data["ip"], api="tnedi.me", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -330,7 +302,7 @@ def _myip_la_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://api.myip.la/en?json", timeout=timeout, version="ipv4")
-        result = {"status": True, "data": {"ip": data["ip"], "api": "myip.la"}}
+        geo_data = None
         if geo:
             loc = data.get("location", {})
             geo_data = {
@@ -343,8 +315,7 @@ def _myip_la_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
                 "organization": None,
                 "timezone": None
             }
-            result["data"].update(geo_data)
-        return result
+        return _build_result(ip=data["ip"], api="myip.la", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -359,21 +330,18 @@ def _freeipapi_com_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://freeipapi.com/api/json", timeout=timeout, version="ipv4")
-        result = {"status": True, "data": {"ip": data["ipAddress"], "api": "freeipapi.com"}}
         tzs = data.get("timeZones", [])
-        if geo:
-            geo_data = {
-                "city": data.get("cityName"),
-                "region": data.get("regionName"),
-                "country": data.get("countryName"),
-                "country_code": data.get("countryCode"),
-                "latitude": data.get("latitude"),
-                "longitude": data.get("longitude"),
-                "organization": data.get("asnOrganization"),
-                "timezone": tzs[0] if len(tzs) > 0 else None
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("cityName"),
+            "region": data.get("regionName"),
+            "country": data.get("countryName"),
+            "country_code": data.get("countryCode"),
+            "latitude": data.get("latitude"),
+            "longitude": data.get("longitude"),
+            "organization": data.get("asnOrganization"),
+            "timezone": tzs[0] if len(tzs) > 0 else None
+        } if geo else None
+        return _build_result(ip=data["ipAddress"], api="freeipapi.com", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -388,7 +356,7 @@ def _ipquery_io_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://api.ipquery.io/?format=json", timeout=timeout, version="ipv4")
-        result = {"status": True, "data": {"ip": data["ip"], "api": "ipquery.io"}}
+        geo_data = None
         if geo:
             loc = data.get("location", {})
             isp = data.get("isp", {})
@@ -402,8 +370,7 @@ def _ipquery_io_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
                 "timezone": loc.get("timezone"),
                 "organization": isp.get("org"),
             }
-            result["data"].update(geo_data)
-        return result
+        return _build_result(ip=data["ip"], api="ipquery.io", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -418,7 +385,7 @@ def _ipwho_is_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://ipwho.is", timeout=timeout, version="ipv4")
-        result = {"status": True, "data": {"ip": data["ip"], "api": "ipwho.is"}}
+        geo_data = None
         if geo:
             connection = data.get("connection", {})
             timezone = data.get("timezone", {})
@@ -432,8 +399,7 @@ def _ipwho_is_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
                 "organization": connection.get("org"),
                 "timezone": timezone.get("id")
             }
-            result["data"].update(geo_data)
-        return result
+        return _build_result(ip=data["ip"], api="ipwho.is", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -448,20 +414,17 @@ def _wtfismyip_com_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_standard(url="https://json.ipv4.wtfismyip.com", timeout=timeout)
-        result = {"status": True, "data": {"ip": data["YourFuckingIPAddress"], "api": "wtfismyip.com"}}
-        if geo:
-            geo_data = {
-                "city": data.get("YourFuckingCity"),
-                "region": None,
-                "country": data.get("YourFuckingCountry"),
-                "country_code": data.get("YourFuckingCountryCode"),
-                "latitude": None,
-                "longitude": None,
-                "organization": data.get("YourFuckingISP"),
-                "timezone": None
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("YourFuckingCity"),
+            "region": None,
+            "country": data.get("YourFuckingCountry"),
+            "country_code": data.get("YourFuckingCountryCode"),
+            "latitude": None,
+            "longitude": None,
+            "organization": data.get("YourFuckingISP"),
+            "timezone": None
+        } if geo else None
+        return _build_result(ip=data["YourFuckingIPAddress"], api="wtfismyip.com", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -476,20 +439,17 @@ def _myip_wtf_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_standard(url="https://json.ipv4.myip.wtf", timeout=timeout)
-        result = {"status": True, "data": {"ip": data["YourFuckingIPAddress"], "api": "myip.wtf"}}
-        if geo:
-            geo_data = {
-                "city": data.get("YourFuckingCity"),
-                "region": None,
-                "country": data.get("YourFuckingCountry"),
-                "country_code": data.get("YourFuckingCountryCode"),
-                "latitude": None,
-                "longitude": None,
-                "organization": data.get("YourFuckingISP"),
-                "timezone": None
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("YourFuckingCity"),
+            "region": None,
+            "country": data.get("YourFuckingCountry"),
+            "country_code": data.get("YourFuckingCountryCode"),
+            "latitude": None,
+            "longitude": None,
+            "organization": data.get("YourFuckingISP"),
+            "timezone": None
+        } if geo else None
+        return _build_result(ip=data["YourFuckingIPAddress"], api="myip.wtf", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 
@@ -504,20 +464,17 @@ def _db_ip_com_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://api.db-ip.com/v2/free/self", timeout=timeout, version="ipv4")
-        result = {"status": True, "data": {"ip": data["ipAddress"], "api": "db-ip.com"}}
-        if geo:
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("stateProv"),
-                "country": data.get("countryName"),
-                "country_code": data.get("countryCode"),
-                "latitude": None,  # not provided by free API
-                "longitude": None,  # not provided by free API
-                "organization": None,  # not provided by free API
-                "timezone": None  # not provided by free API
-            }
-            result["data"].update(geo_data)
-        return result
+        geo_data = {
+            "city": data.get("city"),
+            "region": data.get("stateProv"),
+            "country": data.get("countryName"),
+            "country_code": data.get("countryCode"),
+            "latitude": None,  # not provided by free API
+            "longitude": None,  # not provided by free API
+            "organization": None,  # not provided by free API
+            "timezone": None  # not provided by free API
+        } if geo else None
+        return _build_result(ip=data["ipAddress"], api="db-ip.com", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
 

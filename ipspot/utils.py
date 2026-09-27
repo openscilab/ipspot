@@ -5,7 +5,7 @@ import ipaddress
 import socket
 import requests
 from requests.adapters import HTTPAdapter
-from typing import Callable, Dict
+from typing import Callable, Dict, Optional
 from typing import Union, Tuple, Any, List
 from .params import REQUEST_HEADERS
 
@@ -52,6 +52,28 @@ class ForceIPHTTPAdapter(HTTPAdapter):
         finally:
             socket.getaddrinfo = original_getaddrinfo
         return response
+
+
+def _build_result(ip: str, api: str, geo_data: Optional[Dict[str, Any]] = None) -> Dict[str, Union[bool, Dict[str, Any]]]:
+    """
+    Build a standardized provider result.
+
+    :param ip: IP address
+    :param api: API provider name
+    :param geo_data: geolocation data
+    """
+    result = {
+        "status": True,
+        "data": {
+            "ip": ip,
+            "api": api
+        }
+    }
+
+    if geo_data:
+        result["data"].update(geo_data)
+
+    return result
 
 
 def _get_json_force_ip(url: str, timeout: Union[float, Tuple[float, float]],
