@@ -111,9 +111,9 @@ def _parse_args() -> argparse.Namespace:  # pragma: no cover
         choices=[
             x.value for x in IPv6API],
         default=IPv6API.AUTO_SAFE.value)
-    parser.add_argument('--info', help='info', nargs="?", const=1)
-    parser.add_argument('--version', help='version', nargs="?", const=1)
-    parser.add_argument('--no-geo', help='no geolocation data', nargs="?", const=1, default=False)
+    parser.add_argument('--info', help='info', action='store_true', default=False)
+    parser.add_argument('--version', help='version', action='store_true', default=False)
+    parser.add_argument('--no-geo', help='no geolocation data', action='store_true', default=False)
     parser.add_argument('--timeout', help='timeout for the API request', type=float, default=5.0)
     parser.add_argument('--max-retries', help='number of retries', type=int, default=0)
     parser.add_argument('--retry-delay', help='delay between retries (in seconds)', type=float, default=1.0)
