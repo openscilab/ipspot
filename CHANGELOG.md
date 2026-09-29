@@ -8,8 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `_build_result` function
 ### Changed
+- CLI arguments modified
 - CLI messages updated
-- CLI modified
+- CLI structure modified
 - Dependencies structure modified
 - Test system modified
 - `_attempt_with_retries` function modified
