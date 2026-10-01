@@ -200,7 +200,6 @@ def _ipinfo_io_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     try:
         data = _get_json_force_ip(url="https://ipinfo.io/json", timeout=timeout, version="ipv4")
         loc = data.get("loc", "").split(",")
-        geo_data = None
         geo_data = {
             "city": data.get("city"),
             "region": data.get("region"),
@@ -302,7 +301,6 @@ def _myip_la_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     try:
         data = _get_json_force_ip(url="https://api.myip.la/en?json", timeout=timeout, version="ipv4")
         loc = data.get("location", {})
-        geo_data = None  
         geo_data = {
             "city": loc.get("city"),
             "region": loc.get("province"),
@@ -356,7 +354,6 @@ def _ipquery_io_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
         data = _get_json_force_ip(url="https://api.ipquery.io/?format=json", timeout=timeout, version="ipv4")
         loc = data.get("location", {})
         isp = data.get("isp", {})
-        geo_data = None
         geo_data = {
             "city": loc.get("city"),
             "region": loc.get("state"),
@@ -384,7 +381,6 @@ def _ipwho_is_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
         data = _get_json_force_ip(url="https://ipwho.is", timeout=timeout, version="ipv4")
         connection = data.get("connection", {})
         timezone = data.get("timezone", {})
-        geo_data = None
         geo_data = {
             "city": data.get("city"),
             "region": data.get("region"),
