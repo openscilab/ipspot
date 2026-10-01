@@ -199,19 +199,18 @@ def _ipinfo_io_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://ipinfo.io/json", timeout=timeout, version="ipv4")
+        loc = data.get("loc", "").split(",")
         geo_data = None
-        if geo:
-            loc = data.get("loc", "").split(",")
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("region"),
-                "country": None,
-                "country_code": data.get("country"),
-                "latitude": float(loc[0]) if len(loc) == 2 else None,
-                "longitude": float(loc[1]) if len(loc) == 2 else None,
-                "organization": data.get("org"),
-                "timezone": data.get("timezone")
-            }
+        geo_data = {
+            "city": data.get("city"),
+            "region": data.get("region"),
+            "country": None,
+            "country_code": data.get("country"),
+            "latitude": float(loc[0]) if len(loc) == 2 else None,
+            "longitude": float(loc[1]) if len(loc) == 2 else None,
+            "organization": data.get("org"),
+            "timezone": data.get("timezone")
+        } if geo else None
         return _build_result(ip=data["ip"], api="ipinfo.io", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
