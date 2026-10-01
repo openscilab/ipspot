@@ -382,20 +382,19 @@ def _ipwho_is_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://ipwho.is", timeout=timeout, version="ipv4")
+        connection = data.get("connection", {})
+        timezone = data.get("timezone", {})
         geo_data = None
-        if geo:
-            connection = data.get("connection", {})
-            timezone = data.get("timezone", {})
-            geo_data = {
-                "city": data.get("city"),
-                "region": data.get("region"),
-                "country": data.get("country"),
-                "country_code": data.get("country_code"),
-                "latitude": data.get("latitude"),
-                "longitude": data.get("longitude"),
-                "organization": connection.get("org"),
-                "timezone": timezone.get("id")
-            }
+        geo_data = {
+            "city": data.get("city"),
+            "region": data.get("region"),
+            "country": data.get("country"),
+            "country_code": data.get("country_code"),
+            "latitude": data.get("latitude"),
+            "longitude": data.get("longitude"),
+            "organization": connection.get("org"),
+            "timezone": timezone.get("id")
+        } if geo else None
         return _build_result(ip=data["ip"], api="ipwho.is", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
