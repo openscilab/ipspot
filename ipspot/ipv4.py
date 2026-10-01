@@ -354,20 +354,19 @@ def _ipquery_io_ipv4(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://api.ipquery.io/?format=json", timeout=timeout, version="ipv4")
+        loc = data.get("location", {})
+        isp = data.get("isp", {})
         geo_data = None
-        if geo:
-            loc = data.get("location", {})
-            isp = data.get("isp", {})
-            geo_data = {
-                "city": loc.get("city"),
-                "region": loc.get("state"),
-                "country": loc.get("country"),
-                "country_code": loc.get("country_code"),
-                "latitude": loc.get("latitude"),
-                "longitude": loc.get("longitude"),
-                "timezone": loc.get("timezone"),
-                "organization": isp.get("org"),
-            }
+        geo_data = {
+            "city": loc.get("city"),
+            "region": loc.get("state"),
+            "country": loc.get("country"),
+            "country_code": loc.get("country_code"),
+            "latitude": loc.get("latitude"),
+            "longitude": loc.get("longitude"),
+            "timezone": loc.get("timezone"),
+            "organization": isp.get("org"),
+        } if geo else None
         return _build_result(ip=data["ip"], api="ipquery.io", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
