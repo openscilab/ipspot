@@ -54,7 +54,8 @@ class ForceIPHTTPAdapter(HTTPAdapter):
         return response
 
 
-def _build_result(ip: str, api: str, geo_data: Optional[Dict[str, Any]] = None) -> Dict[str, Union[bool, Dict[str, Any]]]:
+def _build_result(ip: str, api: str, geo_data: Optional[Dict[str, Any]]
+                  = None) -> Dict[str, Union[bool, Dict[str, Any]]]:
     """
     Build a standardized provider result.
 

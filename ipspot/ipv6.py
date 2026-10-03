@@ -223,19 +223,17 @@ def _myip_la_ipv6(geo: bool, timeout: Union[float, Tuple[float, float]]
     """
     try:
         data = _get_json_force_ip(url="https://api.myip.la/en?json", timeout=timeout, version="ipv6")
-        geo_data = None
-        if geo:
-            loc = data.get("location", {})
-            geo_data = {
-                "city": loc.get("city"),
-                "region": loc.get("province"),
-                "country": loc.get("country_name"),
-                "country_code": loc.get("country_code"),
-                "latitude": float(loc.get("latitude")) if loc.get("latitude") else None,
-                "longitude": float(loc.get("longitude")) if loc.get("longitude") else None,
-                "organization": None,
-                "timezone": None
-            }
+        loc = data.get("location", {})
+        geo_data = {
+            "city": loc.get("city"),
+            "region": loc.get("province"),
+            "country": loc.get("country_name"),
+            "country_code": loc.get("country_code"),
+            "latitude": float(loc.get("latitude")) if loc.get("latitude") else None,
+            "longitude": float(loc.get("longitude")) if loc.get("longitude") else None,
+            "organization": None,
+            "timezone": None
+        } if geo else None
         return _build_result(ip=data["ip"], api="myip.la", geo_data=geo_data)
     except Exception as e:
         return {"status": False, "error": str(e)}
