@@ -37,7 +37,8 @@ setup(
     },
     install_requires=[
         'art>=5.3',
-        'requests>=2.20.0'
+        'requests>=2.20.0',
+        'typio>=0.4'
     ],
     python_requires='>=3.7',
     classifiers=[
