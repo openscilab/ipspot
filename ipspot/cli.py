@@ -2,7 +2,8 @@
 """ipspot CLI."""
 import argparse
 from typing import Union, Tuple
-from art import tprint
+from art import text2art
+from typio import type_print, TypeMode
 from .ipv4 import get_public_ipv4, get_private_ipv4
 from .ipv6 import get_public_ipv6, get_private_ipv6
 from .utils import _filter_parameter
@@ -15,10 +16,10 @@ from .params import EXIT_MESSAGE
 
 def _print_ipspot_info() -> None:  # pragma: no cover
     """Print ipspot details."""
-    tprint("IPSpot")
-    tprint("V:" + IPSPOT_VERSION)
-    print(IPSPOT_OVERVIEW)
-    print("Repo : " + IPSPOT_REPO)
+    type_print(text2art("IPSpot"), mode=TypeMode.LINE, delay=0.1)
+    type_print(text2art("V:" + IPSPOT_VERSION), mode=TypeMode.LINE, delay=0.1)
+    type_print(IPSPOT_OVERVIEW, mode=TypeMode.CHAR, delay=0.05)
+    type_print("Repo : " + IPSPOT_REPO, mode=TypeMode.CHAR, delay=0.05)
 
 
 def _print_report(ipv4_api: IPv4API,
