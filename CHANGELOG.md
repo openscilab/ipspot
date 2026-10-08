@@ -14,7 +14,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Dependencies structure modified
 - Test system modified
 - `_attempt_with_retries` function modified
+- `_print_ipspot_info` function modified
 - Provider result construction refactored
+- `Python 3.7` support dropped
 ## [0.8] - 2026-02-05
 ### Added
 - Support [wtfismyip.com](https://wtfismyip.com/json) IPv6 API

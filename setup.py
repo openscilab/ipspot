@@ -37,15 +37,15 @@ setup(
     },
     install_requires=[
         'art>=5.3',
-        'requests>=2.20.0'
+        'requests>=2.20.0',
+        'typio>=0.4'
     ],
-    python_requires='>=3.7',
+    python_requires='>=3.8',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Natural Language :: English',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
