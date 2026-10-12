@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `_attempt_with_retries` function modified
 - `_print_ipspot_info` function modified
 - Provider result construction refactored
+- `README.md` updated
 - `Python 3.7` support dropped
 ## [0.8] - 2026-02-05
 ### Added

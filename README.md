@@ -108,7 +108,8 @@
 
 ### CLI
 
-ℹ️ You can use `ipspot` or `python -m ipspot` to run this program
+> [!NOTE]
+> You can use `ipspot` or `python -m ipspot` to run this program
 
 #### Version
 
@@ -187,9 +188,11 @@ Public IP and Location Info:
 
 #### IPv4 API
 
-ℹ️ `ipv4-api` valid choices: [`auto-safe`, `auto`, `ip-api.com`, `ipinfo.io`, `ip.sb`, `ident.me`, `tnedi.me`, `ipapi.co`, `ipleak.net`, `my-ip.io`, `ifconfig.co`, `reallyfreegeoip.org`, `freeipapi.com`, `myip.la`, `ipquery.io`, `ipwho.is`, `wtfismyip.com`, `myip.wtf`, `db-ip.com`]
+> [!NOTE]
+> `ipv4-api` valid choices: [`auto-safe`, `auto`, `ip-api.com`, `ipinfo.io`, `ip.sb`, `ident.me`, `tnedi.me`, `ipapi.co`, `ipleak.net`, `my-ip.io`, `ifconfig.co`, `reallyfreegeoip.org`, `freeipapi.com`, `myip.la`, `ipquery.io`, `ipwho.is`, `wtfismyip.com`, `myip.wtf`, `db-ip.com`]
 
-ℹ️ The default value: `auto-safe`
+> [!NOTE]
+> The default value: `auto-safe`
 
 ```console
 > ipspot --ipv4-api="ipinfo.io"
@@ -230,9 +233,11 @@ Public IP and Location Info:
 
 #### IPv6 API
 
-ℹ️ `ipv6-api` valid choices: [`auto-safe`, `auto`, `ip.sb`, `ident.me`, `tnedi.me`, `ipleak.net`, `my-ip.io`, `ifconfig.co`, `reallyfreegeoip.org`, `myip.la`, `freeipapi.com`, `wtfismyip.com`, `myip.wtf`]
+> [!NOTE]
+> `ipv6-api` valid choices: [`auto-safe`, `auto`, `ip.sb`, `ident.me`, `tnedi.me`, `ipleak.net`, `my-ip.io`, `ifconfig.co`, `reallyfreegeoip.org`, `myip.la`, `freeipapi.com`, `wtfismyip.com`, `myip.wtf`]
 
-ℹ️ The default value: `auto-safe`
+> [!NOTE]
+> The default value: `auto-safe`
 
 ```console
 > ipspot --ipv6-api="ip.sb"
