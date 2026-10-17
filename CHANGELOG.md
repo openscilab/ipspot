@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - CLI structure modified
 - Dependencies structure modified
 - Test system modified
+- Build system modified
 - `_attempt_with_retries` function modified
 - `_print_ipspot_info` function modified
 - Provider result construction refactored
