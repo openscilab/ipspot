@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Provider result construction refactored
 - `README.md` updated
 - `Python 3.7` support dropped
+- `Python 3.15` added to `test.yml`
 ## [0.8] - 2026-02-05
 ### Added
 - Support [wtfismyip.com](https://wtfismyip.com/json) IPv6 API
